@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>فریور | پنل پذیرش</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --terracotta:#BC532B;--terracotta-2:#A8451F;--espresso:#241A10;--ink2:#5C4E3F;--ink3:#93826F;
+  --sand:#F4EEE5;--sand2:#EDE4D6;--ivory:#FFFCF6;--clay:#D8C6B4;--blush:#E8CFC3;
+  --sage:#5F7350;--ochre:#A87E2F;--brick:#B03A2E;
+  --line:rgba(216,198,180,.5);--line2:rgba(36,26,16,.07);
+  --sh-lg:10px 10px 22px rgba(191,166,135,.35),-10px -10px 22px rgba(255,255,255,.95);
+  --sh:6px 6px 14px rgba(191,166,135,.3),-6px -6px 14px rgba(255,255,255,.85);
+  --sh-sm:3px 3px 8px rgba(191,166,135,.28),-3px -3px 8px rgba(255,255,255,.8);
+  --sh-in:inset 2.5px 2.5px 6px rgba(180,158,130,.32),inset -2.5px -2.5px 6px rgba(255,255,255,.9);
+  --sh-ter:5px 5px 14px rgba(188,83,43,.36),-4px -4px 10px rgba(255,255,255,.5);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Vazirmatn',Tahoma,sans-serif;background:var(--sand);color:var(--espresso);font-size:14px;line-height:1.7;overflow-x:hidden}
+::selection{background:rgba(188,83,43,.22)}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:rgba(216,198,180,.7);border-radius:99px;border:2px solid var(--sand)}
+::-webkit-scrollbar-track{background:transparent}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:2px solid rgba(188,83,43,.55);outline-offset:2px;border-radius:8px}
+.ltr{direction:ltr}
+.ic{display:block;flex:none}
+.hamburger{display:none}
+
+/* ---------- چیدمان کلی ---------- */
+.app{display:grid;grid-template-columns:262px minmax(0,1fr);min-height:100vh;max-width:1720px;margin:0 auto}
+
+/* ---------- سایدبار (راست) ---------- */
+.sidebar{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:6px;padding:22px 16px;background:var(--sand);border-inline-end:1px solid var(--line);overflow-y:auto;z-index:70}
+.brand{display:flex;align-items:center;gap:12px;padding:4px 8px 18px}
+.brand-mark{width:46px;height:46px;border-radius:15px;background:var(--ivory);box-shadow:var(--sh-sm);display:grid;place-items:center;flex:none}
+.brand-txt b{font-size:19px;font-weight:800;letter-spacing:.5px;display:block;line-height:1.35}
+.brand-txt span{font-size:9.5px;font-weight:700;letter-spacing:2.5px;color:var(--ink3)}
+.nav{display:flex;flex-direction:column;gap:5px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:14px;font-weight:600;font-size:13.5px;color:var(--ink2);position:relative;transition:.18s;width:100%;text-align:right}
+.nav-item .ic{opacity:.75}
+.nav-item:hover{background:rgba(255,252,246,.75);box-shadow:var(--sh-sm);color:var(--espresso)}
+.nav-item.active{background:var(--ivory);color:var(--terracotta);box-shadow:var(--sh)}
+.nav-item.active .ic{opacity:1}
+.nav-item.active::before{content:'';position:absolute;inset-inline-start:5px;top:11px;bottom:11px;width:3px;border-radius:99px;background:var(--terracotta)}
+.nav-badge{margin-inline-start:auto;background:var(--terracotta);color:#fff;font-size:10.5px;font-weight:700;min-width:19px;height:19px;border-radius:99px;display:grid;place-items:center;padding:0 5px}
+.nav-sec{font-size:10.5px;font-weight:700;color:var(--ink3);letter-spacing:1px;padding:16px 13px 6px}
+.side-user{margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px;border-radius:16px;background:var(--ivory);box-shadow:var(--sh-sm)}
+.side-user b{font-size:13px;display:block;line-height:1.4}
+.side-user span{font-size:11px;color:var(--ink3)}
+.online{width:8px;height:8px;border-radius:50%;background:var(--sage);margin-inline-start:auto;box-shadow:0 0 0 3px rgba(95,115,80,.15)}
+
+/* ---------- آواتار ---------- */
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--blush);color:var(--espresso);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.avatar.sm{width:30px;height:30px;font-size:11px;border-radius:11px}
+.avatar.lg{width:54px;height:54px;font-size:17px}
+
+/* ---------- نوار بالا ---------- */
+.main{min-width:0}
+.topbar{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:12px;padding:14px 26px;background:var(--sand);border-bottom:1px solid var(--line)}
+.tsearch{position:relative;display:flex;align-items:center;gap:9px;background:var(--ivory);box-shadow:var(--sh-in);border-radius:14px;padding:9px 14px;width:340px;max-width:38vw;color:var(--ink3)}
+.tsearch input{border:0;background:none;outline:0;flex:1;font-family:inherit;font-size:13px;color:var(--espresso);min-width:0}
+.tsearch kbd{font-size:10px;background:var(--sand);border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--ink3)}
+.tspace{flex:1}
+.tchip{display:flex;align-items:center;gap:8px;background:var(--ivory);box-shadow:var(--sh-sm);border-radius:12px;padding:8px 13px;font-size:12.5px;font-weight:600;color:var(--ink2);white-space:nowrap}
+.tchip.status i{width:8px;height:8px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 3px rgba(95,115,80,.15)}
+.tchip.status.closed{color:var(--brick)}
+.tchip.status.closed i{background:var(--brick);box-shadow:0 0 0 3px rgba(176,58,46,.14)}
+.tchip b{font-weight:800;color:var(--espresso)}
+.tchip.mode{cursor:pointer;color:var(--ochre)}
+.tchip.mode.ok{color:var(--sage);cursor:pointer}
+.tchip.mode i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.icon-btn{position:relative;width:40px;height:40px;border-radius:13px;background:var(--ivory);box-shadow:var(--sh-sm);display:grid;place-items:center;color:var(--ink2);transition:.15s}
+.icon-btn:hover{color:var(--terracotta);transform:translateY(-1px)}
+.icon-btn:active{box-shadow:var(--sh-in);transform:none}
+.nbadge{position:absolute;top:-5px;inset-inline-end:-5px;background:var(--terracotta);color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:99px;display:grid;place-items:center;padding:0 4px;border:2px solid var(--sand)}
+.avatar-btn .avatar{width:40px;height:40px;box-shadow:var(--sh-sm)}
+
+/* اعلان‌ها */
+.notif-wrap{position:relative}
+.notif-drop{position:absolute;top:calc(100% + 10px);inset-inline-end:0;width:330px;background:var(--ivory);border-radius:18px;box-shadow:14px 14px 34px rgba(120,95,70,.25),-6px -6px 16px rgba(255,255,255,.8);padding:8px;opacity:0;pointer-events:none;transform:translateY(6px);transition:.18s;z-index:80;max-height:380px;overflow:auto}
+.notif-drop.open{opacity:1;pointer-events:auto;transform:none}
+.notif-item{display:flex;gap:11px;padding:11px;border-radius:13px;transition:.15s;width:100%;text-align:right}
+.notif-item:hover{background:rgba(232,207,195,.25)}
+.notif-ic{width:34px;height:34px;border-radius:12px;background:rgba(188,83,43,.1);color:var(--terracotta);display:grid;place-items:center;flex:none}
+.notif-item b{font-size:12.5px;display:block}
+.notif-item p{font-size:11.5px;color:var(--ink2);line-height:1.6}
+.notif-item time{font-size:10.5px;color:var(--ink3)}
+.notif-empty{padding:26px 12px;text-align:center;color:var(--ink3);font-size:12.5px}
+
+/* ---------- محتوا ---------- */
+.content{padding:26px 26px 60px}
+.view{display:none;animation:fadeUp .25s ease}
+.view.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}}
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.page-head h1{font-size:25px;font-weight:800;letter-spacing:-.2px}
+.page-head p{color:var(--ink3);font-size:13px;margin-top:3px}
+.ph-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* کارت‌های شاخص */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:22px}
+.kpi{background:var(--ivory);border-radius:22px;box-shadow:var(--sh);padding:18px 20px;transition:.2s;border:1px solid rgba(216,198,180,.28)}
+.kpi:hover{transform:translateY(-3px);box-shadow:var(--sh-lg)}
+.kpi-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.kpi-ic{width:38px;height:38px;border-radius:13px;background:var(--sand);box-shadow:var(--sh-in);display:grid;place-items:center;color:var(--terracotta)}
+.kpi-top span{font-size:12.5px;font-weight:600;color:var(--ink2)}
+.kpi-val{font-size:27px;font-weight:800;line-height:1.25;letter-spacing:-.3px}
+.kpi-val em{font-style:normal;font-size:13px;font-weight:600;color:var(--ink3);margin-inline-start:6px}
+.kpi-ctx{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink3);margin-top:6px}
+.kpi-ctx i{width:6px;height:6px;border-radius:50%;flex:none}
+.dot-sage{background:var(--sage)}.dot-ochre{background:var(--ochre)}.dot-terracotta{background:var(--terracotta)}.dot-brick{background:var(--brick)}
+
+/* شبکه داشبورد */
+.dash-grid{display:grid;grid-template-columns:minmax(0,1fr) 372px;gap:18px;align-items:start}
+.dash-side{display:flex;flex-direction:column;gap:18px}
+
+/* پنل‌ها */
+.panel{background:var(--ivory);border-radius:22px;box-shadow:var(--sh);padding:20px;border:1px solid rgba(216,198,180,.25)}
+.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
+.panel-head h3{font-size:16px;font-weight:800}
+.panel-head p{font-size:11.5px;color:var(--ink3);margin-top:2px}
+.ph-left{display:flex;align-items:center;gap:10px}
+.count-chip{background:rgba(188,83,43,.09);color:var(--terracotta);font-size:11.5px;font-weight:700;border-radius:99px;padding:3px 11px}
+.link-btn{color:var(--terracotta);font-size:12px;font-weight:700;transition:.15s}
+.link-btn:hover{color:var(--terracotta-2);text-decoration:underline}
+.icon-chip{width:34px;height:34px;border-radius:12px;background:var(--sand);box-shadow:var(--sh-in);display:grid;place-items:center;color:var(--ink2)}
+.icon-chip.terr{background:var(--terracotta);color:#fff;box-shadow:var(--sh-ter)}
+.live-dot{width:9px;height:9px;border-radius:50%;background:var(--sage);animation:ping 2s infinite;flex:none}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(95,115,80,.4)}70%{box-shadow:0 0 0 7px rgba(95,115,80,0)}100%{box-shadow:0 0 0 0 rgba(95,115,80,0)}}
+
+/* ---------- تایم‌لاین نوبت‌ها ---------- */
+.timeline{display:flex;flex-direction:column;gap:2px}
+.tl-item{display:grid;grid-template-columns:56px 26px minmax(0,1fr);gap:0 12px;padding:7px 0}
+.tl-time{text-align:center;padding-top:3px}
+.tl-time b{font-size:13.5px;font-weight:800;display:block;line-height:1.5}
+.tl-time span{font-size:10.5px;color:var(--ink3)}
+.tl-rail{position:relative}
+.tl-rail::before{content:'';position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:2px;background:rgba(216,198,180,.55)}
+.tl-item:first-child .tl-rail::before{top:16px}
+.tl-item:last-child .tl-rail::before{bottom:auto;height:16px}
+.tl-dot{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:11px;height:11px;border-radius:50%;background:var(--ivory);border:3px solid var(--clay);z-index:1}
+.tl-item.st-confirmed .tl-dot{border-color:var(--sage)}
+.tl-item.st-waiting .tl-dot{border-color:var(--ochre)}
+.tl-item.st-completed .tl-dot{background:var(--sage);border-color:var(--sage)}
+.tl-item.st-cancelled .tl-dot{background:var(--brick);border-color:var(--brick);opacity:.5}
+.tl-item.current .tl-dot{background:var(--terracotta);border-color:var(--terracotta);box-shadow:0 0 0 5px rgba(188,83,43,.16);animation:pingT 2.2s infinite}
+@keyframes pingT{0%{box-shadow:0 0 0 0 rgba(188,83,43,.3)}70%{box-shadow:0 0 0 9px rgba(188,83,43,0)}100%{box-shadow:0 0 0 0 rgba(188,83,43,0)}}
+.tl-now{display:grid;grid-template-columns:56px 26px minmax(0,1fr);gap:0 12px;align-items:center;padding:5px 0}
+.tl-now i{grid-column:2;height:2px;background:var(--terracotta);border-radius:99px;position:relative}
+.tl-now i::after{content:'';position:absolute;inset-inline-start:-3.5px;top:50%;transform:translateY(-50%);width:9px;height:9px;border-radius:50%;background:var(--terracotta)}
+.tl-now span{grid-column:3;font-size:11px;font-weight:800;color:var(--terracotta)}
+
+/* کارت نوبت */
+.appt{background:#FBF7EF;border:1px solid rgba(216,198,180,.4);border-radius:16px;padding:12px 15px;box-shadow:var(--sh-sm);transition:.18s}
+.appt:hover{transform:translateY(-1px);box-shadow:var(--sh)}
+.tl-item.current .appt{border-color:rgba(188,83,43,.5);box-shadow:0 0 0 1px rgba(188,83,43,.14),var(--sh)}
+.tl-item.st-cancelled .appt{opacity:.58;background:#F6F1E9}
+.appt-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.appt-top>b{font-size:14px;font-weight:800}
+.now-tag{background:var(--terracotta);color:#fff;font-size:10px;font-weight:700;border-radius:99px;padding:2px 9px}
+.appt-top .st{margin-inline-start:auto}
+.appt-meta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:7px;font-size:12px;color:var(--ink2)}
+.appt-meta .svc{font-weight:700;color:var(--espresso)}
+.appt-meta .sep{width:1px;height:12px;background:var(--line)}
+.appt-meta .price{margin-inline-start:auto;font-size:11.5px;color:var(--ink3);font-weight:600}
+.ap-note{display:inline-flex;align-items:center;gap:4px;color:var(--ink3);font-size:11px}
+.appt-acts{display:flex;gap:6px}
+.act{font-size:11px;font-weight:700;padding:4.5px 12px;border-radius:9px;transition:.15s;line-height:1.5}
+.act-c{color:var(--sage);background:rgba(95,115,80,.12)}
+.act-c:hover{background:var(--sage);color:#fff}
+.act-f{color:#fff;background:var(--terracotta);box-shadow:0 3px 8px rgba(188,83,43,.3)}
+.act-f:hover{background:var(--terracotta-2)}
+.act-x{color:var(--brick);background:rgba(176,58,46,.08)}
+.act-x:hover{background:var(--brick);color:#fff}
+.act-done{color:var(--sage);background:rgba(95,115,80,.1);cursor:default}
+
+/* برچسب وضعیت */
+.st{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3.5px 11px;border-radius:99px;white-space:nowrap}
+.st::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.st-confirmed{color:var(--sage);background:rgba(95,115,80,.1)}
+.st-waiting{color:var(--ochre);background:rgba(168,126,47,.11)}
+.st-completed{color:#6E5B45;background:rgba(216,198,180,.42)}
+.st-cancelled{color:var(--brick);background:rgba(176,58,46,.09)}
+
+/* ---------- فرم‌ها ---------- */
+.bform{display:flex;flex-direction:column;gap:13px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field>label{font-size:11.5px;font-weight:700;color:var(--ink2)}
+.in{background:#F3ECDF;border:0;border-radius:12px;padding:10px 13px;font-family:inherit;font-size:13px;color:var(--espresso);box-shadow:var(--sh-in);width:100%;transition:.15s}
+.in:focus{outline:0;box-shadow:var(--sh-in),0 0 0 2.5px rgba(188,83,43,.25)}
+.in::placeholder{color:var(--ink3)}
+textarea.in{resize:vertical;min-height:52px}
+select.in{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1.2 5.5 5.8 10 1.2' stroke='%235C4E3F' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 13px center;padding-left:32px}
+.hint{font-size:11px;color:var(--ink3)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chips{display:flex;gap:7px}
+.chip{font-size:11.5px;font-weight:700;padding:5px 13px;border-radius:99px;background:var(--sand);box-shadow:var(--sh-sm);color:var(--ink2);transition:.15s}
+.chip:hover{color:var(--terracotta)}
+.chip.active{background:rgba(188,83,43,.1);color:var(--terracotta);box-shadow:var(--sh-in)}
+.ac-wrap{position:relative}
+.ac-drop{position:absolute;top:calc(100% + 7px);inset-inline:0;background:var(--ivory);border-radius:15px;box-shadow:12px 12px 30px rgba(120,95,70,.28),-6px -6px 14px rgba(255,255,255,.7);z-index:40;padding:7px;opacity:0;pointer-events:none;transform:translateY(5px);transition:.16s;max-height:250px;overflow:auto}
+.ac-drop.open{opacity:1;pointer-events:auto;transform:none}
+.ac-row{display:flex;align-items:center;gap:10px;width:100%;padding:9px 11px;border-radius:11px;text-align:right;transition:.13s}
+.ac-row:hover{background:rgba(232,207,195,.28)}
+.ac-row b{font-size:12.5px;display:block;line-height:1.5}
+.ac-row span span{font-size:11px;color:var(--ink3)}
+.ac-add{color:var(--terracotta)}
+.ac-add b{color:var(--terracotta)}
+.sel-chip{display:flex;align-items:center;gap:8px;background:rgba(95,115,80,.1);color:var(--sage);font-size:12.5px;font-weight:700;border-radius:11px;padding:7px 12px;margin-top:7px}
+.sel-chip button{display:grid;place-items:center;color:inherit;opacity:.7}
+.warn{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--ochre);background:rgba(168,126,47,.09);border-radius:11px;padding:8px 12px}
+.new-cust{display:flex;flex-direction:column;gap:8px;background:var(--sand);border-radius:13px;padding:11px;margin-top:8px}
+
+/* ---------- دکمه‌ها ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:13px;padding:10px 18px;font-size:13px;font-weight:700;transition:.16s;justify-content:center}
+.btn-primary{background:var(--terracotta);color:#FFFCF6;box-shadow:var(--sh-ter)}
+.btn-primary:hover{background:#C65D33;transform:translateY(-1px)}
+.btn-primary:active{transform:none;box-shadow:inset 3px 3px 7px rgba(90,30,10,.35)}
+.btn-ghost{background:var(--ivory);color:var(--espresso);box-shadow:var(--sh-sm)}
+.btn-ghost:hover{color:var(--terracotta);transform:translateY(-1px)}
+.btn-ghost:active{box-shadow:var(--sh-in);transform:none}
+.btn-soft{background:rgba(232,207,195,.35);color:var(--espresso)}
+.btn-soft:hover{background:rgba(232,207,195,.6)}
+.btn-danger{background:var(--brick);color:#fff;box-shadow:4px 4px 10px rgba(176,58,46,.3)}
+.btn-lg{padding:12px 20px;font-size:13.5px;border-radius:14px}
+
+/* جستجوی مشتری */
+.search-in{margin-bottom:12px}
+.cs-results{display:flex;flex-direction:column;gap:6px}
+.cs-row{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:14px;background:#F6F0E5;border:1px solid transparent;transition:.15s;width:100%;text-align:right}
+.cs-row:hover{background:var(--ivory);box-shadow:var(--sh-sm);border-color:rgba(216,198,180,.4)}
+.cs-row.sel{border-color:rgba(188,83,43,.4);background:#FDF7F1}
+.cs-info{flex:1;min-width:0}
+.cs-info b{font-size:13px;display:block}
+.cs-info span{font-size:11px;color:var(--ink3)}
+.cs-last{font-size:11px;color:var(--terracotta);font-weight:700;background:rgba(188,83,43,.07);padding:3px 10px;border-radius:99px;white-space:nowrap}
+.cs-empty{font-size:12px;color:var(--ink3);padding:14px 4px;text-align:center}
+
+/* پیش‌نمایش پرونده */
+.pv-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.pv-head b{font-size:15px;font-weight:800;display:block;line-height:1.5}
+.pv-rows{display:flex;flex-direction:column}
+.pv-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9.5px 2px;border-bottom:1px solid var(--line2);font-size:12.5px}
+.pv-row span{color:var(--ink3)}
+.pv-row b{font-weight:700;display:flex;align-items:center;gap:6px;text-align:left}
+.fav-chips{display:flex;gap:6px;flex-wrap:wrap}
+.fav-chip{background:rgba(232,207,195,.4);border-radius:99px;padding:2.5px 10px;font-size:11px;font-weight:600}
+.bal-ok{color:var(--sage)}.bal-debt{color:var(--brick)}
+.pv-actions{display:flex;gap:10px;margin-top:15px}
+.pv-actions .btn{flex:1}
+.copy{display:inline-grid;place-items:center;color:var(--ink3);width:24px;height:24px;border-radius:8px}
+.copy:hover{color:var(--terracotta);background:rgba(188,83,43,.08)}
+.m-phone{font-size:12px;color:var(--ink3)}
+
+/* متخصص‌ها */
+.staff-list{display:flex;flex-direction:column;max-height:308px;overflow:auto;padding-inline-end:4px}
+.staff-row{display:flex;align-items:center;gap:11px;padding:9px 6px;border-radius:13px;transition:.14s}
+.staff-row:hover{background:rgba(232,207,195,.18)}
+.st-info{flex:1;min-width:0}
+.st-info b{font-size:12.5px;display:block;line-height:1.5}
+.spec-tag{font-size:10.5px;color:var(--ink3);background:var(--sand);border-radius:99px;padding:1px 9px;font-weight:600}
+.st-status{display:flex;flex-direction:column;align-items:flex-end;gap:2px;white-space:nowrap}
+.ss-l{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800}
+.ss-l i{width:7px;height:7px;border-radius:50%}
+.st-status em{font-style:normal;font-size:10px;color:var(--ink3);font-weight:600;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.st-status.free .ss-l{color:var(--sage)}.st-status.free .ss-l i{background:var(--sage)}
+.st-status.busy .ss-l{color:var(--terracotta)}.st-status.busy .ss-l i{background:var(--terracotta);animation:ping 2s infinite}
+
+/* جدول‌ها */
+.table-wrap{overflow-x:auto}
+table.tb{width:100%;border-collapse:collapse;min-width:560px}
+.tb th{text-align:right;font-size:11px;font-weight:700;color:var(--ink3);padding:8px 12px;border-bottom:1px solid var(--line)}
+.tb td{padding:11px 12px;border-bottom:1px solid var(--line2);font-size:12.5px;vertical-align:middle}
+.tb tbody tr:last-child td{border-bottom:0}
+.tb tbody tr{transition:.13s}
+.tb tbody tr:hover{background:rgba(232,207,195,.16)}
+.name-cell{display:flex;align-items:center;gap:10px;font-weight:700}
+.actions{display:flex;gap:6px;justify-content:flex-end}
+.mini-act{font-size:11px;font-weight:700;color:var(--ink2);background:var(--sand);border-radius:9px;padding:4.5px 11px;transition:.14s;box-shadow:var(--sh-sm);display:inline-flex;align-items:center;gap:5px}
+.mini-act:hover{color:var(--terracotta)}
+.mini-act.danger:hover{color:var(--brick)}
+
+/* ابزار و فیلتر */
+.toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.filters{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.mini-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.mstat{background:var(--ivory);border-radius:16px;box-shadow:var(--sh-sm);padding:13px 16px;display:flex;align-items:center;gap:11px}
+.mstat b{font-size:19px;font-weight:800;display:block;line-height:1.3}
+.mstat span{font-size:11px;color:var(--ink3);font-weight:600}
+.mstat i{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;box-shadow:var(--sh-in);background:var(--sand);flex:none;color:var(--terracotta)}
+.day-nav{display:flex;align-items:center;gap:7px;background:var(--ivory);box-shadow:var(--sh-sm);border-radius:14px;padding:5px}
+.day-nav .icon-btn{width:34px;height:34px;box-shadow:none;background:transparent;border-radius:10px}
+.day-nav .icon-btn:hover{background:var(--sand)}
+.day-date{font-size:13px;font-weight:800;padding:0 8px}
+
+/* کارت متخصص (نمای متخصص‌ها) */
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.spec-card{background:var(--ivory);border-radius:18px;box-shadow:var(--sh-sm);padding:17px;display:flex;flex-direction:column;gap:11px;border:1px solid rgba(216,198,180,.25)}
+.spec-card .top{display:flex;align-items:center;gap:11px}
+.spec-card .top b{font-size:13.5px;display:block}
+.spec-foot{display:flex;align-items:center;gap:8px;margin-top:auto}
+.switch{position:relative;width:40px;height:23px;border-radius:99px;background:var(--sand);box-shadow:var(--sh-in);transition:.2s;flex:none}
+.switch::after{content:'';position:absolute;top:3px;inset-inline-start:3px;width:17px;height:17px;border-radius:50%;background:var(--ivory);box-shadow:1.5px 1.5px 4px rgba(160,135,105,.4);transition:.2s}
+.switch.on{background:rgba(95,115,80,.28)}
+.switch.on::after{inset-inline-start:20px;background:var(--sage)}
+
+/* پیام‌ها */
+.msg-row{display:flex;gap:12px;padding:14px 6px;border-bottom:1px solid var(--line2);align-items:flex-start;width:100%;text-align:right}
+.msg-row .dot{width:8px;height:8px;border-radius:50%;background:var(--terracotta);margin-top:7px;flex:none}
+.msg-row.read .dot{background:var(--clay)}
+.msg-row b{font-size:13px}
+.msg-row p{font-size:12px;color:var(--ink2);margin:2px 0 4px}
+.msg-row time{font-size:10.5px;color:var(--ink3)}
+
+/* گزارش */
+.rep-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:18px}
+.rep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.bar-row{display:flex;flex-direction:column;gap:6px;padding:9px 2px;border-bottom:1px solid var(--line2)}
+.bar-row .t{display:flex;justify-content:space-between;font-size:12.5px;gap:10px}
+.bar-row .t b{font-weight:700}
+.bar-row .t span{color:var(--ink3);font-size:11.5px;white-space:nowrap}
+.bar{height:7px;border-radius:99px;background:var(--sand);box-shadow:var(--sh-in);overflow:hidden;position:relative}
+.bar i{position:absolute;inset-inline-start:0;top:0;bottom:0;background:var(--terracotta);border-radius:99px}
+.bar.sage i{background:var(--sage)}
+.bar.blush i{background:var(--blush)}
+.mh{font-size:13px;font-weight:800;margin:12px 0 8px}
+
+/* حالت خالی */
+.empty{display:flex;flex-direction:column;align-items:center;gap:8px;padding:36px 16px;text-align:center;color:var(--ink3)}
+.empty .ic-c{width:52px;height:52px;border-radius:50%;background:var(--sand);box-shadow:var(--sh-in);display:grid;place-items:center;color:var(--ink3)}
+.empty b{color:var(--ink2);font-size:13.5px}
+.empty p{font-size:12px}
+
+/* ---------- مودال‌ها ---------- */
+.overlay{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(36,26,16,.4);opacity:0;pointer-events:none;transition:.2s}
+.overlay.open{opacity:1;pointer-events:auto}
+.modal{background:var(--ivory);border-radius:24px;box-shadow:18px 18px 44px rgba(90,66,45,.35);width:100%;max-width:440px;max-height:88vh;overflow:auto;padding:24px;position:relative;transform:translateY(10px) scale(.98);transition:.2s}
+.overlay.open .modal{transform:none}
+.modal.lg{max-width:620px}
+.modal h3{font-size:17px;font-weight:800;margin-bottom:4px}
+.m-sub{font-size:12.5px;color:var(--ink3);margin-bottom:16px}
+.m-close{position:absolute;top:16px;inset-inline-end:16px;width:32px;height:32px;border-radius:10px;background:var(--sand);color:var(--ink2);display:grid;place-items:center;box-shadow:var(--sh-sm)}
+.m-close:hover{color:var(--brick)}
+.m-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.m-actions .btn{flex:1;min-width:130px}
+.hr{height:1px;background:var(--line2);margin:18px 0}
+.db-status{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;border-radius:13px;padding:10px 13px;margin-bottom:15px;background:var(--sand);box-shadow:var(--sh-in)}
+.db-status i{width:8px;height:8px;border-radius:50%;flex:none}
+.db-status.off{color:var(--ochre)}.db-status.off i{background:var(--ochre)}
+.db-status.on{color:var(--sage)}.db-status.on i{background:var(--sage)}
+.static-box{background:var(--sand);box-shadow:var(--sh-in);border-radius:12px;padding:10px 13px;font-size:13px;font-weight:600}
+
+/* ---------- توست ---------- */
+.toasts{position:fixed;bottom:20px;inset-inline-start:20px;z-index:200;display:flex;flex-direction:column;gap:9px;max-width:min(90vw,380px)}
+.toast{display:flex;align-items:center;gap:10px;background:var(--ivory);border-radius:14px;padding:12px 15px;box-shadow:12px 12px 28px rgba(110,85,60,.3),-5px -5px 12px rgba(255,255,255,.7);font-size:12.5px;font-weight:600;animation:tIn .25s ease;border-inline-start:4px solid var(--clay)}
+.t-ic{display:grid;place-items:center;width:26px;height:26px;border-radius:9px;flex:none}
+.toast.success{border-inline-start-color:var(--sage)}.toast.success .t-ic{background:rgba(95,115,80,.14);color:var(--sage)}
+.toast.error{border-inline-start-color:var(--brick)}.toast.error .t-ic{background:rgba(176,58,46,.1);color:var(--brick)}
+.toast.info{border-inline-start-color:var(--terracotta)}.toast.info .t-ic{background:rgba(188,83,43,.1);color:var(--terracotta)}
+.toast.out{opacity:0;transform:translateY(8px);transition:.35s}
+@keyframes tIn{from{opacity:0;transform:translateY(10px)}}
+
+/* فلش */
+.flash{animation:flashP 1.6s ease}
+@keyframes flashP{0%,55%{box-shadow:0 0 0 3px rgba(188,83,43,.5),var(--sh)}100%{box-shadow:var(--sh)}}
+
+/* اسکریم موبایل */
+.scrim{position:fixed;inset:0;background:rgba(36,26,16,.4);z-index:140;opacity:0;pointer-events:none;transition:.2s}
+.scrim.show{opacity:1;pointer-events:auto}
+
+/* ---------- واکنش‌گرا ---------- */
+@media(max-width:1360px){.kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1180px){
+  .dash-grid{grid-template-columns:1fr}
+  .dash-side{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+  .tsearch{width:250px}
+}
+@media(max-width:1024px){
+  .app{grid-template-columns:78px minmax(0,1fr)}
+  .sidebar{padding:18px 12px}
+  .brand-txt,.nav-item .nav-t,.nav-sec,.side-user div,.nav-badge{display:none}
+  .nav-item{justify-content:center;padding:12px 0}
+  .nav-item.active::before{display:none}
+  .side-user{justify-content:center;padding:8px}
+  .content{padding:20px 18px 50px}
+  .mini-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:720px){
+  .app{display:block}
+  .sidebar{position:fixed;inset-inline-start:0;top:0;bottom:0;width:min(300px,84vw);transform:translateX(100%);transition:.25s;z-index:150;border-inline-end:1px solid var(--line)}
+  .sidebar.open{transform:none;box-shadow:-20px 0 50px rgba(60,42,25,.3)}
+  .brand-txt,.nav-item .nav-t,.nav-sec,.side-user div,.nav-badge{display:block}
+  .nav-item{justify-content:flex-start;padding:11px 13px}
+  .hamburger{display:grid}
+  .topbar{flex-wrap:wrap}
+  .tsearch{width:100%;max-width:none;order:10}
+  .tsearch kbd{display:none}
+  .kpis{grid-template-columns:1fr 1fr}
+  .dash-side{grid-template-columns:1fr}
+}
+@media(max-width:520px){.kpis{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.ph-actions{width:100%}}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============ سایدبار راست ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="30" height="30" viewBox="0 0 44 44" fill="none">
+          <path d="M18 35C16.6 27.5 16.9 18.6 18.4 13.6 19 11 21.1 9.5 23.9 9.5H31.5" stroke="#BC532B" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M18.8 22.5h9.4" stroke="#BC532B" stroke-width="3.4" stroke-linecap="round"/>
+          <circle cx="30.5" cy="31" r="2" fill="#E8CFC3"/>
+        </svg>
+      </div>
+      <div class="brand-txt"><b>فریور</b><span>FARIVAR · BEAUTY SALON</span></div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" data-nav="dashboard"><span data-ic="grid"></span><span class="nav-t">داشبورد</span></button>
+      <button class="nav-item" data-nav="appointments"><span data-ic="cal"></span><span class="nav-t">نوبت‌ها</span></button>
+      <button class="nav-item" data-nav="customers"><span data-ic="users"></span><span class="nav-t">مشتری‌ها</span></button>
+      <button class="nav-item" data-nav="services"><span data-ic="tag"></span><span class="nav-t">خدمات</span></button>
+      <button class="nav-item" data-nav="specialists"><span data-ic="badge"></span><span class="nav-t">متخصص‌ها</span></button>
+      <button class="nav-item" data-nav="payments"><span data-ic="wallet"></span><span class="nav-t">پرداخت‌ها</span></button>
+      <button class="nav-item" data-nav="report"><span data-ic="chart"></span><span class="nav-t">گزارش روزانه</span></button>
+      <button class="nav-item" data-nav="messages"><span data-ic="msg"></span><span class="nav-t">پیام‌ها</span><span class="nav-badge" id="navMsgBadge"></span></button>
+    </nav>
+
+    <div class="nav-sec">مدیریت</div>
+    <nav class="nav">
+      <button class="nav-item" data-nav="__recep"><span data-ic="user"></span><span class="nav-t">پروفایل منشی</span></button>
+      <button class="nav-item" data-nav="__settings"><span data-ic="gear"></span><span class="nav-t">تنظیمات</span></button>
+    </nav>
+
+    <div class="side-user">
+      <span class="avatar">نم</span>
+      <div><b>نگار موسوی</b><span>منشی پذیرش</span></div>
+      <i class="online"></i>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <div class="main">
+
+    <!-- ============ نوار بالا ============ -->
+    <header class="topbar">
+      <button class="icon-btn hamburger" id="hamburger" aria-label="منو"><span data-ic="grid" data-sz="18"></span></button>
+
+      <div class="tsearch">
+        <span data-ic="search" data-sz="17"></span>
+        <input id="globalSearch" placeholder="جستجوی سریع..." autocomplete="off">
+        <kbd>/</kbd>
+        <div class="ac-drop" id="globalDrop"></div>
+      </div>
+
+      <div class="tspace"></div>
+
+      <div class="tchip status" id="salonStatus"><i></i><span id="salonStatusTxt">سالن باز است</span></div>
+      <div class="tchip"><span data-ic="cal" data-sz="15"></span><span id="todayTxt"></span><b id="clockTxt"></b></div>
+      <div class="tchip mode" id="modeChip" title="تنظیمات اتصال"><i></i><span id="modeTxt">حالت نمایشی</span></div>
+      <button class="icon-btn" id="refreshBtn" title="به‌روزرسانی" aria-label="به‌روزرسانی"><span data-ic="refresh" data-sz="18"></span></button>
+      <div class="notif-wrap">
+        <button class="icon-btn" id="notifBtn" title="اعلان‌ها" aria-label="اعلان‌ها"><span data-ic="bell" data-sz="18"></span><i class="nbadge" id="nBadge"></i></button>
+        <div class="notif-drop" id="notifDrop"></div>
+      </div>
+      <button class="avatar-btn" id="recepBtn" aria-label="پروفایل"><span class="avatar">نم</span></button>
+    </header>
+
+    <main class="content">
+
+      <!-- ============ داشبورد ============ -->
+      <section class="view active" data-view="dashboard">
+        <div class="page-head">
+          <div><h1>داشبورد پذیرش</h1><p>امروز، یک نگاه سریع به وضعیت سالن</p></div>
+          <div class="ph-actions">
+            <button class="btn btn-ghost" data-act="goto-report"><span data-ic="chart" data-sz="16"></span>گزارش امروز</button>
+            <button class="btn btn-primary" data-act="focus-booking"><span data-ic="plus" data-sz="16"></span>ثبت نوبت جدید</button>
+          </div>
+        </div>
+
+        <div class="kpis" id="kpis"></div>
+
+        <div class="dash-grid">
+          <!-- نوبت‌های امروز -->
+          <div class="panel">
+            <div class="panel-head">
+              <div><h3>نوبت‌های امروز</h3><p id="tlSub"></p></div>
+              <div class="ph-left">
+                <span class="count-chip" id="tlCount"></span>
+                <button class="link-btn" data-act="goto-appointments">مشاهده همه</button>
+              </div>
+            </div>
+            <div class="timeline" id="tlToday"></div>
+          </div>
+
+          <div class="dash-side">
+            <!-- ثبت نوبت جدید -->
+            <div class="panel" id="bookingPanel">
+              <div class="panel-head">
+                <div><h3>ثبت نوبت جدید</h3><p>در کمتر از ۳۰ ثانیه</p></div>
+                <span class="icon-chip terr"><span data-ic="plus" data-sz="17"></span></span>
+              </div>
+              <div class="bform">
+                <div class="field">
+                  <label>انتخاب مشتری</label>
+                  <div class="ac-wrap">
+                    <input class="in" id="bkCust" placeholder="نام یا شماره موبایل…" autocomplete="off">
+                    <div class="ac-drop" id="bkCustDrop"></div>
+                  </div>
+                  <div class="sel-chip" id="bkCustSel" hidden>
+                    <span data-ic="check" data-sz="13"></span><b id="bkCustName"></b>
+                    <button id="bkCustClear" type="button" aria-label="حذف انتخاب"><span data-ic="x" data-sz="13"></span></button>
+                  </div>
+                  <div class="new-cust" id="bkNew" hidden>
+                    <input class="in" id="bkNewName" placeholder="نام و نام خانوادگی مشتری جدید">
+                    <input class="in ltr" id="bkNewPhone" type="tel" placeholder="09xxxxxxxxx" style="text-align:left">
+                    <button class="btn btn-soft" id="bkNewAdd" type="button">ثبت مشتری و انتخاب</button>
+                  </div>
+                </div>
+                <div class="grid2">
+                  <div class="field">
+                    <label>انتخاب خدمت</label>
+                    <select class="in" id="bkService"></select>
+                    <span class="hint" id="bkServiceHint"></span>
+                  </div>
+                  <div class="field">
+                    <label>انتخاب متخصص</label>
+                    <select class="in" id="bkSpecialist"></select>
+                  </div>
+                </div>
+                <div class="grid2">
+                  <div class="field">
+                    <label>تاریخ</label>
+                    <div class="chips">
+                      <button type="button" class="chip active" data-act="bk-day" data-v="0">امروز</button>
+                      <button type="button" class="chip" data-act="bk-day" data-v="1">فردا</button>
+                    </div>
+                    <input class="in ltr" type="date" id="bkDate" style="text-align:left">
+                    <span class="hint" id="bkDateHint"></span>
+                  </div>
+                  <div class="field">
+                    <label>ساعت</label>
+                    <select class="in" id="bkTime"></select>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>یادداشت مشتری</label>
+                  <textarea class="in" id="bkNotes" rows="2" placeholder="مثلاً: حساسیت به رنگ دارد…"></textarea>
+                </div>
+                <div class="warn" id="bkOverlap" hidden></div>
+                <button class="btn btn-primary btn-lg" id="bkSubmit">ثبت نوبت</button>
+              </div>
+            </div>
+
+            <!-- جستجوی مشتری -->
+            <div class="panel">
+              <div class="panel-head">
+                <div><h3>جستجوی مشتری</h3><p>بر اساس نام یا شماره موبایل</p></div>
+                <span class="icon-chip"><span data-ic="search" data-sz="16"></span></span>
+              </div>
+              <input class="in search-in" id="csInput" placeholder="نام یا شماره موبایل…" autocomplete="off">
+              <div class="cs-results" id="csResults"></div>
+            </div>
+
+            <!-- پیش‌نمایش پرونده -->
+            <div class="panel" id="pvPanel">
+              <div class="panel-head">
+                <div><h3>پرونده سریع مشتری</h3><p>تاریخچه و اطلاعات</p></div>
+                <span class="icon-chip"><span data-ic="user" data-sz="16"></span></span>
+              </div>
+              <div id="pvBody"></div>
+            </div>
+
+            <!-- وضعیت متخصص‌ها -->
+            <div class="panel">
+              <div class="panel-head">
+                <div><h3>وضعیت متخصص‌ها</h3><p>همین حالا در سالن</p></div>
+                <span class="live-dot"></span>
+              </div>
+              <div class="staff-list" id="staffList"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ نوبت‌ها ============ -->
+      <section class="view" data-view="appointments">
+        <div class="page-head">
+          <div><h1>نوبت‌ها</h1><p id="apvSub"></p></div>
+          <div class="ph-actions">
+            <div class="day-nav">
+              <button class="icon-btn" data-act="apv-prev" aria-label="روز قبل"><span data-ic="chevR" data-sz="15"></span></button>
+              <button class="chip" data-act="apv-today">امروز</button>
+              <button class="icon-btn" data-act="apv-next" aria-label="روز بعد"><span data-ic="chevL" data-sz="15"></span></button>
+            </div>
+            <button class="btn btn-primary" data-act="focus-booking"><span data-ic="plus" data-sz="16"></span>ثبت نوبت جدید</button>
+          </div>
+        </div>
+        <div class="filters">
+          <button class="chip active" data-act="apv-filter" data-v="all">همه</button>
+          <button class="chip" data-act="apv-filter" data-v="waiting">در انتظار</button>
+          <button class="chip" data-act="apv-filter" data-v="confirmed">تأیید شده</button>
+          <button class="chip" data-act="apv-filter" data-v="completed">تکمیل شده</button>
+          <button class="chip" data-act="apv-filter" data-v="cancelled">لغو شده</button>
+        </div>
+        <div class="mini-stats" id="apvStats"></div>
+        <div class="panel"><div class="timeline" id="apvTimeline"></div></div>
+      </section>
+
+      <!-- ============ مشتری‌ها ============ -->
+      <section class="view" data-view="customers">
+        <div class="page-head">
+          <div><h1>مشتری‌ها</h1><p id="custSub"></p></div>
+          <div class="ph-actions"><button class="btn btn-primary" data-act="add-customer"><span data-ic="plus" data-sz="16"></span>مشتری جدید</button></div>
+        </div>
+        <div class="panel">
+          <div class="toolbar">
+            <div class="tsearch" style="width:300px;max-width:100%"><span data-ic="search" data-sz="16"></span><input id="custSearch" placeholder="جستجو در مشتری‌ها…" autocomplete="off"></div>
+          </div>
+          <div id="custTable"></div>
+        </div>
+      </section>
+
+      <!-- ============ خدمات ============ -->
+      <section class="view" data-view="services">
+        <div class="page-head">
+          <div><h1>خدمات</h1><p id="svcSub"></p></div>
+          <div class="ph-actions"><button class="btn btn-primary" data-act="add-service"><span data-ic="plus" data-sz="16"></span>خدمت جدید</button></div>
+        </div>
+        <div class="panel" id="svcTable"></div>
+      </section>
+
+      <!-- ============ متخصص‌ها ============ -->
+      <section class="view" data-view="specialists">
+        <div class="page-head">
+          <div><h1>متخصص‌ها</h1><p id="specSub"></p></div>
+          <div class="ph-actions"><button class="btn btn-primary" data-act="add-spec"><span data-ic="plus" data-sz="16"></span>متخصص جدید</button></div>
+        </div>
+        <div class="spec-grid" id="specGrid"></div>
+      </section>
+
+      <!-- ============ پرداخت‌ها ============ -->
+      <section class="view" data-view="payments">
+        <div class="page-head">
+          <div><h1>پرداخت‌ها</h1><p id="paySub"></p></div>
+          <div class="ph-actions"><span class="count-chip" id="payTotal" style="font-size:13px;padding:8px 16px"></span></div>
+        </div>
+        <div class="filters">
+          <button class="chip active" data-act="pay-filter" data-v="today">امروز</button>
+          <button class="chip" data-act="pay-filter" data-v="week">۷ روز گذشته</button>
+          <button class="chip" data-act="pay-filter" data-v="all">همه</button>
+        </div>
+        <div class="panel" id="payTable"></div>
+      </section>
+
+      <!-- ============ گزارش روزانه ============ -->
+      <section class="view" data-view="report">
+        <div class="page-head">
+          <div><h1>گزارش روزانه</h1><p id="repSub"></p></div>
+          <div class="ph-actions">
+            <div class="day-nav">
+              <button class="icon-btn" data-act="rep-prev" aria-label="روز قبل"><span data-ic="chevR" data-sz="15"></span></button>
+              <button class="chip" data-act="rep-today">امروز</button>
+              <button class="icon-btn" data-act="rep-next" aria-label="روز بعد"><span data-ic="chevL" data-sz="15"></span></button>
+            </div>
+          </div>
+        </div>
+        <div class="rep-tiles" id="repTiles"></div>
+        <div class="rep-grid" id="repBody"></div>
+      </section>
+
+      <!-- ============ پیام‌ها ============ -->
+      <section class="view" data-view="messages">
+        <div class="page-head">
+          <div><h1>پیام‌ها</h1><p id="msgSub"></p></div>
+          <div class="ph-actions"><button class="btn btn-ghost" data-act="mark-all-read">علامت‌گذاری همه به‌عنوان خوانده‌شده</button></div>
+        </div>
+        <div class="panel" id="msgList"></div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============ مودال‌ها ============ -->
+<div class="overlay" id="mCust"><div class="modal lg"><button class="m-close" data-close="mCust" aria-label="بستن"><span data-ic="x" data-sz="15"></span></button><div id="mCustBody"></div></div></div>
+
+<div class="overlay" id="mPay"><div class="modal">
+  <button class="m-close" data-close="mPay" aria-label="بستن"><span data-ic="x" data-sz="15"></span></button>
+  <h3>تکمیل نوبت</h3><p class="m-sub" id="paySub"></p>
+  <div class="bform">
+    <div class="field"><label>مبلغ دریافت‌شده (تومان)</label><input class="in ltr" type="number" id="payAmount" min="0" step="50000" style="text-align:left"><span class="hint" id="payAmountHint"></span></div>
+    <div class="field"><label>روش پرداخت</label>
+      <select class="in" id="payMethod">
+        <option value="pos">کارتخوان</option><option value="cash">نقدی</option>
+        <option value="transfer">کارت به کارت</option><option value="online">آنلاین</option>
+      </select>
+    </div>
+    <div class="m-actions">
+      <button class="btn btn-primary" id="paySave">ثبت پرداخت و تکمیل</button>
+      <button class="btn btn-ghost" id="payNo">تکمیل بدون پرداخت</button>
+    </div>
+  </div>
+</div></div>
+
+<div class="overlay" id="mCustForm"><div class="modal">
+  <button class="m-close" data-close="mCustForm" aria-label="بستن"><span data-ic="x" data-sz="15"></span></button>
+  <h3 id="cfTitle">مشتری جدید</h3><p class="m-sub">اطلاعات اولیه مشتری</p>
+  <div class="bform">
+    <div class="field"><label>نام و نام خانوادگی</label><input class="in" id="cfName"></div>
+    <div class="field"><label>شماره موبایل</label><input class="in ltr" type="tel" id="cfPhone" placeholder="09xxxxxxxxx" style="text-align:left"></div>
+    <div class="field"><label>تاریخ تولد</label><input class="in ltr" type="date" id="cfBirth" style="text-align:left"><span class="hint" id="cfBirthHint"></span></div>
+    <div class="field"><label>یادداشت</label><textarea class="in" id="cfNotes" rows="2"></textarea></div>
+    <button class="btn btn-primary btn-lg" id="cfSave">ثبت مشتری</button>
+  </div>
+</div></div>
+
+<div class="overlay" id="mService"><div class="modal">
+  <button class="m-close" data-close="mService" aria-label="بستن"><span data-ic="x" data-sz="15"></span></button>
+  <h3 id="sfTitle">خدمت جدید</h3><p class="m-sub">تعرفه و مدت زمان خدمت</p>
+  <div class="bform">
+    <div class="field"><label>نام خدمت</label><input class="in" id="sfName"></div>
+    <div class="grid2">
+      <div class="field"><label>دسته</label>
+        <select class="in" id="sfCat"><option value="مو">مو</option><option value="ناخن">ناخن</option><option value="چهره">چهره</option><option value="پوست">پوست</option></select>
+      </div>
+      <div class="field"><label>مدت (دقیقه)</label><input class="in ltr" type="number" id="sfDur" min="10" step="5" value="60" style="text-align:left"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label>قیمت پایه (تومان)</label><input class="in ltr" type="number" id="sfPrice" min="0" step="50000" style="text-align:left"></div>
+      <div class="field"><label>برچسب قیمت (اختیاری)</label><input class="in" id="sfLabel" placeholder="مثل: توافقی / از ۳٬۵۰۰٬۰۰۰"></div>
+    </div>
+    <button class="btn btn-primary btn-lg" id="sfSave">ذخیره خدمت</button>
+  </div>
+</div></div>
+
+<div class="overlay" id="mSpec"><div class="modal">
+  <button class="m-close" data-close="mSpec" aria-label="بستن"><span data-ic="x" data-sz="15"></span></button>
+  <h3 id="pfTitle">متخصص جدید</h3><p class="m-sub">اعضای تیم سالن</p>
+  <div class="bform">
+    <div class="field"><label>نام و نام خانوادگی</label><input class="in" id="pfName"></div>
+    <div class="field"><label>تخصص</label>
+      <input class="in" id="pfSpec" list="specList" placeholder="مثلاً: ناخن">
+      <datalist id="specList">
+        <option value="ناخن"></option><option value="رنگ و لایت"></option><option value="کوتاهی مو"></option>
+        <option value="براشبنگ و اصلاح و وکس"></option><option value="ابرو"></option><option value="میکروپیگمنتیشن و میکاپ"></option>
+        <option value="شنیون"></option><option value="مژه"></option><option value="پاکسازی پوست"></option><option value="اسکراپ مو"></option>
+      </datalist>
+    </div>
+    <button class="btn btn-primary btn-lg" id="pfSave">ذخیره متخصص</button>
+  </div>
+</div></div>
+
+<div class="overlay" id="mSettings"><div class="modal">
+  <button class="m-close" data-close="mSettings" aria-label="بستن"><span data-ic="x" data-sz="15"></span></button>
+  <h3>تنظیمات</h3><p class="m-sub">اتصال پنل به پایگاه داده سالن</p>
+  <div class="db-status" id="dbStatus"></div>
+  <div class="bform">
+    <div class="field"><label>آدرس پروژه (Project URL)</label><input class="in ltr" id="sbUrl" placeholder="https://xxxx.supabase.co" style="text-align:left"></div>
+    <div class="field"><label>کلید عمومی (anon key)</label><input class="in ltr" id="sbKey" placeholder="eyJhbGciOi…" style="text-align:left"></div>
+    <div class="m-actions">
+      <button class="btn btn-primary" id="sbConnect">اتصال و ذخیره</button>
+      <button class="btn btn-ghost" id="sbDisconnect">قطع اتصال</button>
+    </div>
+    <p class="hint">اطلاعات را از Project Settings ← API در Supabase بردارید. پیش از اتصال، اسکریپت SQL را در SQL Editor اجرا کنید. کلید فقط روی همین دستگاه ذخیره می‌شود.</p>
+  </div>
+  <div class="hr"></div>
+  <div class="field"><label>ساعت کاری سالن</label><div class="static-box">یکشنبه تا پنجشنبه — ۱۰ تا ۱۸</div></div>
+</div></div>
+
+<div class="overlay" id="mRecep"><div class="modal">
+  <button class="m-close" data-close="mRecep" aria-label="بستن"><span data-ic="x" data-sz="15"></span></button>
+  <div style="text-align:center;padding:8px 0 4px">
+    <span class="avatar lg" style="margin:0 auto 12px">نم</span>
+    <h3>نگار موسوی</h3><p class="m-sub">منشی پذیرش — سالن فریور</p>
+  </div>
+  <div class="pv-rows">
+    <div class="pv-row"><span>آخرین ورود</span><b>امروز — ۰۹:۵۲</b></div>
+    <div class="pv-row"><span>سطح دسترسی</span><b>پذیرش و ثبت نوبت</b></div>
+  </div>
+  <div class="m-actions">
+    <button class="btn btn-ghost" data-close="mRecep">بستن</button>
+    <button class="btn btn-soft" id="recepLogout">خروج از حساب</button>
+  </div>
+</div></div>
+
+<div class="overlay" id="mConfirm"><div class="modal" style="max-width:380px">
+  <h3 id="cnTitle"></h3><p class="m-sub" id="cnBody"></p>
+  <div class="m-actions">
+    <button class="btn btn-ghost" id="cnCancel">انصراف</button>
+    <button class="btn btn-primary" id="cnOk">تأیید</button>
+  </div>
+</div></div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* ============================================================
+   فریور — پنل پذیرش (تک‌فایل) | حالت نمایشی + اتصال Supabase
+   ============================================================ */
+
+/* ---------- ابزارهای عمومی ---------- */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const p2=n=>String(n).padStart(2,'0');
+const toFa=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const toEn=s=>String(s).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+const money=n=>n==null?'—':Number(n).toLocaleString('fa-IR');
+const faDur=m=>{if(!m)return'—';if(m<60)return toFa(m)+' دقیقه';const h=Math.floor(m/60),r=m%60;return toFa(h)+(r?':'+toFa(p2(r)):'')+' ساعت'};
+const isoOf=d=>`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;
+const todayISO=()=>isoOf(new Date());
+const addDays=(iso,n)=>{const[y,m,d]=iso.split('-').map(Number);return isoOf(new Date(y,m-1,d+n))};
+const pDate=iso=>{const[y,m,d]=iso.split('-').map(Number);return new Date(y,m-1,d)};
+const isoDT=(iso,t)=>{const[y,m,d]=iso.split('-').map(Number);const[h,mi]=t.split(':').map(Number);return new Date(y,m-1,d,h,mi).toISOString()};
+const jf=(iso,o)=>new Intl.DateTimeFormat('fa-IR-u-ca-persian',o).format(pDate(iso));
+const jShort=iso=>jf(iso,{day:'numeric',month:'long'});
+const jMed=iso=>jf(iso,{weekday:'long',day:'numeric',month:'long'});
+const jFull=iso=>jf(iso,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const jDM=d=>new Intl.DateTimeFormat('fa-IR-u-ca-persian',{day:'numeric',month:'long'}).format(d);
+const relTime=iso=>{const t=Date.now()-new Date(iso).getTime();if(t<0||t<90*1000)return'لحظاتی پیش';const s=t/1000;if(s<3600)return toFa(Math.floor(s/60))+' دقیقه پیش';if(s<86400)return toFa(Math.floor(s/3600))+' ساعت پیش';if(s<7*86400)return toFa(Math.floor(s/86400))+' روز پیش';return jShort(isoOf(new Date(iso)))};
+const initials=n=>String(n||'؟').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('');
+const maskPhone=p=>p?p.slice(0,4)+'•••••'+p.slice(-2):'—';
+const ST={waiting:'در انتظار',confirmed:'تأیید شده',completed:'تکمیل شده',cancelled:'لغو شده'};
+const PAYM={cash:'نقدی',pos:'کارتخوان',transfer:'کارت به کارت',online:'آنلاین'};
+
+/* ---------- آیکون‌ها (خطی مینیمال) ---------- */
+const I={
+ grid:'<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>',
+ cal:'<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>',
+ calCheck:'<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path d="m9 14.5 2.2 2.2 4-4.4"/>',
+ users:'<circle cx="9" cy="8.5" r="3.5"/><path d="M3.5 19.5c.6-3 2.8-4.7 5.5-4.7s4.9 1.7 5.5 4.7"/><circle cx="17" cy="10" r="2.6"/><path d="M15.8 15.6c2.3.2 3.9 1.6 4.4 3.9"/>',
+ tag:'<path d="M12.6 3.5H19a1.5 1.5 0 0 1 1.5 1.5v6.4a2 2 0 0 1-.6 1.4l-7 7a2 2 0 0 1-2.8 0l-5.4-5.4a2 2 0 0 1 0-2.8l7-7a2 2 0 0 1 1.4-.6z"/><circle cx="16.3" cy="7.7" r="1.2" fill="currentColor" stroke="none"/>',
+ badge:'<circle cx="12" cy="9" r="4.5"/><path d="M8.5 12.8 7 20.5l5-2.4 5 2.4-1.5-7.7"/>',
+ wallet:'<path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H18a2 2 0 0 1 2 2v.5"/><rect x="4" y="7.5" width="16.5" height="11.5" rx="2.5"/><circle cx="16.5" cy="13.2" r="1.1" fill="currentColor" stroke="none"/>',
+ chart:'<path d="M4 20h16"/><rect x="5.5" y="12" width="3.5" height="6" rx="1.2"/><rect x="10.5" y="8" width="3.5" height="10" rx="1.2"/><rect x="15.5" y="5" width="3.5" height="13" rx="1.2"/>',
+ msg:'<path d="M21 12a8.5 8.5 0 0 1-8.5 8.5c-1.6 0-3.2-.4-4.5-1.2L3.5 20.5l1.2-4.4A8.5 8.5 0 1 1 21 12z"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-3.6 3.4-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/>',
+ gear:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.4"/><circle cx="9" cy="17" r="2.4"/>',
+ search:'<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/>',
+ bell:'<path d="M18 10a6 6 0 1 0-12 0c0 4-1.5 5.5-2 6.5h16c-.5-1-2-2.5-2-6.5z"/><path d="M10 19.5a2.2 2.2 0 0 0 4 0"/>',
+ refresh:'<path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 3.5V8h-4.5"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ check:'<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+ x:'<path d="m6 6 12 12M18 6 6 18"/>',
+ clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2.5"/>',
+ copy:'<rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M5.5 14.5A1.5 1.5 0 0 1 4 13V6a2 2 0 0 1 2-2h7a1.5 1.5 0 0 1 1.5 1.5"/>',
+ trash:'<path d="M5 7h14M9.5 7V5a1.5 1.5 0 0 1 1.5-1.5h2A1.5 1.5 0 0 1 14.5 5v2M7 7l.8 12a2 2 0 0 0 2 1.9h4.4a2 2 0 0 0 2-1.9L17 7"/>',
+ info:'<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5"/><circle cx="12" cy="8" r=".9" fill="currentColor" stroke="none"/>',
+ chevL:'<path d="m14.5 5.5-6 6.5 6 6.5"/>',
+ chevR:'<path d="m9.5 5.5 6 6.5-6 6.5"/>'
+};
+const ic=(n,s=20)=>`<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${I[n]||''}</svg>`;
+function injectIcons(root=document){root.querySelectorAll('[data-ic]').forEach(el=>{el.innerHTML=ic(el.dataset.ic,+(el.dataset.sz||20))})}
+
+/* ---------- وضعیت کلی ---------- */
+const state={
+  mode:'demo',sb:null,
+  services:[],specialists:[],customers:[],appointments:[],payments:[],messages:[],
+  selectedCustomerId:null,view:'dashboard',
+  apptsDate:todayISO(),apptFilter:'all',reportDate:todayISO(),payFilter:'today'
+};
+let bkCust=null,payTarget=null,lastCreated=null,lastSig='';
+const A=id=>state.appointments.find(a=>a.id===id);
+const svcById=id=>state.services.find(s=>s.id===id);
+const specById=id=>state.specialists.find(s=>s.id===id);
+const custById=id=>state.customers.find(c=>c.id===id);
+
+/* ---------- داده نمایشی (فقط وقتی به Supabase وصل نیستیم) ---------- */
+function buildDemo(){
+  const T=todayISO(),d=n=>addDays(T,n);
+  const S=(id,name,cat,dur,price,label)=>({id,name,category:cat,duration_minutes:dur,base_price:price,price_label:label||null,is_active:true});
+  state.services=[
+    S('v1','کاشت ناخن','ناخن',90,1300000),S('v2','پدیکور','ناخن',40,700000),
+    S('v3','رنگ ریشه','مو',60,1000000),S('v4','رنگ کامل','مو',60,3000000,'از ۳٬۰۰۰٬۰۰۰'),
+    S('v5','لایت','مو',60,null,'توافقی'),S('v6','کوتاهی مو','مو',60,1000000),
+    S('v7','قرینه‌سازی ابرو','چهره',10,300000),S('v8','اصلاح و وکس','چهره',20,500000),
+    S('v9','بلید و میکروپیگمنتیشن','چهره',60,3500000,'از ۳٬۵۰۰٬۰۰۰'),S('v10','میکاپ','چهره',60,3500000,'از ۳٬۵۰۰٬۰۰۰'),
+    S('v11','شنیون','مو',60,1500000,'از ۱٬۵۰۰٬۰۰۰'),S('v12','مژه','چهره',120,1500000,'از ۱٬۵۰۰٬۰۰۰'),
+    S('v13','پاکسازی پوست','پوست',40,800000,'از ۸۰۰٬۰۰۰'),S('v14','اسکراپ مو','مو',90,1500000,'از ۱٬۵۰۰٬۰۰۰'),
+    S('v15','کوتاهی مو (خانم فریور)','مو',60,1500000)
+  ];
+  const P=(id,n,s)=>({id,full_name:n,specialty:s,is_active:true});
+  state.specialists=[P('s1','مهشاد میرکریمی','ناخن'),P('s2','عادله فرهنگ','ناخن'),P('s3','نسرین اکبری','رنگ و لایت'),
+    P('s4','سهیلا سیاوشی','رنگ و لایت'),P('s5','فرزانه فریور','کوتاهی مو'),P('s6','زینب بهرامخوانی','براشبنگ و اصلاح و وکس'),
+    P('s7','رزیتا ترابی','ابرو'),P('s8','مریم شیخی','میکروپیگمنتیشن و میکاپ'),P('s9','پونه','شنیون'),
+    P('s10','نوشین تهرانی','شنیون'),P('s11','ساره','مژه'),P('s12','راز','پاکسازی پوست'),P('s13','الهام ستاری','اسکراپ مو')];
+  const C=(id,n,ph,b,nt,days)=>({id,full_name:n,phone:ph,birthday:b||null,notes:nt||null,created_at:isoDT(d(days||-60),'12:00')});
+  state.customers=[
+    C('c1','سارا احمدی','09121234542','1995-11-09','به رنگ مو حساسیت دارد؛ پیش از سرویس تست انجام شود.',-90),
+    C('c2','مریم رضایی','09122345871',null,null,-75),C('c3','الهام کریمی','09123456710',null,null,-70),
+    C('c4','نگار محمدی','09124567823','1992-06-02','همیشه با مسترک همراه است.',-55),
+    C('c5','شیما کاظمی','09125678934','1990-04-21',null,-120),C('c6','درسا عبدی','09126789045',null,null,-40),
+    C('c7','ترانه حسینی','09127890156',null,null,-65),C('c8','نیلوفر رستمی','09128901267',null,null,-100),
+    C('c9','یاسمن قاسمی','09129012378','1998-01-17',null,-80),C('c10','آزیتا رحیمی','09120123489',null,null,-50),
+    C('c11','مینا صادقی','09121234590',null,null,-45)
+  ];
+  const raw=[
+    ['a1','c1','v3','s3',T,'10:00','completed',1000000,null],
+    ['a2','c10','v8','s6',T,'10:00','completed',500000,null],
+    ['a3','c2','v6','s5',T,'10:30','waiting',1000000,'به‌همراه مسترک'],
+    ['a4','c3','v2','s1',T,'11:00','completed',700000,null],
+    ['a5','c11','v4','s4',T,'11:00','completed',3000000,null],
+    ['a6','c4','v9','s8',T,'11:30','waiting',3500000,'حساسیت پوست — پچ تست لازم است'],
+    ['a7','c5','v7','s7',T,'12:00','completed',300000,null],
+    ['a8','c6','v13','s12',T,'12:30','completed',800000,null],
+    ['a9','c7','v1','s2',T,'14:00','waiting',1300000,null],
+    ['a10','c1','v14','s13',T,'15:00','confirmed',1500000,null],
+    ['a11','c8','v11','s9',T,'16:00','confirmed',1500000,null],
+    ['a12','c9','v12','s11',T,'17:00','completed',1500000,null],
+    ['h1','c1','v3','s3',d(-3),'12:00','completed',1000000,null],
+    ['h2','c1','v6','s5',d(-10),'11:00','completed',1000000,null],
+    ['h3','c1','v3','s3',d(-17),'15:00','completed',1000000,null],
+    ['h4','c1','v6','s5',d(-24),'10:30','completed',1000000,null],
+    ['h5','c1','v2','s1',d(-31),'13:00','completed',700000,null],
+    ['h6','c1','v3','s3',d(-38),'10:00','completed',1000000,null],
+    ['h7','c1','v7','s7',d(-45),'16:00','completed',300000,null],
+    ['h19','c1','v7','s7',d(-52),'15:00','completed',300000,null],
+    ['h8','c2','v6','s5',d(-5),'12:00','completed',1000000,null],
+    ['h9','c3','v2','s1',d(-12),'14:30','completed',700000,null],
+    ['h10','c4','v7','s7',d(-20),'11:00','completed',300000,null],
+    ['h11','c5','v7','s7',d(-7),'17:00','completed',300000,null],
+    ['h12','c5','v13','s12',d(-30),'12:30','completed',800000,null],
+    ['h13','c6','v13','s12',d(-14),'10:30','completed',800000,null],
+    ['h14','c7','v1','s2',d(-9),'15:30','completed',1300000,null],
+    ['h15','c8','v11','s9',d(-60),'16:00','completed',1500000,null],
+    ['h16','c9','v12','s11',d(-16),'11:00','completed',1500000,null],
+    ['h17','c10','v8','s6',d(-6),'10:00','completed',500000,null],
+    ['h18','c11','v4','s4',d(-25),'13:30','completed',3000000,null]
+  ];
+  state.appointments=raw.map(([id,ci,vi,si,date,time,status,price,notes])=>({id,customerId:ci,serviceId:vi,specialistId:si,date,time,status,price,notes,
+    customer:custById(ci),service:svcById(vi),specialist:specById(si)}));
+  state.payments=state.appointments.filter(a=>a.status==='completed')
+    .map((a,i)=>({id:'pd'+i,appointmentId:a.id,customerId:a.customerId,amount:a.price,method:['cash','pos','transfer','pos'][i%4],paidAt:isoDT(a.date,a.time)}));
+  state.messages=[
+    {id:'m1',title:'یادآوری تولد',body:'تولد «سارا احمدی» در ۱۸ آبان است — پیشنهاد ارسال پیام تبریک و کد تخفیف.',is_read:false,created_at:isoDT(d(-1),'12:40')},
+    {id:'m2',title:'درخواست تماس',body:'مشتری جدید با شماره ۰۹۱۲۴۵۶۷۸۹۰ برای رزرو میکاپ درخواست تماس داشته است.',is_read:false,created_at:isoDT(T,'09:40')}
+  ];
+  state.selectedCustomerId='c1';
+}
+
+/* ---------- اتصال Supabase ---------- */
+async function loadLive(){
+  const sb=state.sb;
+  const [sp,sv,cu,ap,pay,msg]=await Promise.all([
+    sb.from('specialists').select('*').order('full_name'),
+    sb.from('services').select('*').order('name'),
+    sb.from('customers').select('*').order('full_name'),
+    sb.from('appointments').select('*,services(id,name,category,duration_minutes,base_price,price_label),specialists(id,full_name,specialty),customers(id,full_name,phone,birthday,notes,created_at)').order('appointment_date',{ascending:false}).limit(2000),
+    sb.from('payments').select('*').order('paid_at',{ascending:false}).limit(1000),
+    sb.from('messages').select('*').order('created_at',{ascending:false}).limit(200)
+  ]);
+  const err=sp.error||sv.error||cu.error||ap.error||pay.error||msg.error;
+  if(err)throw new Error(err.message);
+  state.specialists=sp.data;state.services=sv.data;state.customers=cu.data;
+  state.appointments=ap.data.map(r=>({id:r.id,customerId:r.customer_id,serviceId:r.service_id,specialistId:r.specialist_id,
+    date:r.appointment_date,time:(r.start_time||'').slice(0,5),status:r.status,price:r.price,notes:r.notes,
+    customer:r.customers,service:r.services,specialist:r.specialists}));
+  state.payments=pay.data.map(r=>({id:r.id,appointmentId:r.appointment_id,customerId:r.customer_id,amount:r.amount,method:r.method,paidAt:r.paid_at}));
+  state.messages=msg.data.map(r=>({id:r.id,title:r.title,body:r.body,is_read:r.is_read,created_at:r.created_at}));
+}
+function enterDemo(){state.mode='demo';state.sb=null;buildDemo();if(!state.selectedCustomerId||!custById(state.selectedCustomerId))state.selectedCustomerId=state.customers[0]?.id||null}
+async function connect(cfg,silent){
+  let ok=false;
+  try{
+    if(typeof supabase==='undefined')throw new Error('کتابخانه Supabase بارگذاری نشده — اینترنت را بررسی کنید');
+    const sb=supabase.createClient(cfg.url,cfg.key);
+    const {error}=await sb.from('services').select('id').limit(1);
+    if(error)toast(error.message.includes('does not exist')?'جدول‌ها یافت نشد — ابتدا اسکریپت SQL را در Supabase اجرا کنید':'اتصال ناموفق: '+error.message,'error');
+    else{state.sb=sb;state.mode='live';localStorage.setItem('farivar.sb',JSON.stringify(cfg));await loadLive();ok=true;toast('اتصال به پایگاه داده برقرار شد','success')}
+  }catch(e){toast(String(e.message||e),'error')}
+  if(!ok&&state.mode!=='live')enterDemo();
+  renderAll();
+}
+
+/* ---------- محاسبات کمکی ---------- */
+function custStats(id){
+  const aps=state.appointments.filter(a=>a.customerId===id);
+  const done=aps.filter(a=>a.status==='completed');
+  const visits=done.length;
+  const lastVisit=done.length?[...done].sort((a,b)=>b.date.localeCompare(a.date))[0].date:null;
+  const lastSvc=done.length?[...done].sort((a,b)=>b.date.localeCompare(a.date))[0].service?.name:null;
+  const fm={};aps.forEach(a=>{const n=a.service?.name;if(n)fm[n]=(fm[n]||0)+1});
+  const favs=Object.entries(fm).sort((a,b)=>b[1]-a[1]).slice(0,2).map(e=>e[0]);
+  const paid=state.payments.filter(p=>p.customerId===id).reduce((s,p)=>s+p.amount,0);
+  const due=done.reduce((s,a)=>s+(a.price||0),0);
+  return{visits,lastVisit,lastSvc,favs,bal:paid-due,customer:custById(id),aps};
+}
+function staffStatus(specId){
+  const T=todayISO(),n=new Date(),nm=n.getHours()*60+n.getMinutes();
+  const tod=state.appointments.filter(a=>a.date===T&&a.specialistId===specId&&['confirmed','waiting'].includes(a.status));
+  let busy=null;
+  tod.forEach(a=>{const[h,m]=a.time.split(':').map(Number);const s=h*60+m;if(nm>=s&&nm<s+(a.service?.duration_minutes||60))busy=a});
+  const ups=tod.filter(a=>{const[h,m]=a.time.split(':').map(Number);return h*60+m>nm}).sort((a,b)=>a.time.localeCompare(b.time));
+  return{busy,next:ups[0]?.time||null};
+}
+function filterCustomers(q){
+  q=toEn(q).trim().toLowerCase();const dg=q.replace(/\D/g,'');
+  return state.customers.filter(c=>c.full_name.toLowerCase().includes(q)||(dg.length>=2&&toEn(c.phone).includes(dg)));
+}
+function nextSlot(){
+  const n=new Date();let m=n.getHours()*60+n.getMinutes();
+  m=Math.ceil((m+10)/30)*30;if(m<600)m=600;if(m>1050)m=600;
+  return `${p2(Math.floor(m/60))}:${p2(m%60)}`;
+}
+
+/* ---------- رندر: شاخص‌ها ---------- */
+function renderKPIs(){
+  const T=todayISO();
+  const tod=state.appointments.filter(a=>a.date===T&&a.status!=='cancelled');
+  const waiting=tod.filter(a=>a.status==='waiting').length;
+  const completed=tod.filter(a=>a.status==='completed').length;
+  const paysToday=state.payments.filter(p=>isoOf(new Date(p.paidAt))===T);
+  const rev=paysToday.reduce((s,p)=>s+p.amount,0);
+  const cards=[
+    {i:'calCheck',l:'نوبت‌های امروز',v:toFa(tod.length),c:`${toFa(waiting)} نوبت در انتظار تأیید`,d:'ochre'},
+    {i:'clock',l:'در انتظار',v:toFa(waiting),c:'نیازمند تأیید یا پیگیری',d:'ochre'},
+    {i:'check',l:'تکمیل شده',v:toFa(completed),c:`از ${toFa(tod.length)} نوبت امروز`,d:'sage'},
+    {i:'wallet',l:'درآمد امروز',v:money(rev),u:'تومان',c:`${toFa(paysToday.length)} پرداخت ثبت‌شده`,d:'terracotta'}
+  ];
+  $('#kpis').innerHTML=cards.map(k=>`<div class="kpi">
+    <div class="kpi-top"><span class="kpi-ic">${ic(k.i,18)}</span><span>${k.l}</span></div>
+    <div class="kpi-val">${k.v}${k.u?`<em>${k.u}</em>`:''}</div>
+    <div class="kpi-ctx"><i class="dot-${k.d}"></i>${k.c}</div>
+  </div>`).join('');
+}
+
+/* ---------- رندر: تایم‌لاین ---------- */
+function apptList(dateISO,filter){
+  let l=state.appointments.filter(a=>a.date===dateISO);
+  if(filter&&filter!=='all')l=l.filter(a=>a.status===filter);
+  return l.sort((a,b)=>a.time.localeCompare(b.time));
+}
+function apptHTML(a,current){
+  const dur=a.service?.duration_minutes||60;
+  const acts=a.status==='waiting'
+    ?`<span class="appt-acts"><button class="act act-c" data-act="appt-confirm" data-id="${a.id}">تأیید</button><button class="act act-x" data-act="appt-cancel" data-id="${a.id}">لغو</button></span>`
+    :a.status==='confirmed'
+    ?`<span class="appt-acts"><button class="act act-f" data-act="appt-complete" data-id="${a.id}">تکمیل</button><button class="act act-x" data-act="appt-cancel" data-id="${a.id}">لغو</button></span>`
+    :a.status==='completed'?`<span class="appt-acts"><span class="act act-done">انجام شد</span></span>`:'';
+  const note=a.notes?`<span class="ap-note" title="${esc(a.notes)}">${ic('info',12)}${esc(a.notes.length>24?a.notes.slice(0,24)+'…':a.notes)}</span>`:'';
+  return`<div class="tl-item st-${a.status} ${current?'current':''}" data-apid="${a.id}">
+    <div class="tl-time"><b>${toFa(a.time)}</b><span>${faDur(dur)}</span></div>
+    <div class="tl-rail"><i class="tl-dot"></i></div>
+    <div class="appt">
+      <div class="appt-top">
+        <span class="avatar sm">${esc(initials(a.customer?.full_name))}</span>
+        <b>${esc(a.customer?.full_name||'—')}</b>
+        ${current?'<span class="now-tag">جاری</span>':''}
+        <span class="st st-${a.status}">${ST[a.status]}</span>
+        ${acts}
+      </div>
+      <div class="appt-meta">
+        <span class="svc">${esc(a.service?.name||'خدمت حذف‌شده')}</span><span class="sep"></span>
+        <span>${esc(a.specialist?.full_name||'—')}</span>
+        ${note}
+        ${a.price?`<span class="price">${money(a.price)} تومان</span>`:''}
+      </div>
+    </div></div>`;
+}
+function renderTimelineInto(el,dateISO,filter){
+  const list=apptList(dateISO,filter),isToday=dateISO===todayISO();
+  const n=new Date(),nm=n.getHours()*60+n.getMinutes();
+  const nowTxt=`اکنون · ${toFa(p2(n.getHours())+':'+p2(n.getMinutes()))}`;
+  if(!list.length){el.innerHTML=`<div class="empty"><span class="ic-c">${ic('cal',22)}</span><b>نوبتی ثبت نشده</b><p>برای این روز هیچ نوبتی در تقویم نیست.</p></div>`;return}
+  let html='',placed=!isToday;
+  list.forEach(a=>{
+    const[h,m]=a.time.split(':').map(Number);const s=h*60+m,e=s+(a.service?.duration_minutes||60);
+    if(!placed&&e>nm){html+=`<div class="tl-now"><i></i><span>${nowTxt}</span></div>`;placed=true}
+    html+=apptHTML(a,isToday&&['confirmed','waiting'].includes(a.status)&&nm>=s&&nm<e);
+  });
+  if(!placed)html+=`<div class="tl-now"><i></i><span>${nowTxt}</span></div>`;
+  el.innerHTML=html;
+}
+function renderTimelineMain(){
+  const T=todayISO(),n=apptList(T,'all').length;
+  $('#tlSub').textContent=jMed(T);
+  $('#tlCount').textContent=`${toFa(n)} نوبت`;
+  renderTimelineInto($('#tlToday'),T,'all');
+  if(lastCreated){const el=document.querySelector(`[data-apid="${lastCreated}"] .appt`);if(el)el.classList.add('flash');lastCreated=null}
+}
+
+/* ---------- رندر: فرم ثبت نوبت ---------- */
+function updateServiceHint(){const s=svcById($('#bkService').value);$('#bkServiceHint').textContent=s?`مدت تقریبی: ${faDur(s.duration_minutes)}`:''}
+function fillServiceSelect(){
+  const sel=$('#bkService'),prev=sel.value;
+  sel.innerHTML='<option value="">انتخاب کنید…</option>'+state.services.filter(s=>s.is_active)
+    .map(s=>`<option value="${s.id}">${esc(s.name)} — ${s.price_label?esc(s.price_label):money(s.base_price)+' تومان'}</option>`).join('');
+  if(prev&&state.services.some(s=>s.id===prev&&s.is_active))sel.value=prev;
+  updateServiceHint();
+}
+function fillSpecialistSelect(svcId,keep){
+  const sel=$('#bkSpecialist'),prev=keep||sel.value;
+  const cat=svcId?svcById(svcId)?.category:null;
+  const kw={مو:['کوتاهی','رنگ','لایت','شنیون','اسکراپ','براشبنگ','وکس'],ناخن:['ناخن'],پوست:['پاکسازی'],چهره:['ابرو','مژه','میکاپ','میکرو','بلید','وکس']}[cat]||[];
+  const act=state.specialists.filter(s=>s.is_active);
+  const match=act.filter(s=>kw.some(k=>(s.specialty||'').includes(k)));
+  const rest=act.filter(s=>!match.includes(s));
+  sel.innerHTML='<option value="">انتخاب کنید…</option>'+[...match,...rest]
+    .map(s=>`<option value="${s.id}">${esc(s.full_name)} — ${esc(s.specialty||'')}</option>`).join('');
+  if(prev&&act.some(s=>s.id===prev))sel.value=prev;
+  else if(match[0])sel.value=match[0].id;
+}
+function fillBookingSelects(force){
+  const sig=state.services.map(s=>s.id+s.is_active).join()+'|'+state.specialists.map(s=>s.id+s.is_active).join();
+  if(!force&&sig===lastSig)return;lastSig=sig;
+  fillServiceSelect();fillSpecialistSelect($('#bkService').value,$('#bkSpecialist').value);checkOverlap();
+}
+function updateBkDateHint(){const v=$('#bkDate').value;$('#bkDateHint').textContent=v?jFull(v):''}
+function syncBkChips(){$$('[data-act="bk-day"]').forEach(c=>c.classList.toggle('active',$('#bkDate').value===addDays(todayISO(),+c.dataset.v)))}
+function updateBkCustSel(){const c=custById(bkCust);const el=$('#bkCustSel');if(c){el.hidden=false;$('#bkCustName').textContent=c.full_name}else el.hidden=true}
+function checkOverlap(){
+  const w=$('#bkOverlap');
+  const specId=$('#bkSpecialist').value,date=$('#bkDate').value,time=$('#bkTime').value;
+  const dur=svcById($('#bkService').value)?.duration_minutes||60;
+  if(!specId||!date||!time){w.hidden=true;return}
+  const[h,m]=time.split(':').map(Number);const s=h*60+m;
+  const hit=state.appointments.find(a=>{
+    if(a.specialistId!==specId||a.date!==date||a.status==='cancelled'||!a.service)return false;
+    const[ah,am]=a.time.split(':').map(Number);const as=ah*60+am;
+    return s<as+a.service.duration_minutes&&s+dur>as;
+  });
+  if(hit){w.hidden=false;w.innerHTML=`${ic('info',14)} هم‌زمانی: ${esc(hit.specialist?.full_name||'')} ساعت ${toFa(hit.time)} نوبتِ «${esc(hit.customer?.full_name||'')}» دارد.`}
+  else w.hidden=true;
+}
+function renderBkDrop(){
+  const q=toEn($('#bkCust').value.trim()),drop=$('#bkCustDrop');
+  if(!q){drop.classList.remove('open');return}
+  const m=filterCustomers(q).slice(0,5);
+  drop.innerHTML=(m.length?m.map(c=>`<button class="ac-row" data-act="bk-pick" data-id="${c.id}"><span class="avatar sm">${esc(initials(c.full_name))}</span><span><b>${esc(c.full_name)}</b><span>${maskPhone(c.phone)}</span></span></button>`).join(''):'')
+    +`<button class="ac-row ac-add" data-act="bk-new"><span class="avatar sm">${ic('plus',14)}</span><span><b>افزودن مشتری جدید</b>${q?`<span>«${esc(q)}»</span>`:''}</span></button>`;
+  drop.classList.add('open');
+}
+async function createInline(){
+  const name=$('#bkNewName').value.trim(),phone=toEn($('#bkNewPhone').value.trim());
+  if(name.length<2)return toast('نام مشتری را وارد کنید','error');
+  if(!/^09\d{9}$/.test(phone))return toast('شماره موبایل معتبر نیست (۰۹…)','error');
+  if(state.customers.some(c=>c.phone===phone))return toast('این شماره قبلاً ثبت شده — از جستجو انتخاب کنید','error');
+  let c;
+  if(state.mode==='live'){
+    const{data,error}=await state.sb.from('customers').insert({full_name:name,phone}).select().single();
+    if(error)return toast('خطا: '+error.message,'error');
+    c=data;await loadLive();
+  }else{
+    c={id:'c'+Date.now(),full_name:name,phone,birthday:null,notes:null,created_at:new Date().toISOString()};
+    state.customers.push(c);
+  }
+  toast(`مشتری «${name}» ثبت شد`,'success');
+  bkCust=c.id;updateBkCustSel();
+  $('#bkNew').hidden=true;$('#bkNewName').value='';$('#bkNewPhone').value='';$('#bkCust').value='';
+  renderCs();
+}
+async function submitBooking(){
+  const svc=svcById($('#bkService').value),spec=specById($('#bkSpecialist').value);
+  const date=$('#bkDate').value,time=$('#bkTime').value,notes=$('#bkNotes').value.trim();
+  if(!bkCust)return toast('ابتدا مشتری را انتخاب کنید','error');
+  if(!svc)return toast('خدمت را انتخاب کنید','error');
+  if(!spec)return toast('متخصص را انتخاب کنید','error');
+  if(!date)return toast('تاریخ را انتخاب کنید','error');
+  const price=svc.base_price??null;let newId;
+  if(state.mode==='live'){
+    const{data,error}=await state.sb.from('appointments')
+      .insert({customer_id:bkCust,service_id:svc.id,specialist_id:spec.id,appointment_date:date,start_time:time+':00',status:'waiting',price,notes:notes||null})
+      .select('id').single();
+    if(error)return toast('خطا در ثبت: '+error.message,'error');
+    newId=data.id;await loadLive();
+  }else{
+    newId='a'+Date.now();
+    state.appointments.push({id:newId,customerId:bkCust,serviceId:svc.id,specialistId:spec.id,date,time,status:'waiting',price,notes,
+      customer:custById(bkCust),service:svc,specialist:spec});
+  }
+  const c=custById(bkCust);lastCreated=newId;
+  toast(`نوبت ${c.full_name} — ${svc.name} — ساعت ${toFa(time)} ثبت شد`,'success');
+  bkCust=null;updateBkCustSel();$('#bkCust').value='';$('#bkNotes').value='';
+  $('#bkDate').value=todayISO();syncBkChips();updateBkDateHint();
+  renderAll();
+  setTimeout(()=>{const el=document.querySelector(`[data-apid="${newId}"] .appt`);if(el){el.classList.add('flash');el.scrollIntoView({behavior:'smooth',block:'center'})}},60);
+}
+
+/* ---------- رندر: جستجوی مشتری ---------- */
+function renderCs(){
+  const q=toEn($('#csInput').value.trim()),box=$('#csResults');
+  let list=q?filterCustomers(q).slice(0,5):[...state.customers].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,3);
+  if(!list.length){
+    box.innerHTML=`<div class="cs-empty">${q?'مشتری‌ای یافت نشد — ':'مشتری‌ای ثبت نشده — '}<button class="link-btn" data-act="add-customer">افزودن مشتری جدید</button></div>`;return;
+  }
+  box.innerHTML=list.map(c=>{
+    const st=custStats(c.id);
+    return`<button class="cs-row ${state.selectedCustomerId===c.id?'sel':''}" data-act="select-cust" data-id="${c.id}">
+      <span class="avatar sm">${esc(initials(c.full_name))}</span>
+      <span class="cs-info"><b>${esc(c.full_name)}</b><span>${maskPhone(c.phone)}${st.lastVisit?' · آخرین مراجعه '+jShort(st.lastVisit):''}</span></span>
+      ${st.lastSvc?`<span class="cs-last">${esc(st.lastSvc)}</span>`:''}
+    </button>`;
+  }).join('');
+}
+
+/* ---------- رندر: پیش‌نمایش پرونده ---------- */
+function renderPv(){
+  const el=$('#pvBody');
+  if(!state.selectedCustomerId||!custById(state.selectedCustomerId)){
+    el.innerHTML=`<div class="empty"><span class="ic-c">${ic('user',22)}</span><b>مشتری انتخاب نشده</b><p>از بخش «جستجوی مشتری» یک مشتری را انتخاب کنید.</p></div>`;return;
+  }
+  const st=custStats(state.selectedCustomerId),c=st.customer;
+  const bal=st.bal;
+  el.innerHTML=`
+  <div class="pv-head">
+    <span class="avatar lg">${esc(initials(c.full_name))}</span>
+    <div style="flex:1"><b>${esc(c.full_name)}</b><span class="m-phone ltr">${esc(c.phone)}</span></div>
+    <span class="count-chip">${toFa(st.visits)} مراجعه</span>
+  </div>
+  <div class="pv-rows">
+    <div class="pv-row"><span>شماره تماس</span><b><span class="ltr">${esc(c.phone)}</span><button class="copy" data-act="copy" data-v="${esc(c.phone)}" title="کپی شماره">${ic('copy',14)}</button></b></div>
+    <div class="pv-row"><span>تعداد مراجعه</span><b>${toFa(st.visits)}</b></div>
+    <div class="pv-row"><span>آخرین مراجعه</span><b>${st.lastVisit?jMed(st.lastVisit):'—'}</b></div>
+    <div class="pv-row"><span>خدمات مورد علاقه</span><b class="fav-chips">${st.favs.length?st.favs.map(f=>`<span class="fav-chip">${esc(f)}</span>`).join(''):'—'}</b></div>
+    <div class="pv-row"><span>تولد</span><b>${c.birthday?jDM(pDate(c.birthday)):'—'}</b></div>
+    <div class="pv-row"><span>اعتبار / بدهی</span><b class="${bal>0?'bal-ok':bal<0?'bal-debt':''}">${bal>0?'اعتبار ':bal<0?'بدهی ':''}${money(Math.abs(bal))} تومان</b></div>
+  </div>
+  <div class="pv-actions">
+    <button class="btn btn-ghost" data-act="open-cust" data-id="${c.id}">پرونده مشتری</button>
+    <button class="btn btn-primary" data-act="book-cust" data-id="${c.id}">ثبت نوبت</button>
+  </div>`;
+}
+
+/* ---------- رندر: وضعیت متخصص‌ها ---------- */
+function renderStaff(){
+  const list=state.specialists.filter(s=>s.is_active);
+  if(!list.length){$('#staffList').innerHTML=`<div class="empty"><span class="ic-c">${ic('badge',22)}</span><b>متخصصی ثبت نشده</b><p>از بخش «متخصص‌ها» اضافه کنید.</p></div>`;return}
+  $('#staffList').innerHTML=list.map(s=>{
+    const st=staffStatus(s.id);
+    return`<div class="staff-row">
+      <span class="avatar sm">${esc(initials(s.full_name))}</span>
+      <span class="st-info"><b>${esc(s.full_name)}</b><span class="spec-tag">${esc(s.specialty||'')}</span></span>
+      <span class="st-status ${st.busy?'busy':'free'}">
+        <span class="ss-l"><i></i>${st.busy?'در حال سرویس':'آزاد'}</span>
+        <em>${st.busy?('— '+esc(st.busy.service?.name||'')):(st.next?'نوبت بعدی '+toFa(st.next):'بدون نوبت')}</em>
+      </span>
+    </div>`;
+  }).join('');
+}
+
+/* ---------- رندر: نمای نوبت‌ها ---------- */
+function renderApv(){
+  const D=state.apptsDate;
+  $('#apvSub').textContent=jFull(D);
+  $$('[data-act="apv-filter"]').forEach(b=>b.classList.toggle('active',b.dataset.v===state.apptFilter));
+  const all=state.appointments.filter(a=>a.date===D);
+  const pays=state.payments.filter(p=>isoOf(new Date(p.paidAt))===D);
+  const rev=pays.reduce((s,p)=>s+p.amount,0);
+  $('#apvStats').innerHTML=[
+    ['cal','کل نوبت‌ها',toFa(all.length)],
+    ['check','تکمیل شده',toFa(all.filter(a=>a.status==='completed').length)],
+    ['clock','در انتظار',toFa(all.filter(a=>a.status==='waiting').length)],
+    ['wallet','درآمد روز',money(rev)+' تومان']
+  ].map(([i,l,v])=>`<div class="mstat"><i>${ic(i,16)}</i><div><b>${v}</b><span>${l}</span></div></div>`).join('');
+  renderTimelineInto($('#apvTimeline'),D,state.apptFilter);
+}
+
+/* ---------- رندر: نمای مشتری‌ها ---------- */
+function renderCustView(){
+  const q=toEn(($('#custSearch')?.value||'').trim().toLowerCase());
+  let list=[...state.customers].sort((a,b)=>a.full_name.localeCompare(b.full_name,'fa'));
+  if(q){const dg=q.replace(/\D/g,'');list=list.filter(c=>c.full_name.toLowerCase().includes(q)||(dg.length>=2&&toEn(c.phone).includes(dg)))}
+  $('#custSub').textContent=`${toFa(state.customers.length)} مشتری ثبت‌شده`;
+  const el=$('#custTable');
+  if(!list.length){el.innerHTML=`<div class="empty"><span class="ic-c">${ic('users',22)}</span><b>${q?'مشتری‌ای یافت نشد':'هنوز مشتری‌ای ثبت نشده'}</b>${q?'':'<p>اولین مشتری سالن را اضافه کنید.</p>'}</div>`;return}
+  el.innerHTML=`<div class="table-wrap"><table class="tb"><thead><tr><th>مشتری</th><th>موبایل</th><th>مراجعات</th><th>آخرین مراجعه</th><th>تولد</th><th></th></tr></thead><tbody>
+  ${list.slice(0,150).map(c=>{const st=custStats(c.id);return`<tr>
+    <td><span class="name-cell"><span class="avatar sm">${esc(initials(c.full_name))}</span>${esc(c.full_name)}</span></td>
+    <td><span class="ltr">${esc(c.phone)}</span></td>
+    <td>${toFa(st.visits)}</td>
+    <td>${st.lastVisit?jShort(st.lastVisit):'—'}</td>
+    <td>${c.birthday?jDM(pDate(c.birthday)):'—'}</td>
+    <td><span class="actions">
+      <button class="mini-act" data-act="open-cust" data-id="${c.id}">پرونده</button>
+      <button class="mini-act" data-act="book-cust" data-id="${c.id}">نوبت</button>
+      <button class="mini-act danger" data-act="del-customer" data-id="${c.id}" title="حذف">${ic('trash',13)}</button>
+    </span></td></tr>`}).join('')}</tbody></table></div>`;
+}
+
+/* ---------- رندر: خدمات ---------- */
+function renderSvcView(){
+  const list=[...state.services].sort((a,b)=>(a.category||'').localeCompare(b.category||'','fa')||a.name.localeCompare(b.name,'fa'));
+  $('#svcSub').textContent=`${toFa(state.services.length)} خدمت در تعرفه سالن`;
+  const el=$('#svcTable');
+  if(!list.length){el.innerHTML=`<div class="empty"><span class="ic-c">${ic('tag',22)}</span><b>هنوز خدمتی ثبت نشده</b><p>می‌توانید بخش اختیاری اسکریپت SQL (خدمات واقعی سالن) را اجرا کنید یا دستی اضافه کنید.</p></div>`;return}
+  el.innerHTML=`<div class="table-wrap"><table class="tb"><thead><tr><th>خدمت</th><th>دسته</th><th>مدت</th><th>قیمت</th><th>فعال</th><th></th></tr></thead><tbody>
+  ${list.map(s=>`<tr>
+    <td><span class="name-cell">${esc(s.name)}</span></td>
+    <td>${esc(s.category||'—')}</td>
+    <td>${faDur(s.duration_minutes)}</td>
+    <td><b>${s.price_label?esc(s.price_label):money(s.base_price)+' تومان'}</b></td>
+    <td><button class="switch ${s.is_active?'on':''}" data-act="toggle-service" data-id="${s.id}" aria-label="فعال/غیرفعال"></button></td>
+    <td><span class="actions">
+      <button class="mini-act" data-act="edit-service" data-id="${s.id}">${ic('pencil' in I?'pencil':'edit',13)} ویرایش</button>
+      <button class="mini-act danger" data-act="del-service" data-id="${s.id}">${ic('trash',13)}</button>
+    </span></td></tr>`).join('')}</tbody></table></div>`;
+}
+
+/* ---------- رندر: متخصص‌ها ---------- */
+function renderSpecView(){
+  const list=[...state.specialists].sort((a,b)=>a.full_name.localeCompare(b.full_name,'fa'));
+  $('#specSub').textContent=`${toFa(state.specialists.length)} عضو تیم سالن`;
+  const el=$('#specGrid');
+  if(!list.length){el.innerHTML=`<div class="panel" style="grid-column:1/-1"><div class="empty"><span class="ic-c">${ic('badge',22)}</span><b>متخصصی ثبت نشده</b><p>بخش اختیاری اسکریپت SQL لیست واقعی تیم را وارد می‌کند.</p></div></div>`;return}
+  el.innerHTML=list.map(s=>{
+    const st=s.is_active?staffStatus(s.id):null;
+    return`<div class="spec-card">
+      <div class="top"><span class="avatar">${esc(initials(s.full_name))}</span>
+        <div style="flex:1;min-width:0"><b>${esc(s.full_name)}</b><span class="spec-tag">${esc(s.specialty||'')}</span></div></div>
+      ${st?`<span class="st-status ${st.busy?'busy':'free'}"><span class="ss-l"><i></i>${st.busy?'در حال سرویس':'آزاد'}</span><em>${st.busy?('— '+esc(st.busy.service?.name||'')):(st.next?'نوبت بعدی '+toFa(st.next):'بدون نوبت')}</em></span>`:'<span class="hint">غیرفعال</span>'}
+      <div class="spec-foot">
+        <button class="switch ${s.is_active?'on':''}" data-act="toggle-spec" data-id="${s.id}" aria-label="فعال/غیرفعال"></button>
+        <button class="mini-act" data-act="edit-spec" data-id="${s.id}">ویرایش</button>
+        <button class="mini-act danger" data-act="del-spec" data-id="${s.id}">${ic('trash',13)}</button>
+      </div></div>`;
+  }).join('');
+}
+
+/* ---------- رندر: پرداخت‌ها ---------- */
+function renderPayView(){
+  $$('[data-act="pay-filter"]').forEach(b=>b.classList.toggle('active',b.dataset.v===state.payFilter));
+  let list=state.payments;
+  if(state.payFilter==='today')list=list.filter(p=>isoOf(new Date(p.paidAt))===todayISO());
+  if(state.payFilter==='week'){const cut=Date.now()-7*864e5;list=list.filter(p=>new Date(p.paidAt).getTime()>=cut)}
+  const total=list.reduce((s,p)=>s+p.amount,0);
+  $('#paySub').textContent=state.payFilter==='today'?'پرداخت‌های امروز':state.payFilter==='week'?'۷ روز گذشته':'همه پرداخت‌ها';
+  $('#payTotal').textContent=`جمع: ${money(total)} تومان`;
+  const el=$('#payTable');
+  if(!list.length){el.innerHTML=`<div class="empty"><span class="ic-c">${ic('wallet',22)}</span><b>پرداختی ثبت نشده</b><p>با تکمیل نوبت‌ها، پرداخت‌ها اینجا ثبت می‌شود.</p></div>`;return}
+  el.innerHTML=`<div class="table-wrap"><table class="tb"><thead><tr><th>زمان</th><th>مشتری</th><th>خدمت</th><th>مبلغ</th><th>روش</th></tr></thead><tbody>
+  ${list.slice(0,200).map(p=>{
+    const ap=A(p.appointmentId);
+    return`<tr><td>${relTime(p.paidAt)}</td>
+      <td><span class="name-cell">${esc(custById(p.customerId)?.full_name||'—')}</span></td>
+      <td>${esc(ap?.service?.name||'—')}</td>
+      <td><b>${money(p.amount)} تومان</b></td>
+      <td><span class="st st-completed">${PAYM[p.method]||p.method}</span></td></tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+/* ---------- رندر: گزارش روزانه ---------- */
+function renderReport(){
+  const D=state.reportDate;
+  $('#repSub').textContent=jFull(D);
+  const all=state.appointments.filter(a=>a.date===D);
+  const c={waiting:0,confirmed:0,completed:0,cancelled:0};all.forEach(a=>c[a.status]=(c[a.status]||0)+1);
+  const pays=state.payments.filter(p=>isoOf(new Date(p.paidAt))===D);
+  const rev=pays.reduce((s,p)=>s+p.amount,0);
+  $('#repTiles').innerHTML=[
+    ['cal','کل نوبت‌ها',toFa(all.length)],['check','تکمیل شده',toFa(c.completed)],
+    ['clock','در انتظار',toFa(c.waiting)],['x','لغو شده',toFa(c.cancelled)],
+    ['wallet','درآمد',money(rev)+' تومان'],['chart','پرداخت',toFa(pays.length)+' مورد']
+  ].map(([i,l,v])=>`<div class="mstat"><i>${ic(i,16)}</i><div><b>${v}</b><span>${l}</span></div></div>`).join('');
+  const methods={};pays.forEach(p=>methods[p.method]=(methods[p.method]||0)+p.amount);
+  const mmax=Math.max(1,...Object.values(methods));
+  const specs={};all.filter(a=>a.status==='completed'&&a.specialist).forEach(a=>{const k=a.specialist.full_name;specs[k]=specs[k]||[0,0];specs[k][0]++;specs[k][1]+=(a.price||0)});
+  const smax=Math.max(1,...Object.values(specs).map(v=>v[0]));
+  const svcs={};all.forEach(a=>{if(a.service)svcs[a.service.name]=(svcs[a.service.name]||0)+1});
+  const vcmax=Math.max(1,...Object.values(svcs));
+  const bars=(obj,max,cls)=>Object.entries(obj).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="bar-row"><div class="t"><b>${esc(k)}</b><span>${money(v)}</span></div><div class="bar ${cls||''}"><i style="width:${Math.round(v/max*100)}%"></i></div></div>`).join('');
+  $('#repBody').innerHTML=`
+    <div class="panel"><div class="panel-head"><div><h3>تفکیک درآمد بر اساس روش پرداخت</h3><p>${toFa(pays.length)} پرداخت امروز</p></div></div>
+      ${Object.keys(methods).length?Object.entries(methods).sort((a,b)=>b[1]-a[1]).map(([m,v])=>`<div class="bar-row"><div class="t"><b>${PAYM[m]||m}</b><span>${money(v)} تومان</span></div><div class="bar"><i style="width:${Math.round(v/mmax*100)}%"></i></div></div>`).join(''):'<p class="hint">پرداختی برای این روز ثبت نشده است.</p>'}
+    </div>
+    <div class="panel"><div class="panel-head"><div><h3>عملکرد متخصص‌ها</h3><p>نوبت‌های تکمیل‌شده امروز</p></div></div>
+      ${Object.keys(specs).length?Object.entries(specs).sort((a,b)=>b[1][0]-a[1][0]).map(([k,v])=>`<div class="bar-row"><div class="t"><b>${esc(k)}</b><span>${toFa(v[0])} نوبت · ${money(v[1])} تومان</span></div><div class="bar sage"><i style="width:${Math.round(v[0]/smax*100)}%"></i></div></div>`).join(''):'<p class="hint">برای این روز نوبتی تکمیل نشده است.</p>'}
+    </div>
+    <div class="panel"><div class="panel-head"><div><h3>خدمات پرتقاضا</h3><p>بر اساس نوبت‌های همین روز</p></div></div>
+      ${Object.keys(svcs).length?bars(svcs,vcmax,'blush'):'<p class="hint">نوبتی برای این روز ثبت نشده است.</p>'}
+    </div>`;
+}
+
+/* ---------- رندر: پیام‌ها ---------- */
+function renderMsgs(){
+  const unread=state.messages.filter(m=>!m.is_read).length;
+  $('#msgSub').textContent=`${toFa(unread)} پیام خوانده‌نشده`;
+  const list=[...state.messages].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  const el=$('#msgList');
+  if(!list.length){el.innerHTML=`<div class="empty"><span class="ic-c">${ic('msg',22)}</span><b>پیامی ندارید</b><p>یادآوری تولد و درخواست‌ها اینجا نمایش داده می‌شود.</p></div>`;return}
+  el.innerHTML=list.map(m=>`<button class="msg-row ${m.is_read?'read':''}" data-act="read-msg" data-id="${m.id}">
+    <span class="dot"></span>
+    <span style="flex:1"><b>${esc(m.title||'پیام')}</b><p>${esc(m.body)}</p><time>${relTime(m.created_at)}</time></span>
+  </button>`).join('');
+}
+
+/* ---------- اعلان‌ها ---------- */
+function notifItems(){
+  const items=state.messages.filter(m=>!m.is_read).map(m=>({icn:'msg',t:m.title||'پیام',b:m.body,time:relTime(m.created_at),id:m.id}));
+  const now=new Date();
+  state.customers.forEach(c=>{
+    if(!c.birthday)return;
+    const bd=pDate(c.birthday);
+    let nb=new Date(now.getFullYear(),bd.getMonth(),bd.getDate());
+    if(nb<new Date(now.getFullYear(),now.getMonth(),now.getDate()))nb=new Date(now.getFullYear()+1,bd.getMonth(),bd.getDate());
+    const days=Math.round((nb-now)/864e5);
+    if(days<=10)items.push({icn:'cal',t:'تولد نزدیک',b:`تولد ${c.full_name} — ${jDM(nb)}${days===0?' (امروز)':''}`,time:days===0?'امروز':toFa(days)+' روز مانده',id:null});
+  });
+  return items;
+}
+function renderNotif(){
+  const items=notifItems();
+  const nb=$('#nBadge');nb.textContent=toFa(items.length);nb.style.display=items.length?'grid':'none';
+  const mb=$('#navMsgBadge');const un=state.messages.filter(m=>!m.is_read).length;
+  mb.textContent=toFa(un);mb.style.display=un?'grid':'none';
+  $('#notifDrop').innerHTML=items.length?items.map(it=>`<button class="notif-item" ${it.id?`data-act="read-msg" data-id="${it.id}"`:''}>
+    <span class="notif-ic">${ic(it.icn,15)}</span><span><b>${esc(it.t)}</b><p>${esc(it.b)}</p><time>${esc(it.time)}</time></span>
+  </button>`).join(''):`<div class="notif-empty">اعلان جدیدی ندارید</div>`;
+}
+
+/* ---------- مودال‌ها ---------- */
+function openModal(id){$('#'+id).classList.add('open')}
+function closeModal(id){$('#'+id).classList.remove('open')}
+function toast(msg,type='info'){
+  const t=document.createElement('div');t.className='toast '+type;
+  t.innerHTML=`<span class="t-ic">${ic(type==='success'?'check':type==='error'?'x':'info',14)}</span><span>${msg}</span>`;
+  $('#toasts').appendChild(t);
+  setTimeout(()=>t.classList.add('out'),3400);setTimeout(()=>t.remove(),3850);
+}
+let cnRes=null;
+function uiConfirm({title,body,ok='تأیید',danger=false}){
+  return new Promise(res=>{cnRes=res;$('#cnTitle').textContent=title;$('#cnBody').textContent=body;
+    const b=$('#cnOk');b.textContent=ok;b.className='btn '+(danger?'btn-danger':'btn-primary');openModal('mConfirm')});
+}
+
+function openCustomer(id){
+  const st=custStats(id);if(!st.customer)return;
+  const c=st.customer;
+  const hist=[...st.aps].sort((a,b)=>b.date.localeCompare(a.date)||b.time.localeCompare(a.time)).slice(0,10);
+  const pays=state.payments.filter(p=>p.customerId===id).slice(0,6);
+  const bal=st.bal;
+  $('#mCustBody').innerHTML=`
+  <div class="pv-head">
+    <span class="avatar lg">${esc(initials(c.full_name))}</span>
+    <div style="flex:1"><b>${esc(c.full_name)}</b><span class="m-phone ltr">${esc(c.phone)}</span></div>
+    <button class="copy" data-act="copy" data-v="${esc(c.phone)}" title="کپی شماره">${ic('copy',14)}</button>
+    <span class="count-chip">${toFa(st.visits)} مراجعه</span>
+  </div>
+  <div class="pv-rows">
+    <div class="pv-row"><span>تولد</span><b>${c.birthday?jDM(pDate(c.birthday)):'—'}</b></div>
+    <div class="pv-row"><span>عضویت از</span><b>${c.created_at?jShort(isoOf(new Date(c.created_at))):'—'}</b></div>
+    <div class="pv-row"><span>آخرین مراجعه</span><b>${st.lastVisit?jMed(st.lastVisit):'—'}</b></div>
+    <div class="pv-row"><span>اعتبار / بدهی</span><b class="${bal>0?'bal-ok':bal<0?'bal-debt':''}">${bal>0?'اعتبار ':bal<0?'بدهی ':''}${money(Math.abs(bal))} تومان</b></div>
+  </div>
+  <div class="hr"></div>
+  <h4 class="mh">نوبت‌های اخیر</h4>
+  ${hist.length?`<div class="table-wrap"><table class="tb"><thead><tr><th>تاریخ</th><th>خدمت</th><th>متخصص</th><th>مبلغ</th><th>وضعیت</th></tr></thead><tbody>
+    ${hist.map(a=>`<tr><td>${jShort(a.date)}</td><td><b>${esc(a.service?.name||'—')}</b></td><td>${esc(a.specialist?.full_name||'—')}</td><td>${a.price?money(a.price):'—'}</td><td><span class="st st-${a.status}">${ST[a.status]}</span></td></tr>`).join('')}
+  </tbody></table></div>`:`<p class="hint">نوبتی ثبت نشده است.</p>`}
+  <h4 class="mh">پرداخت‌های اخیر</h4>
+  ${pays.length?pays.map(p=>`<div class="bar-row"><div class="t"><b>${money(p.amount)} تومان</b><span>${PAYM[p.method]||p.method} · ${relTime(p.paidAt)}</span></div></div>`).join(''):'<p class="hint">پرداختی ثبت نشده است.</p>'}
+  <div class="hr"></div>
+  <div class="field"><label>یادداشت مشتری</label><textarea class="in" id="custNoteTa" rows="2">${esc(c.notes||'')}</textarea></div>
+  <div class="m-actions">
+    <button class="btn btn-primary" data-act="book-cust" data-id="${c.id}">ثبت نوبت</button>
+    <button class="btn btn-ghost" data-act="save-note" data-id="${c.id}">ذخیره یادداشت</button>
+  </div>`;
+  openModal('mCust');
+}
+function openPay(id){
+  const a=A(id);if(!a)return;payTarget=id;
+  $('#paySub2').textContent='';
+  $('#paySub').textContent=`${a.customer?.full_name||''} — ${a.service?.name||'—'} — ساعت ${toFa(a.time)}`;
+  $('#payAmount').value=a.price??a.service?.base_price??'';
+  $('#payAmount').dispatchEvent(new Event('input'));
+  $('#payMethod').value='pos';
+  openModal('mPay');
+}
+async function finishAppt(withPay){
+  const a=A(payTarget);if(!a)return closeModal('mPay');
+  const amt=withPay?(+$('#payAmount').value||0):0,method=$('#payMethod').value;
+  if(state.mode==='live'){
+    const up={status:'completed'};if(amt)up.price=amt;
+    const{error:e1}=await state.sb.from('appointments').update(up).eq('id',a.id);
+    if(e1)return toast('خطا: '+e1.message,'error');
+    if(amt){const{error:e2}=await state.sb.from('payments').insert({appointment_id:a.id,customer_id:a.customerId,amount:amt,method});if(e2)return toast('خطا در ثبت پرداخت: '+e2.message,'error')}
+    await loadLive();
+  }else{
+    a.status='completed';if(amt)a.price=amt;
+    if(amt)state.payments.unshift({id:'pd'+Date.now(),appointmentId:a.id,customerId:a.customerId,amount:amt,method,paidAt:new Date().toISOString()});
+  }
+  closeModal('mPay');renderAll();
+  toast(withPay?`نوبت ${a.customer?.full_name} تکمیل شد — ${money(amt)} تومان دریافت شد`:`نوبت ${a.customer?.full_name} تکمیل شد`,'success');
+}
+async function setAppt(id,status){
+  if(state.mode==='live'){
+    const{error}=await state.sb.from('appointments').update({status}).eq('id',id);
+    if(error)return toast('خطا در ذخیره: '+error.message,'error');
+    await loadLive();
+  }else{const a=A(id);if(a)a.status=status}
+  renderAll();
+}
+function openCustForm(id){
+  const c=id?custById(id):null;
+  $('#cfTitle').textContent=c?'ویرایش مشتری':'مشتری جدید';
+  $('#cfSave').textContent=c?'ذخیره تغییرات':'ثبت مشتری';
+  $('#cfName').value=c?.full_name||'';$('#cfPhone').value=c?.phone||'';
+  $('#cfBirth').value=c?.birthday||'';$('#cfNotes').value=c?.notes||'';
+  $('#cfBirthHint').textContent=c?.birthday?jFull(c.birthday):'';
+  $('#cfId').value=id||'';openModal('mCustForm');
+}
+function openServiceForm(id){
+  const s=id?svcById(id):null;
+  $('#sfTitle').textContent=s?'ویرایش خدمت':'خدمت جدید';
+  $('#sfName').value=s?.name||'';$('#sfCat').value=s?.category||'مو';
+  $('#sfDur').value=s?.duration_minutes||60;$('#sfPrice').value=s?.base_price??'';
+  $('#sfLabel').value=s?.price_label||'';$('#sfId').value=id||'';openModal('mService');
+}
+function openSpecForm(id){
+  const s=id?specById(id):null;
+  $('#pfTitle').textContent=s?'ویرایش متخصص':'متخصص جدید';
+  $('#pfName').value=s?.full_name||'';$('#pfSpec').value=s?.specialty||'';
+  $('#pfId').value=id||'';openModal('mSpec');
+}
+function openSettings(){
+  let cfg=null;try{cfg=JSON.parse(localStorage.getItem('farivar.sb')||'null')}catch(e){}
+  $('#sbUrl').value=cfg?.url||'';$('#sbKey').value=cfg?.key||'';
+  renderDbStatus();openModal('mSettings');
+}
+function renderDbStatus(){
+  const el=$('#dbStatus');
+  if(state.mode==='live'){el.className='db-status on';el.innerHTML=`<i></i>متصل به پایگاه داده — داده‌ها به‌صورت زنده ذخیره می‌شوند`}
+  else{el.className='db-status off';el.innerHTML=`<i></i>متصل نیست — حالت نمایشی (بدون ذخیره‌سازی)`}
+}
+function renderModeChip(){
+  const ch=$('#modeChip');
+  if(state.mode==='live'){ch.className='tchip mode ok';$('#modeTxt').textContent='متصل'}
+  else{ch.className='tchip mode';$('#modeTxt').textContent='حالت نمایشی'}
+}
+
+/* ---------- سوییچ نمای صفحه ---------- */
+function switchView(v){
+  state.view=v;
+  $$('.view').forEach(s=>s.classList.toggle('active',s.dataset.view===v));
+  $$('.nav-item[data-nav]').forEach(n=>n.classList.toggle('active',n.dataset.nav===v));
+  $('#sidebar').classList.remove('open');$('#scrim').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---------- رندر کلی ---------- */
+function renderAll(){
+  renderModeChip();renderKPIs();renderTimelineMain();renderCs();renderPv();renderStaff();
+  fillBookingSelects();renderNotif();
+  renderApv();renderCustView();renderSvcView();renderSpecView();renderPayView();renderReport();renderMsgs();
+}
+
+/* ---------- رویدادها ---------- */
+document.addEventListener('click',async e=>{
+  const nav=e.target.closest('.nav-item');
+  if(nav){const v=nav.dataset.nav;
+    if(v==='__recep')openModal('mRecep');else if(v==='__settings')openSettings();else switchView(v);return}
+  const cl=e.target.closest('[data-close]');
+  if(cl){closeModal(cl.dataset.close);return}
+  const el=e.target.closest('[data-act]');if(!el)return;
+  const id=el.dataset.id,v=el.dataset.v;
+  try{switch(el.dataset.act){
+    case 'appt-confirm':{const a=A(id);await setAppt(id,'confirmed');toast(`نوبت ${a?.customer?.full_name||''} تأیید شد`,'success');break}
+    case 'appt-cancel':{const a=A(id);
+      const ok=await uiConfirm({title:'لغو نوبت',body:`نوبت ${a?.customer?.full_name||''} — ${a?.service?.name||''} — ساعت ${toFa(a?.time||'')} لغو شود؟`,ok:'لغو نوبت',danger:true});
+      if(ok){await setAppt(id,'cancelled');toast('نوبت لغو شد','info')}break}
+    case 'appt-complete':openPay(id);break;
+    case 'open-cust':openCustomer(id);break;
+    case 'select-cust':state.selectedCustomerId=id;renderCs();renderPv();
+      $('#pvPanel').classList.remove('flash');void $('#pvPanel').offsetWidth;$('#pvPanel').classList.add('flash');break;
+    case 'book-cust':{bkCust=id;updateBkCustSel();$$('.overlay.open').forEach(o=>o.classList.remove('open'));
+      switchView('dashboard');
+      setTimeout(()=>{$('#bookingPanel').scrollIntoView({behavior:'smooth',block:'center'});
+        $('#bookingPanel').classList.remove('flash');void $('#bookingPanel').offsetWidth;$('#bookingPanel').classList.add('flash')},80);break}
+    case 'focus-booking':switchView('dashboard');
+      setTimeout(()=>{$('#bookingPanel').scrollIntoView({behavior:'smooth',block:'center'});
+        $('#bookingPanel').classList.remove('flash');void $('#bookingPanel').offsetWidth;$('#bookingPanel').classList.add('flash')},80);break;
+    case 'goto-appointments':switchView('appointments');break;
+    case 'goto-report':switchView('report');break;
+    case 'bk-day':$('#bkDate').value=addDays(todayISO(),+v);syncBkChips();updateBkDateHint();checkOverlap();break;
+    case 'bk-pick':bkCust=id;$('#bkCust').value='';updateBkCustSel();$('#bkCustDrop').classList.remove('open');break;
+    case 'bk-new':{const q=toEn($('#bkCust').value.trim());$('#bkNew').hidden=false;
+      $('#bkNewName').value=/^\d+$/.test(q)?'':q;$('#bkNewPhone').value=/^\d{4,}$/.test(q)?q:'';
+      $('#bkCustDrop').classList.remove('open');$('#bkNewName').focus();break}
+    case 'copy':if(navigator.clipboard)navigator.clipboard.writeText(el.dataset.v).then(()=>toast('شماره کپی شد','success'));break;
+    case 'apv-prev':state.apptsDate=addDays(state.apptsDate,-1);renderApv();break;
+    case 'apv-next':state.apptsDate=addDays(state.apptsDate,1);renderApv();break;
+    case 'apv-today':state.apptsDate=todayISO();renderApv();break;
+    case 'apv-filter':state.apptFilter=v;renderApv();break;
+    case 'pay-filter':state.payFilter=v;renderPayView();break;
+    case 'rep-prev':state.reportDate=addDays(state.reportDate,-1);renderReport();break;
+    case 'rep-next':state.reportDate=addDays(state.reportDate,1);renderReport();break;
+    case 'rep-today':state.reportDate=todayISO();renderReport();break;
+    case 'add-customer':openCustForm(null);break;
+    case 'edit-customer':openCustForm(id);break;
+    case 'del-customer':{const c=custById(id);
+      const ok=await uiConfirm({title:'حذف مشتری',body:`«${c?.full_name||''}» و تمام نوبت‌هایش حذف می‌شود. مطمئنید؟`,ok:'حذف کامل',danger:true});
+      if(!ok)break;
+      if(state.mode==='live'){const{error}=await state.sb.from('customers').delete().eq('id',id);if(error)return toast('خطا: '+error.message,'error');await loadLive()}
+      else{state.customers=state.customers.filter(x=>x.id!==id);state.appointments=state.appointments.filter(a=>a.customerId!==id);if(state.selectedCustomerId===id)state.selectedCustomerId=null}
+      renderAll();toast('مشتری حذف شد','info');break}
+    case 'add-service':openServiceForm(null);break;
+    case 'edit-service':openServiceForm(id);break;
+    case 'toggle-service':{const s=svcById(id);if(state.mode==='live'){const{error}=await state.sb.from('services').update({is_active:!s.is_active}).eq('id',id);if(error)return toast('خطا: '+error.message,'error');await loadLive()}else s.is_active=!s.is_active;renderAll();break}
+    case 'del-service':{const s=svcById(id);
+      const ok=await uiConfirm({title:'حذف خدمت',body:`«${s?.name||''}» از تعرفه حذف شود؟`,ok:'حذف',danger:true});if(!ok)break;
+      if(state.mode==='live'){const{error}=await state.sb.from('services').delete().eq('id',id);if(error)return toast('خطا: '+error.message,'error');await loadLive()}
+      else state.services=state.services.filter(x=>x.id!==id);
+      renderAll();toast('خدمت حذف شد','info');break}
+    case 'add-spec':openSpecForm(null);break;
+    case 'edit-spec':openSpecForm(id);break;
+    case 'toggle-spec':{const s=specById(id);if(state.mode==='live'){const{error}=await state.sb.from('specialists').update({is_active:!s.is_active}).eq('id',id);if(error)return toast('خطا: '+error.message,'error');await loadLive()}else s.is_active=!s.is_active;renderAll();break}
+    case 'del-spec':{const s=specById(id);
+      const ok=await uiConfirm({title:'حذف متخصص',body:`«${s?.full_name||''}» حذف شود؟ نوبت‌های قبلی او باقی می‌ماند.`,ok:'حذف',danger:true});if(!ok)break;
+      if(state.mode==='live'){const{error}=await state.sb.from('specialists').delete().eq('id',id);if(error)return toast('خطا: '+error.message,'error');await loadLive()}
+      else state.specialists=state.specialists.filter(x=>x.id!==id);
+      renderAll();toast('متخصص حذف شد','info');break}
+    case 'save-note':{const txt=$('#custNoteTa').value.trim();
+      if(state.mode==='live'){const{error}=await state.sb.from('customers').update({notes:txt||null}).eq('id',id);if(error)return toast('خطا: '+error.message,'error');await loadLive()}
+      else{const c=custById(id);if(c)c.notes=txt||null}
+      renderAll();toast('یادداشت ذخیره شد','success');break}
+    case 'read-msg':{const m=state.messages.find(x=>x.id===id);
+      if(m&&!m.is_read){if(state.mode==='live'){await state.sb.from('messages').update({is_read:true}).eq('id',id);await loadLive()}else m.is_read=true;renderAll()}
+      $('#notifDrop').classList.remove('open');break}
+    case 'mark-all-read':if(state.mode==='live'){await state.sb.from('messages').update({is_read:true}).eq('is_read',false);await loadLive()}
+      else state.messages.forEach(m=>m.is_read=true);
+      renderAll();toast('همه پیام‌ها خوانده شد','success');break;
+  }}catch(err){toast('خطا: '+(err.message||err),'error')}
+});
+
+/* رویدادهای ثابت */
+function bindEvents(){
+  const bc=$('#bkCust');
+  bc.addEventListener('input',()=>{if(bkCust){bkCust=null;updateBkCustSel()}renderBkDrop()});
+  bc.addEventListener('focus',renderBkDrop);
+  $('#bkCustClear').addEventListener('click',()=>{bkCust=null;updateBkCustSel();$('#bkCust').focus()});
+  $('#bkNewAdd').addEventListener('click',createInline);
+  $('#bkService').addEventListener('change',()=>{updateServiceHint();fillSpecialistSelect($('#bkService').value,null);checkOverlap()});
+  $('#bkSpecialist').addEventListener('change',checkOverlap);
+  $('#bkDate').addEventListener('change',()=>{syncBkChips();updateBkDateHint();checkOverlap()});
+  $('#bkTime').addEventListener('change',checkOverlap);
+  $('#bkSubmit').addEventListener('click',submitBooking);
+  $('#csInput').addEventListener('input',renderCs);
+  $('#custSearch').addEventListener('input',renderCustView);
+  $('#payAmount').addEventListener('input',()=>{const v=+$('#payAmount').value;$('#payAmountHint').textContent=v?money(v)+' تومان':''});
+  $('#paySave').addEventListener('click',()=>finishAppt(true));
+  $('#payNo').addEventListener('click',()=>finishAppt(false));
+  $('#cfBirth').addEventListener('change',()=>{$('#cfBirthHint').textContent=$('#cfBirth').value?jFull($('#cfBirth').value):''});
+  $('#refreshBtn').addEventListener('click',async()=>{
+    if(state.mode==='live'){try{await loadLive();renderAll();toast('اطلاعات به‌روزرسانی شد','success')}catch(e){toast('خطا در به‌روزرسانی: '+e.message,'error')}}
+    else{renderAll();toast('به‌روزرسانی شد','success')}});
+  $('#modeChip').addEventListener('click',openSettings);
+  $('#recepBtn').addEventListener('click',()=>openModal('mRecep'));
+  $('#recepLogout').addEventListener('click',()=>toast('خروج در این نسخه فعال نیست','info'));
+  $('#notifBtn').addEventListener('click',e=>{e.stopPropagation();renderNotif();$('#notifDrop').classList.toggle('open')});
+  $('#hamburger').addEventListener('click',()=>{$('#sidebar').classList.add('open');$('#scrim').classList.add('show')});
+  $('#scrim').addEventListener('click',()=>{$('#sidebar').classList.remove('open');$('#scrim').classList.remove('show')});
+  /* جستجوی سریع بالا */
+  const gs=$('#globalSearch'),gd=$('#globalDrop');
+  gs.addEventListener('input',()=>{
+    const q=toEn(gs.value.trim());
+    if(q.length<2){gd.classList.remove('open');return}
+    const m=filterCustomers(q).slice(0,6);
+    gd.innerHTML=m.length?m.map(c=>`<button class="ac-row" data-act="gs-open" data-id="${c.id}"><span class="avatar sm">${esc(initials(c.full_name))}</span><span><b>${esc(c.full_name)}</b><span>${maskPhone(c.phone)}</span></span></button>`).join('')
+      :`<div class="notif-empty">مشتری‌ای یافت نشد</div>`;
+    gd.classList.add('open');
+  });
+  gs.addEventListener('keydown',e=>{if(e.key==='Enter'){const f=gd.querySelector('.ac-row');if(f){openCustomer(f.dataset.id);gs.value='';gd.classList.remove('open')}}});
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('.notif-wrap'))$('#notifDrop').classList.remove('open');
+    if(!e.target.closest('.tsearch'))$('#globalDrop').classList.remove('open');
+    if(!e.target.closest('.ac-wrap'))$('#bkCustDrop').classList.remove('open');
+  });
+  document.addEventListener('click',e=>{const g=e.target.closest('[data-act="gs-open"]');if(g){openCustomer(g.dataset.id);gs.value='';gd.classList.remove('open')}});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape')$$('.overlay.open').forEach(o=>o.classList.remove('open'));
+    if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault();gs.focus()}
+  });
+  $$('.overlay').forEach(o=>o.addEventListener('mousedown',e=>{if(e.target===o)o.classList.remove('open')}));
+  /* مودال تأیید */
+  $('#cnOk').addEventListener('click',()=>{closeModal('mConfirm');if(cnRes)cnRes(true);cnRes=null});
+  $('#cnCancel').addEventListener('click',()=>{closeModal('mConfirm');if(cnRes)cnRes(false);cnRes=null});
+  /* ذخیره مشتری */
+  $('#cfSave').addEventListener('click',async()=>{
+    const name=$('#cfName').value.trim(),phone=toEn($('#cfPhone').value.trim());
+    const birth=$('#cfBirth').value||null,notes=$('#cfNotes').value.trim()||null,id=$('#cfId').value;
+    if(name.length<2)return toast('نام را کامل وارد کنید','error');
+    if(!/^09\d{9}$/.test(phone))return toast('شماره موبایل معتبر نیست (۰۹…)','error');
+    if(state.mode==='live'){
+      const row={full_name:name,phone,birthday:birth,notes};
+      const{error}=id?await state.sb.from('customers').update(row).eq('id',id):await state.sb.from('customers').insert(row);
+      if(error)return toast('خطا: '+error.message,'error');await loadLive();
+    }else{
+      if(id){Object.assign(custById(id),{full_name:name,phone,birthday:birth,notes})}
+      else state.customers.push({id:'c'+Date.now(),full_name:name,phone,birthday:birth,notes,created_at:new Date().toISOString()});
+    }
+    closeModal('mCustForm');renderAll();toast(id?'تغییرات ذخیره شد':`مشتری «${name}» ثبت شد`,'success');
+  });
+  /* ذخیره خدمت */
+  $('#sfSave').addEventListener('click',async()=>{
+    const name=$('#sfName').value.trim();if(name.length<2)return toast('نام خدمت را وارد کنید','error');
+    const row={name,category:$('#sfCat').value,duration_minutes:+$('#sfDur').value||60,
+      base_price:$('#sfPrice').value?+$('#sfPrice').value:null,price_label:$('#sfLabel').value.trim()||null};
+    const id=$('#sfId').value;
+    if(state.mode==='live'){
+      const{error}=id?await state.sb.from('services').update(row).eq('id',id):await state.sb.from('services').insert(row);
+      if(error)return toast('خطا: '+error.message,'error');await loadLive();
+    }else{
+      if(id)Object.assign(svcById(id),row);
+      else state.services.push({id:'v'+Date.now(),...row,is_active:true});
+    }
+    closeModal('mService');renderAll();toast('خدمت ذخیره شد','success');
+  });
+  /* ذخیره متخصص */
+  $('#pfSave').addEventListener('click',async()=>{
+    const name=$('#pfName').value.trim(),spec=$('#pfSpec').value.trim();
+    if(name.length<2)return toast('نام متخصص را وارد کنید','error');
+    if(!spec)return toast('تخصص را وارد کنید','error');
+    const id=$('#pfId').value;
+    if(state.mode==='live'){
+      const{error}=id?await state.sb.from('specialists').update({full_name:name,specialty:spec}).eq('id',id)
+        :await state.sb.from('specialists').insert({full_name:name,specialty:spec});
+      if(error)return toast('خطا: '+error.message,'error');await loadLive();
+    }else{
+      if(id)Object.assign(specById(id),{full_name:name,specialty:spec});
+      else state.specialists.push({id:'s'+Date.now(),full_name:name,specialty:spec,is_active:true});
+    }
+    closeModal('mSpec');renderAll();toast('متخصص ذخیره شد','success');
+  });
+  /* تنظیمات Supabase */
+  $('#sbConnect').addEventListener('click',async()=>{
+    const url=$('#sbUrl').value.trim(),key=$('#sbKey').value.trim();
+    if(!url||!key)return toast('آدرس و کلید را وارد کنید','error');
+    await connect({url,key},false);
+  });
+  $('#sbDisconnect').addEventListener('click',()=>{
+    localStorage.removeItem('farivar.sb');enterDemo();renderAll();renderDbStatus();
+    toast('اتصال قطع شد — حالت نمایشی فعال است','info');
+  });
+}
+
+/* ساعت و وضعیت سالن (یکشنبه تا پنجشنبه، ۱۰ تا ۱۸) */
+function tick(){
+  const n=new Date();
+  $('#clockTxt').textContent=toFa(p2(n.getHours())+':'+p2(n.getMinutes()));
+  $('#todayTxt').textContent=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{weekday:'long',day:'numeric',month:'long'}).format(n);
+  const day=n.getDay(),open=day<=4&&n.getHours()>=10&&n.getHours()<18;
+  const el=$('#salonStatus');
+  el.classList.toggle('closed',!open);
+  $('#salonStatusTxt').textContent=open?'سالن باز است':(day===5||day===6?'سالن تعطیل است':'سالن بسته است');
+}
+
+/* ---------- شروع ---------- */
+(function init(){
+  injectIcons();
+  /* ساعت‌های کاری سالن: ۱۰:۰۰ تا ۱۷:۳۰ */
+  const ts=$('#bkTime');
+  for(let m=600;m<=1050;m+=30){const h=Math.floor(m/60);const v=`${p2(h)}:${p2(m%60)}`;
+    ts.insertAdjacentHTML('beforeend',`<option value="${v}">${toFa(v)}</option>`)}
+  ts.value=nextSlot();
+  $('#bkDate').value=todayISO();updateBkDateHint();syncBkChips();
+  bindEvents();tick();setInterval(tick,30000);
+  /* تازگی تایم‌لاین و وضعیت متخصص‌ها هر ۵ دقیقه */
+  setInterval(()=>{if(document.visibilityState==='visible'){renderTimelineMain();renderStaff()}},300000);
+
+  let cfg=null;try{cfg=JSON.parse(localStorage.getItem('farivar.sb')||'null')}catch(e){}
+  if(cfg&&cfg.url&&cfg.key){connect(cfg,true)}
+  else{enterDemo();renderAll();
+    setTimeout(()=>toast('در حالت نمایشی هستید — برای اتصال به داده‌های واقعی، از «تنظیمات» کلید Supabase را وارد کنید','info'),900)}
+})();
+</script>
+</body>
+</html>
