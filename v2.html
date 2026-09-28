@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>فریور | پنل پذیرش v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#f4eee5;--surface:#fffaf3;--surface2:#f8f1e7;--ink:#241a10;--muted:#766757;
+ --line:#e4d6c5;--brand:#bc532b;--brand2:#963d1c;--sage:#5f7350;--ochre:#a87e2f;--danger:#b03a2e;
+ --shadow:0 12px 35px rgba(73,48,28,.09);--shadow2:0 4px 14px rgba(73,48,28,.08);
+}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Vazirmatn,Tahoma,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.app{min-height:100vh;display:grid;grid-template-columns:260px 1fr}
+.sidebar{position:sticky;top:0;height:100vh;background:rgba(255,250,243,.86);backdrop-filter:blur(14px);border-left:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;z-index:10}
+.brand{display:flex;align-items:center;gap:11px;padding:6px 8px 24px}.logo{width:44px;height:44px;border-radius:14px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800}.brand b{font-size:18px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:1.5px}
+.nav-title{font-size:10px;color:#9a8977;font-weight:800;padding:14px 11px 6px}.nav{display:grid;gap:5px}.nav button{background:transparent;text-align:right;padding:11px 12px;border-radius:12px;color:var(--muted);display:flex;align-items:center;gap:10px;font-weight:600}.nav button:hover{background:var(--surface2);color:var(--ink)}.nav button.active{background:var(--surface);color:var(--brand);box-shadow:var(--shadow2)}.nav .count{margin-right:auto;background:var(--brand);color:#fff;border-radius:20px;padding:1px 7px;font-size:10px}
+.userbox{margin-top:auto;background:var(--surface);border:1px solid var(--line);padding:12px;border-radius:16px;display:flex;gap:10px;align-items:center}.avatar{width:36px;height:36px;border-radius:50%;background:#e8cfc3;display:grid;place-items:center;font-weight:800}.userbox small{display:block;color:var(--muted)}
+.main{min-width:0}.topbar{height:72px;position:sticky;top:0;z-index:8;background:rgba(244,238,229,.88);backdrop-filter:blur(15px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:0 28px}.hamb{display:none}.search{width:min(420px,45vw);background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:10px 13px;display:flex;gap:8px}.search input{border:0;outline:0;background:transparent;width:100%}.grow{flex:1}.chip{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:8px 12px;color:var(--muted);font-size:12px}.chip.ok{color:var(--sage)}.icon{width:40px;height:40px;border-radius:12px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center}
+.content{padding:28px;max-width:1600px;margin:auto}.view{display:none}.view.active{display:block}.head{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:22px}.head h1{font-size:25px;margin:0}.head p{margin:3px 0 0;color:var(--muted);font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{padding:10px 15px;border-radius:12px;font-weight:700;font-size:12px}.primary{background:var(--brand);color:#fff;box-shadow:0 7px 18px rgba(188,83,43,.22)}.secondary{background:var(--surface);color:var(--ink);border:1px solid var(--line)}.danger{background:#fff0ee;color:var(--danger)}.success{background:#edf3ea;color:var(--sage)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}.kpi{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow2)}.kpi label{font-size:11px;color:var(--muted)}.kpi strong{display:block;font-size:24px;margin:7px 0}.kpi span{font-size:10px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px}.stack{display:grid;gap:16px}.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow2)}.cardhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.cardhead h3{margin:0;font-size:15px}.muted{color:var(--muted);font-size:11px}
+.timeline{display:grid;gap:8px}.appt{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:14px;background:#fcf6ed}.time{font-weight:800;text-align:center}.time small{display:block;color:var(--muted);font-size:9px}.appt h4{margin:0;font-size:13px}.appt p{margin:3px 0 0;color:var(--muted);font-size:10.5px}.status{padding:4px 9px;border-radius:30px;font-size:10px;font-weight:700;white-space:nowrap}.confirmed{background:#edf3ea;color:var(--sage)}.waiting{background:#fbf2dd;color:var(--ochre)}.completed{background:#eee8df;color:#6e5b45}.cancelled{background:#faece9;color:var(--danger)}.debt{color:var(--danger);font-weight:800}.credit{color:var(--sage);font-weight:800}
+.staff{display:grid;gap:8px}.staffrow{display:flex;align-items:center;gap:10px;padding:9px;border-radius:12px}.staffrow:hover{background:var(--surface2)}.staffrow .meta{flex:1}.dot{width:8px;height:8px;border-radius:50%;background:var(--sage);display:inline-block}.dot.busy{background:var(--brand)}.dot.off{background:#aaa}
+.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:680px}.table th{text-align:right;color:var(--muted);font-size:10px;padding:9px;border-bottom:1px solid var(--line)}.table td{padding:11px 9px;border-bottom:1px solid #eee5d9;font-size:11.5px}.table tr:hover td{background:#fff8f0}.table .actions{justify-content:flex-start}
+.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:11px;font-weight:700;color:var(--muted)}.input{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:11px;background:#fbf5ec;outline:0}.input:focus{border-color:#c98263;box-shadow:0 0 0 3px rgba(188,83,43,.08)}textarea.input{min-height:80px;resize:vertical}.summary{background:#f8eee3;border-radius:14px;padding:13px}.summaryrow{display:flex;justify-content:space-between;padding:5px 0;font-size:11px}.summaryrow.total{border-top:1px solid var(--line);margin-top:5px;padding-top:10px;font-weight:800;font-size:13px}.suggest{position:relative}.results{position:absolute;top:100%;right:0;left:0;background:#fffaf3;border:1px solid var(--line);border-radius:12px;z-index:30;box-shadow:var(--shadow);max-height:220px;overflow:auto;display:none}.results.open{display:block}.result{padding:10px 12px;text-align:right;width:100%;background:transparent}.result:hover{background:var(--surface2)}.result b{display:block;font-size:12px}.result small{color:var(--muted)}
+.empty{text-align:center;padding:30px;color:var(--muted);font-size:12px}.toast{position:fixed;left:22px;bottom:22px;background:#241a10;color:#fff;padding:11px 15px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s;z-index:100}.toast.show{opacity:1;transform:none}.modalback{position:fixed;inset:0;background:rgba(36,26,16,.28);display:none;align-items:center;justify-content:center;z-index:90;padding:18px}.modalback.open{display:flex}.modal{width:min(720px,100%);max-height:90vh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 30px 80px rgba(36,26,16,.22)}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.modalhead h3{margin:0;font-size:17px}.close{width:34px;height:34px;border-radius:10px;background:var(--surface2)}.modalfoot{display:flex;justify-content:flex-start;gap:8px;margin-top:18px}
+.tabs{display:flex;gap:6px;background:var(--surface2);padding:5px;border-radius:12px;width:max-content}.tabs button{padding:7px 12px;border-radius:9px;color:var(--muted);font-size:11px}.tabs button.active{background:var(--surface);color:var(--brand);font-weight:800}
+.alert{padding:10px 12px;border-radius:11px;background:#fbf2dd;color:#795c20;font-size:11px;margin-bottom:12px}.dangerbox{background:#faece9;color:var(--danger)}
+@media(max-width:1050px){.app{grid-template-columns:220px 1fr}.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.dashside{display:grid;grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.app{display:block}.sidebar{position:fixed;right:-270px;width:260px;transition:.2s;box-shadow:0 20px 50px rgba(0,0,0,.15)}.sidebar.open{right:0}.hamb{display:grid}.topbar{padding:0 14px}.search{width:auto;flex:1}.topbar .chip{display:none}.content{padding:18px 14px}.kpis{grid-template-columns:1fr 1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.appt{grid-template-columns:58px 1fr}.appt>.status{grid-column:2}.head{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="logo">ف</div><div><b>فریور</b><small>RECEPTION • V2</small></div></div>
+  <div class="nav-title">عملیات</div>
+  <nav class="nav">
+    <button class="active" data-view="dashboard">◈ داشبورد</button>
+    <button data-view="appointments">◷ نوبت‌ها <span class="count" id="navAppt">0</span></button>
+    <button data-view="customers">♙ مشتریان</button>
+    <button data-view="payments">₮ پرداخت‌ها</button>
+  </nav>
+  <div class="nav-title">مدیریت</div>
+  <nav class="nav">
+    <button data-view="staff">♧ متخصص‌ها</button>
+    <button data-view="services">◇ خدمات</button>
+    <button data-view="notifications">♢ اعلان‌ها <span class="count" id="navNotif">0</span></button>
+    <button data-view="settings">⚙ تنظیمات</button>
+  </nav>
+  <div class="userbox"><div class="avatar">ن</div><div><b>نگار موسوی</b><small>منشی پذیرش</small></div></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <button class="icon hamb" id="hamb">☰</button>
+  <div class="search">⌕ <input id="globalSearch" placeholder="جستجوی مشتری، شماره یا نوبت…"></div>
+  <div class="grow"></div>
+  <div class="chip ok">● سیستم فعال</div>
+  <button class="icon" id="notifBtn">♢<span id="notifBadge"></span></button>
+  <button class="icon" id="quickBtn">＋</button>
+</header>
+
+<section class="content">
+<!-- DASHBOARD -->
+<div class="view active" id="view-dashboard">
+ <div class="head"><div><h1>پذیرش امروز</h1><p id="todayLabel"></p></div><div class="actions"><button class="btn secondary" onclick="showView('appointments')">تقویم نوبت‌ها</button><button class="btn primary" onclick="openApptModal()">＋ ثبت نوبت جدید</button></div></div>
+ <div class="kpis">
+  <div class="kpi"><label>نوبت امروز</label><strong id="kToday">۰</strong><span>کل نوبت‌های ثبت‌شده امروز</span></div>
+  <div class="kpi"><label>در انتظار</label><strong id="kWaiting">۰</strong><span>نیازمند پیگیری پذیرش</span></div>
+  <div class="kpi"><label>دریافت امروز</label><strong id="kPaid">۰</strong><span>جمع پرداخت‌های امروز</span></div>
+  <div class="kpi"><label>مطالبات</label><strong id="kDebt">۰</strong><span>مانده بدهی مشتریان</span></div>
+ </div>
+ <div class="grid">
+  <div class="stack"><div class="card"><div class="cardhead"><div><h3>صف نوبت‌های امروز</h3><span class="muted">از نزدیک‌ترین نوبت تا پایان روز</span></div><button class="btn secondary" onclick="showView('appointments')">مشاهده همه</button></div><div id="todayList" class="timeline"></div></div>
+  <div class="card"><div class="cardhead"><h3>اقدام‌های سریع</h3></div><div class="actions"><button class="btn primary" onclick="openApptModal()">ثبت نوبت</button><button class="btn secondary" onclick="openCustomerModal()">مشتری جدید</button><button class="btn secondary" onclick="showView('payments')">ثبت پرداخت</button></div></div></div>
+  <div class="stack"><div class="card"><div class="cardhead"><h3>متخصص‌ها</h3><span class="muted">وضعیت امروز</span></div><div id="staffMini" class="staff"></div></div>
+  <div class="card"><div class="cardhead"><h3>مشتریان نیازمند پیگیری</h3></div><div id="followups"></div></div></div>
+ </div>
+</div>
+
+<!-- APPOINTMENTS -->
+<div class="view" id="view-appointments">
+ <div class="head"><div><h1>نوبت‌ها</h1><p>ثبت، جابه‌جایی، حضور، تکمیل و لغو</p></div><div class="actions"><button class="btn secondary" onclick="setApptFilter('today')">امروز</button><button class="btn primary" onclick="openApptModal()">＋ نوبت جدید</button></div></div>
+ <div class="card"><div class="actions" style="margin-bottom:14px"><div class="tabs"><button class="active" data-af="all">همه</button><button data-af="waiting">در انتظار</button><button data-af="confirmed">تأییدشده</button><button data-af="completed">تکمیل‌شده</button><button data-af="cancelled">لغوشده</button></div><input class="input" id="apptSearch" style="max-width:250px" placeholder="جستجوی نوبت…"></div><div class="tablewrap"><table class="table"><thead><tr><th>زمان</th><th>مشتری</th><th>خدمت</th><th>متخصص</th><th>قیمت</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody id="apptTable"></tbody></table></div></div>
+</div>
+
+<!-- CUSTOMERS -->
+<div class="view" id="view-customers">
+ <div class="head"><div><h1>مشتریان</h1><p>پرونده، سوابق، مانده حساب و اطلاعات تماس</p></div><button class="btn primary" onclick="openCustomerModal()">＋ مشتری جدید</button></div>
+ <div class="card"><div class="actions" style="margin-bottom:14px"><input class="input" id="customerSearch" placeholder="نام یا شماره موبایل…"></div><div class="tablewrap"><table class="table"><thead><tr><th>مشتری</th><th>موبایل</th><th>آخرین مراجعه</th><th>تعداد مراجعه</th><th>مانده</th><th>عملیات</th></tr></thead><tbody id="customerTable"></tbody></table></div></div>
+</div>
+
+<!-- PAYMENTS -->
+<div class="view" id="view-payments">
+ <div class="head"><div><h1>مالی و پرداخت‌ها</h1><p>هر پرداخت مستقل از قیمت نهایی خدمت ثبت می‌شود</p></div><button class="btn primary" onclick="openPaymentModal()">＋ ثبت پرداخت</button></div>
+ <div class="kpis"><div class="kpi"><label>دریافت امروز</label><strong id="pToday">۰</strong><span>تومان</span></div><div class="kpi"><label>دریافت این ماه</label><strong id="pMonth">۰</strong><span>تومان</span></div><div class="kpi"><label>بدهی کل</label><strong id="pDebt">۰</strong><span>تومان</span></div><div class="kpi"><label>پرداخت ناقص</label><strong id="pPartial">۰</strong><span>نوبت</span></div></div>
+ <div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>تاریخ</th><th>مشتری</th><th>نوبت/خدمت</th><th>مبلغ</th><th>روش</th><th>ثبت‌کننده</th></tr></thead><tbody id="paymentTable"></tbody></table></div></div>
+</div>
+
+<!-- STAFF -->
+<div class="view" id="view-staff">
+ <div class="head"><div><h1>متخصص‌ها</h1><p>وضعیت، خدمات قابل ارائه و فعال/غیرفعال بودن</p></div><button class="btn primary" onclick="openStaffModal()">＋ متخصص</button></div>
+ <div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>نام</th><th>دسته</th><th>خدمات</th><th>وضعیت امروز</th><th>عملیات</th></tr></thead><tbody id="staffTable"></tbody></table></div></div>
+</div>
+
+<!-- SERVICES -->
+<div class="view" id="view-services">
+ <div class="head"><div><h1>خدمات</h1><p>قیمت، مدت و متخصص‌های مجاز</p></div><button class="btn primary" onclick="openServiceModal()">＋ خدمت</button></div>
+ <div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>خدمت</th><th>دسته</th><th>مدت</th><th>قیمت پایه</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody id="serviceTable"></tbody></table></div></div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div class="view" id="view-notifications">
+ <div class="head"><div><h1>اعلان‌ها</h1><p>مواردی که نیاز به اقدام پذیرش دارند</p></div><button class="btn secondary" onclick="markAllRead()">خواندن همه</button></div>
+ <div class="card" id="notifList"></div>
+</div>
+
+<!-- SETTINGS -->
+<div class="view" id="view-settings">
+ <div class="head"><div><h1>تنظیمات پذیرش</h1><p>تنظیمات محلی و اتصال Backend</p></div></div>
+ <div class="grid"><div class="card"><div class="cardhead"><h3>تنظیمات کاری</h3></div><div class="formgrid">
+   <div class="field"><label>شروع ساعت کاری</label><input class="input" id="setOpen" type="time" value="10:00"></div>
+   <div class="field"><label>پایان ساعت کاری</label><input class="input" id="setClose" type="time" value="18:00"></div>
+   <div class="field"><label>مدت پیش‌فرض فاصله نوبت‌ها</label><select class="input" id="setGap"><option value="0">بدون فاصله</option><option value="10">۱۰ دقیقه</option><option value="15">۱۵ دقیقه</option></select></div>
+   <div class="field"><label>واحد نمایش مالی</label><select class="input"><option>تومان</option><option>ریال</option></select></div>
+ </div><div class="modalfoot"><button class="btn primary" onclick="saveSettings()">ذخیره</button></div></div>
+ <div class="card"><div class="cardhead"><h3>اتصال Supabase</h3></div><div class="alert">کلید anon برای Frontend مناسب است؛ اما امنیت واقعی باید با Auth و RLS در دیتابیس اعمال شود. Service Role Key را هرگز اینجا قرار ندهید.</div><div class="formgrid"><div class="field full"><label>Project URL</label><input class="input" id="sbUrl" placeholder="https://xxxx.supabase.co"></div><div class="field full"><label>Anon Key</label><input class="input" id="sbKey" type="password" placeholder="eyJ..."></div></div><div class="modalfoot"><button class="btn secondary" onclick="testSupabase()">تست اتصال</button><button class="btn primary" onclick="saveSupabase()">ذخیره اتصال</button></div><div id="sbStatus" class="muted" style="margin-top:10px"></div></div></div>
+</div>
+</section>
+</main>
+</div>
+
+<div class="modalback" id="modalBack"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY='farivar_reception_v2';
+const todayISO=()=>new Date().toISOString().slice(0,10);
+const money=n=>new Intl.NumberFormat('fa-IR').format(Math.max(0,Number(n)||0));
+const dateFa=d=>new Intl.DateTimeFormat('fa-IR-u-ca-persian',{year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(d+'T12:00:00'));
+const uid=p=>p+'_'+Math.random().toString(36).slice(2,10);
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const seed={
+ settings:{open:'10:00',close:'18:00',gap:0},
+ customers:[
+  {id:'c1',name:'سارا احمدی',phone:'09121234567',note:'رنگ مو با تناژ گرم',active:true},
+  {id:'c2',name:'مهسا کریمی',phone:'09351234567',note:'ابرو و مژه',active:true},
+  {id:'c3',name:'نگین مرادی',phone:'09199876543',note:'مشتری قدیمی',active:true},
+  {id:'c4',name:'الهام رضایی',phone:'09901234567',note:'',active:true}
+ ],
+ staff:[
+  {id:'s1',name:'فرزانه فریور',cat:'مو',active:true,services:['v1','v2','v3']},
+  {id:'s2',name:'مریم',cat:'ناخن',active:true,services:['v4','v5']},
+  {id:'s3',name:'سحر',cat:'چهره',active:true,services:['v6','v7']}
+ ],
+ services:[
+  {id:'v1',name:'کوتاهی تخصصی',cat:'مو',duration:60,price:1500000,active:true},
+  {id:'v2',name:'رنگ مو',cat:'مو',duration:120,price:4500000,active:true},
+  {id:'v3',name:'براشینگ',cat:'مو',duration:45,price:800000,active:true},
+  {id:'v4',name:'مانیکور',cat:'ناخن',duration:60,price:900000,active:true},
+  {id:'v5',name:'پدیکور',cat:'ناخن',duration:75,price:1200000,active:true},
+  {id:'v6',name:'اصلاح و فرم ابرو',cat:'چهره',duration:30,price:450000,active:true},
+  {id:'v7',name:'میکاپ',cat:'چهره',duration:90,price:1800000,active:true}
+ ],
+ appointments:[
+  {id:'a1',customer:'c1',service:'v1',staff:'s1',date:todayISO(),time:'10:00',price:1500000,status:'completed',note:''},
+  {id:'a2',customer:'c2',service:'v6',staff:'s3',date:todayISO(),time:'11:00',price:450000,status:'confirmed',note:''},
+  {id:'a3',customer:'c3',service:'v2',staff:'s1',date:todayISO(),time:'13:00',price:4500000,status:'waiting',note:''},
+  {id:'a4',customer:'c4',service:'v4',staff:'s2',date:todayISO(),time:'14:30',price:900000,status:'confirmed',note:''}
+ ],
+ payments:[{id:'p1',appointment:'a1',customer:'c1',amount:1000000,method:'کارتخوان',date:todayISO(),by:'نگار'}],
+ notifications:[
+  {id:'n1',title:'تسویه ناقص',text:'سارا احمدی بابت نوبت امروز ۵۰۰ هزار تومان مانده دارد.',read:false},
+  {id:'n2',title:'یادآوری',text:'نوبت مهسا کریمی ساعت ۱۱:۰۰ است.',read:false}
+ ]
+};
+let db=JSON.parse(localStorage.getItem(KEY)||'null')||seed;
+let apptFilter='all';
+
+function save(){localStorage.setItem(KEY,JSON.stringify(db));renderAll()}
+function toast(t){const x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2300)}
+function showView(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById('view-'+v).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===v));if(innerWidth<761)document.getElementById('sidebar').classList.remove('open')}
+function getC(id){return db.customers.find(x=>x.id===id)} function getS(id){return db.services.find(x=>x.id===id)} function getSt(id){return db.staff.find(x=>x.id===id)}
+function apptPayments(id){return db.payments.filter(p=>p.appointment===id).reduce((a,p)=>a+p.amount,0)}
+function apptDue(a){return Math.max(0,(Number(a.price)||0)-apptPayments(a.id))}
+function overlaps(staff,date,time,duration,ignore=''){const start=timeToMin(time),end=start+duration;return db.appointments.some(a=>a.id!==ignore&&a.staff===staff&&a.date===date&&!['cancelled'].includes(a.status)&&start<timeToMin(a.time)+(getS(a.service)?.duration||0)&&end>timeToMin(a.time))}
+function timeToMin(t){const [h,m]=t.split(':').map(Number);return h*60+m}
+function statusFa(s){return {confirmed:'تأییدشده',waiting:'در انتظار',completed:'تکمیل‌شده',cancelled:'لغوشده'}[s]||s}
+function renderAll(){renderDashboard();renderAppts();renderCustomers();renderPayments();renderStaff();renderServices();renderNotifs();document.getElementById('navAppt').textContent=db.appointments.filter(a=>a.date===todayISO()&&!['cancelled','completed'].includes(a.status)).length;const unread=db.notifications.filter(n=>!n.read).length;document.getElementById('navNotif').textContent=unread;document.getElementById('notifBadge').textContent=unread?unread:'';document.getElementById('todayLabel').textContent=dateFa(todayISO())+' • ساعت کاری '+db.settings.open+' تا '+db.settings.close}
+function renderDashboard(){
+ const ta=db.appointments.filter(a=>a.date===todayISO()), paid=db.payments.filter(p=>p.date===todayISO()).reduce((x,p)=>x+p.amount,0), debt=db.appointments.reduce((x,a)=>x+apptDue(a),0);
+ kToday.textContent=money(ta.length);kWaiting.textContent=money(ta.filter(a=>a.status==='waiting').length);kPaid.textContent=money(paid);kDebt.textContent=money(debt);
+ todayList.innerHTML=ta.sort((a,b)=>a.time.localeCompare(b.time)).map(a=>apptCard(a)).join('')||'<div class="empty">امروز نوبتی ثبت نشده است.</div>';
+ staffMini.innerHTML=db.staff.filter(s=>s.active).map(s=>{const busy=ta.some(a=>a.staff===s.id&&a.status!=='cancelled'&&a.status!=='completed');return `<div class="staffrow"><div class="avatar">${esc(s.name[0])}</div><div class="meta"><b>${esc(s.name)}</b><div class="muted">${esc(s.cat)}</div></div><span class="dot ${busy?'busy':''}"></span><small>${busy?'مشغول':'آزاد'}</small></div>`}).join('');
+ const fs=db.appointments.filter(a=>apptDue(a)>0&&!['cancelled'].includes(a.status)).slice(0,4);
+ followups.innerHTML=fs.length?fs.map(a=>{const c=getC(a.customer);return `<button class="result" onclick="openCustomerModal('${a.customer}')"><b>${esc(c?.name||'مشتری')}</b><small>${money(apptDue(a))} تومان بدهی</small></button>`}).join(''):'<div class="empty">موردی برای پیگیری نیست.</div>';
+}
+function apptCard(a){const c=getC(a.customer),v=getS(a.service),s=getSt(a.staff);return `<div class="appt"><div class="time">${esc(a.time)}<small>${v?.duration||0} دقیقه</small></div><div><h4>${esc(c?.name||'—')}</h4><p>${esc(v?.name||'—')} • ${esc(s?.name||'—')}</p></div><div><span class="status ${a.status}">${statusFa(a.status)}</span><div style="margin-top:5px;text-align:left;font-size:10px">${apptDue(a)?'<span class="debt">'+money(apptDue(a))+' بدهی</span>':'<span class="credit">تسویه</span>'}</div></div></div>`}
+function renderAppts(){const q=(document.getElementById('apptSearch')?.value||'').trim().toLowerCase();let arr=db.appointments.filter(a=>apptFilter==='all'||a.status===apptFilter);if(q)arr=arr.filter(a=>{const c=getC(a.customer),v=getS(a.service),s=getSt(a.staff);return [c?.name,c?.phone,v?.name,s?.name,a.time].join(' ').toLowerCase().includes(q)});apptTable.innerHTML=arr.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).map(a=>{const c=getC(a.customer),v=getS(a.service),s=getSt(a.staff);return `<tr><td>${dateFa(a.date)}<br><b>${a.time}</b></td><td><b>${esc(c?.name)}</b><br><span class="muted">${esc(c?.phone)}</span></td><td>${esc(v?.name)}<br><span class="muted">${v?.duration||0} دقیقه</span></td><td>${esc(s?.name)}</td><td>${money(a.price)} تومان<br><span class="${apptDue(a)?'debt':'credit'}">${apptDue(a)?'مانده '+money(apptDue(a)):'تسویه'}</span></td><td><span class="status ${a.status}">${statusFa(a.status)}</span></td><td><div class="actions">${a.status==='confirmed'?`<button class="btn success" onclick="setStatus('${a.id}','waiting')">حضور</button>`:''}${a.status==='waiting'?`<button class="btn primary" onclick="openPaymentModal('${a.id}')">تکمیل/پرداخت</button>`:''}${!['cancelled','completed'].includes(a.status)?`<button class="btn danger" onclick="cancelAppt('${a.id}')">لغو</button>`:''}<button class="btn secondary" onclick="openApptModal('${a.id}')">ویرایش</button></div></td></tr>`}).join('')||'<tr><td colspan="7" class="empty">نوبتی پیدا نشد.</td></tr>'}
+function renderCustomers(){const q=(document.getElementById('customerSearch')?.value||'').trim().toLowerCase();let arr=db.customers.filter(c=>!q||[c.name,c.phone].join(' ').toLowerCase().includes(q));customerTable.innerHTML=arr.map(c=>{const aa=db.appointments.filter(a=>a.customer===c.id&&!['cancelled'].includes(a.status));const last=aa.sort((a,b)=>b.date.localeCompare(a.date))[0];const debt=aa.reduce((x,a)=>x+apptDue(a),0);return `<tr><td><b>${esc(c.name)}</b><br><span class="muted">${esc(c.note||'بدون یادداشت')}</span></td><td dir="ltr">${esc(c.phone)}</td><td>${last?dateFa(last.date):'—'}</td><td>${aa.length}</td><td class="${debt?'debt':'credit'}">${debt?money(debt)+' تومان':'تسویه'}</td><td><div class="actions"><button class="btn primary" onclick="openApptModal(null,'${c.id}')">نوبت</button><button class="btn secondary" onclick="openCustomerModal('${c.id}')">پرونده</button></div></td></tr>`}).join('')||'<tr><td colspan="6" class="empty">مشتری پیدا نشد.</td></tr>'}
+function renderPayments(){const ps=db.payments.slice().sort((a,b)=>b.date.localeCompare(a.date));paymentTable.innerHTML=ps.map(p=>{const c=getC(p.customer),a=db.appointments.find(x=>x.id===p.appointment),v=a&&getS(a.service);return `<tr><td>${dateFa(p.date)}</td><td>${esc(c?.name)}</td><td>${esc(v?.name||'—')}</td><td><b>${money(p.amount)}</b> تومان</td><td>${esc(p.method)}</td><td>${esc(p.by||'نگار')}</td></tr>`}).join('')||'<tr><td colspan="6" class="empty">پرداختی ثبت نشده.</td></tr>';const paidToday=db.payments.filter(p=>p.date===todayISO()).reduce((x,p)=>x+p.amount,0);pToday.textContent=money(paidToday);pMonth.textContent=money(db.payments.reduce((x,p)=>x+p.amount,0));const debt=db.appointments.reduce((x,a)=>x+apptDue(a),0);pDebt.textContent=money(debt);pPartial.textContent=db.appointments.filter(a=>apptDue(a)>0&&a.status!=='cancelled').length}
+function renderStaff(){staffTable.innerHTML=db.staff.map(s=>`<tr><td><b>${esc(s.name)}</b></td><td>${esc(s.cat)}</td><td>${s.services.map(id=>getS(id)?.name).filter(Boolean).map(esc).join('، ')||'—'}</td><td><span class="status ${s.active?'confirmed':'cancelled'}">${s.active?'فعال':'غیرفعال'}</span></td><td><button class="btn secondary" onclick="toggleStaff('${s.id}')">${s.active?'غیرفعال کردن':'فعال کردن'}</button></td></tr>`).join('')}
+function renderServices(){serviceTable.innerHTML=db.services.map(v=>`<tr><td><b>${esc(v.name)}</b></td><td>${esc(v.cat)}</td><td>${v.duration} دقیقه</td><td>${v.price?money(v.price)+' تومان':'توافقی'}</td><td><span class="status ${v.active?'confirmed':'cancelled'}">${v.active?'فعال':'غیرفعال'}</span></td><td><button class="btn secondary" onclick="toggleService('${v.id}')">${v.active?'غیرفعال کردن':'فعال کردن'}</button></td></tr>`).join('')}
+function renderNotifs(){notifList.innerHTML=db.notifications.slice().reverse().map(n=>`<button class="result" style="display:block;width:100%;border-bottom:1px solid var(--line);background:${n.read?'transparent':'#fff5ec'}" onclick="readNotif('${n.id}')"><b>${n.read?'':'● '}${esc(n.title)}</b><small>${esc(n.text)}</small></button>`).join('')||'<div class="empty">اعلانی وجود ندارد.</div>'}
+function setApptFilter(f){apptFilter=f;document.querySelectorAll('[data-af]').forEach(x=>x.classList.toggle('active',x.dataset.af===f));renderAppts();showView('appointments')}
+function setStatus(id,status){const a=db.appointments.find(x=>x.id===id);if(a){a.status=status;save();toast(status==='waiting'?'حضور مشتری ثبت شد':'وضعیت تغییر کرد')}}
+function cancelAppt(id){const a=db.appointments.find(x=>x.id===id);if(!a)return;if(confirm('این نوبت لغو شود؟')){a.status='cancelled';save();toast('نوبت لغو شد')}}
+function toggleStaff(id){const s=getSt(id);s.active=!s.active;save();toast('وضعیت متخصص تغییر کرد')}
+function toggleService(id){const s=getS(id);s.active=!s.active;save();toast('وضعیت خدمت تغییر کرد')}
+function openModal(content){modal.innerHTML=content;modalBack.classList.add('open')}
+function closeModal(){modalBack.classList.remove('open')}
+function openCustomerModal(id){const c=id?getC(id):{name:'',phone:'',note:'',id:''};openModal(`<div class="modalhead"><h3>${id?'پرونده مشتری':'مشتری جدید'}</h3><button class="close" onclick="closeModal()">×</button></div><form id="customerForm" class="formgrid"><div class="field"><label>نام و نام خانوادگی</label><input class="input" name="name" required value="${esc(c.name)}"></div><div class="field"><label>شماره موبایل</label><input class="input" name="phone" required inputmode="tel" value="${esc(c.phone)}"></div><div class="field full"><label>یادداشت</label><textarea class="input" name="note">${esc(c.note||'')}</textarea></div></form><div class="modalfoot"><button class="btn secondary" onclick="closeModal()">انصراف</button><button class="btn primary" onclick="submitCustomer('${id||''}')">ذخیره مشتری</button></div>`)}
+function submitCustomer(id){const f=new FormData(customerForm),name=f.get('name').trim(),phone=f.get('phone').replace(/\D/g,'');if(!name||phone.length<10)return toast('نام و شماره معتبر وارد کنید');if(db.customers.some(c=>c.phone===phone&&c.id!==id))return toast('این شماره قبلاً ثبت شده است');if(id){Object.assign(getC(id),{name,phone,note:f.get('note')})}else db.customers.push({id:uid('c'),name,phone,note:f.get('note'),active:true});save();closeModal();toast('اطلاعات مشتری ذخیره شد')}
+function openApptModal(id=null,customerId=''){const a=id?db.appointments.find(x=>x.id===id):null;const c=customerId||a?.customer||'';const optsC=db.customers.map(x=>`<option value="${x.id}" ${x.id===c?'selected':''}>${esc(x.name)} — ${esc(x.phone)}</option>`).join('');const optsV=db.services.filter(x=>x.active).map(x=>`<option value="${x.id}" ${(x.id===a?.service)?'selected':''}>${esc(x.name)} — ${x.price?money(x.price)+' تومان':'توافقی'}</option>`).join('');const optsS=db.staff.filter(x=>x.active).map(x=>`<option value="${x.id}" ${(x.id===a?.staff)?'selected':''}>${esc(x.name)} — ${esc(x.cat)}</option>`).join('');openModal(`<div class="modalhead"><h3>${id?'ویرایش نوبت':'ثبت نوبت جدید'}</h3><button class="close" onclick="closeModal()">×</button></div><div class="alert">قیمت نهایی خدمت از مبلغ پرداخت جداست. پرداخت ناقص به‌عنوان بدهی ثبت می‌شود و قیمت خدمت تغییر نمی‌کند.</div><form id="apptForm" class="formgrid"><div class="field full"><label>مشتری</label><select class="input" name="customer" required>${optsC}</select></div><div class="field"><label>خدمت</label><select class="input" name="service" required>${optsV}</select></div><div class="field"><label>متخصص</label><select class="input" name="staff" required>${optsS}</select></div><div class="field"><label>تاریخ</label><input class="input" name="date" type="date" required value="${a?.date||todayISO()}"></div><div class="field"><label>ساعت</label><input class="input" name="time" type="time" required value="${a?.time||'10:00'}" step="900"></div><div class="field full"><label>قیمت نهایی</label><input class="input" name="price" type="number" min="0" value="${a?.price??''}" placeholder="برای خدمت توافقی وارد کنید"></div><div class="field full"><label>یادداشت</label><textarea class="input" name="note">${esc(a?.note||'')}</textarea></div></form><div id="apptHint"></div><div class="modalfoot"><button class="btn secondary" onclick="closeModal()">انصراف</button><button class="btn primary" onclick="submitAppt('${id||''}')">ثبت نوبت</button></div>`)}
+function submitAppt(id){const f=new FormData(apptForm),service=getS(f.get('service')),price=Number(f.get('price')||service?.price||0),date=f.get('date'),time=f.get('time'),staff=f.get('staff');if(!f.get('customer')||!service||!staff||!date||!time)return toast('اطلاعات نوبت کامل نیست');const mins=timeToMin(time),open=timeToMin(db.settings.open),close=timeToMin(db.settings.close);if(mins<open||mins+(service.duration||0)>close)return toast('این ساعت خارج از ساعت کاری سالن است');if(overlaps(staff,date,time,service.duration||0,id))return toast('این متخصص در این بازه نوبت دیگری دارد');if(price<=0)return toast('قیمت نهایی را وارد کنید');if(id){const a=db.appointments.find(x=>x.id===id);Object.assign(a,{customer:f.get('customer'),service:service.id,staff,date,time,price,note:f.get('note')})}else db.appointments.push({id:uid('a'),customer:f.get('customer'),service:service.id,staff,date,time,price,status:'confirmed',note:f.get('note')});save();closeModal();toast('نوبت با موفقیت ثبت شد')}
+function openPaymentModal(apptId=''){const candidates=db.appointments.filter(a=>!['cancelled'].includes(a.status)&&apptDue(a)>0);const opts=candidates.map(a=>{const c=getC(a.customer),v=getS(a.service);return `<option value="${a.id}" ${a.id===apptId?'selected':''}>${esc(c?.name)} — ${esc(v?.name)} — مانده ${money(apptDue(a))}</option>`}).join('');openModal(`<div class="modalhead"><h3>ثبت پرداخت</h3><button class="close" onclick="closeModal()">×</button></div><form id="payForm" class="formgrid"><div class="field full"><label>نوبت</label><select class="input" name="appointment" required>${opts}</select></div><div class="field"><label>مبلغ دریافتی</label><input class="input" name="amount" type="number" min="1" required></div><div class="field"><label>روش پرداخت</label><select class="input" name="method"><option>کارتخوان</option><option>کارت به کارت</option><option>نقد</option></select></div></form><div id="paySummary" class="summary" style="margin-top:13px"></div><div class="modalfoot"><button class="btn secondary" onclick="closeModal()">انصراف</button><button class="btn primary" onclick="submitPayment()">ثبت پرداخت</button></div>`);payForm.appointment.addEventListener('change',updatePaySummary);updatePaySummary();payForm.amount.addEventListener('input',updatePaySummary)}
+function updatePaySummary(){const a=db.appointments.find(x=>x.id===payForm?.appointment?.value);if(!a)return;const due=apptDue(a),amount=Number(payForm.amount?.value||0);paySummary.innerHTML=`<div class="summaryrow"><span>قیمت نهایی</span><b>${money(a.price)} تومان</b></div><div class="summaryrow"><span>قبلاً پرداخت شده</span><b>${money(apptPayments(a.id))} تومان</b></div><div class="summaryrow"><span>مانده فعلی</span><b>${money(due)} تومان</b></div><div class="summaryrow total"><span>مانده بعد از این پرداخت</span><b class="${due-amount>0?'debt':'credit'}">${money(Math.max(0,due-amount))} تومان</b></div>`}
+function submitPayment(){const f=new FormData(payForm),a=db.appointments.find(x=>x.id===f.get('appointment')),amount=Number(f.get('amount')||0),due=apptDue(a);if(!a||amount<=0)return toast('مبلغ معتبر وارد کنید');if(amount>due)return toast('مبلغ دریافتی بیشتر از مانده نوبت است');db.payments.push({id:uid('p'),appointment:a.id,customer:a.customer,amount,method:f.get('method'),date:todayISO(),by:'نگار'});if(amount===due)a.status='completed';save();closeModal();toast(amount===due?'پرداخت کامل و نوبت تسویه شد':'پرداخت ثبت شد؛ مانده حفظ شد')}
+function openStaffModal(){openModal(`<div class="modalhead"><h3>افزودن متخصص</h3><button class="close" onclick="closeModal()">×</button></div><form id="staffForm" class="formgrid"><div class="field"><label>نام</label><input class="input" name="name" required></div><div class="field"><label>دسته</label><input class="input" name="cat" required placeholder="مو، ناخن، چهره…"></div></form><div class="modalfoot"><button class="btn secondary" onclick="closeModal()">انصراف</button><button class="btn primary" onclick="submitStaff()">ذخیره</button></div>`)}
+function submitStaff(){const f=new FormData(staffForm);db.staff.push({id:uid('s'),name:f.get('name').trim(),cat:f.get('cat').trim(),active:true,services:[]});save();closeModal();toast('متخصص اضافه شد')}
+function openServiceModal(){openModal(`<div class="modalhead"><h3>افزودن خدمت</h3><button class="close" onclick="closeModal()">×</button></div><form id="serviceForm" class="formgrid"><div class="field"><label>نام خدمت</label><input class="input" name="name" required></div><div class="field"><label>دسته</label><input class="input" name="cat" required></div><div class="field"><label>مدت (دقیقه)</label><input class="input" name="duration" type="number" min="5" value="60"></div><div class="field"><label>قیمت پایه</label><input class="input" name="price" type="number" min="0" placeholder="توافقی = خالی"></div></form><div class="modalfoot"><button class="btn secondary" onclick="closeModal()">انصراف</button><button class="btn primary" onclick="submitService()">ذخیره</button></div>`)}
+function submitService(){const f=new FormData(serviceForm);db.services.push({id:uid('v'),name:f.get('name').trim(),cat:f.get('cat').trim(),duration:Number(f.get('duration')),price:Number(f.get('price')||0),active:true});save();closeModal();toast('خدمت اضافه شد')}
+function readNotif(id){const n=db.notifications.find(x=>x.id===id);if(n)n.read=true;save()}
+function markAllRead(){db.notifications.forEach(n=>n.read=true);save();toast('همه اعلان‌ها خوانده شدند')}
+function saveSettings(){db.settings.open=document.getElementById('setOpen').value;db.settings.close=document.getElementById('setClose').value;db.settings.gap=Number(document.getElementById('setGap').value);save();toast('تنظیمات ذخیره شد')}
+async function testSupabase(){const u=sbUrl.value.trim(),k=sbKey.value.trim();if(!u||!k)return toast('URL و anon key را وارد کنید');sbStatus.textContent='در حال تست…';try{const r=await fetch(u+'/rest/v1/',{headers:{apikey:k,Authorization:'Bearer '+k}});sbStatus.textContent=r.ok?'✓ اتصال پاسخ داد؛ RLS/Auth باید جداگانه بررسی شود.':'✕ پاسخ نامعتبر: '+r.status}catch(e){sbStatus.textContent='✕ اتصال برقرار نشد.'}}
+function saveSupabase(){localStorage.setItem('farivar_sb_url',sbUrl.value.trim());localStorage.setItem('farivar_sb_key',sbKey.value.trim());toast('تنظیمات اتصال ذخیره شد')}
+function hydrateSettings(){setOpen.value=db.settings.open;setClose.value=db.settings.close;setGap.value=db.settings.gap;sbUrl.value=localStorage.getItem('farivar_sb_url')||'';sbKey.value=localStorage.getItem('farivar_sb_key')||''}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>showView(b.dataset.view));
+document.querySelectorAll('[data-af]').forEach(b=>b.onclick=()=>setApptFilter(b.dataset.af));
+document.getElementById('apptSearch').addEventListener('input',renderAppts);document.getElementById('customerSearch').addEventListener('input',renderCustomers);
+document.getElementById('hamb').onclick=()=>sidebar.classList.toggle('open');
+document.getElementById('quickBtn').onclick=()=>openApptModal();
+document.getElementById('notifBtn').onclick=()=>showView('notifications');
+document.getElementById('globalSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){const q=e.target.value.trim();if(!q)return;showView('customers');customerSearch.value=q;renderCustomers()}});
+modalBack.addEventListener('click',e=>{if(e.target===modalBack)closeModal()});
+hydrateSettings();renderAll();
+</script>
+</body>
+</html>
