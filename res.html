@@ -33,7 +33,7 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .only-d{display:none!important}
 @media(min-width:901px){.only-d{display:flex!important}.only-m{display:none!important}}
 
-/* ---------- هدر ---------- */
+/* هدر */
 .top{position:sticky;top:0;z-index:60;background:var(--sand);border-bottom:1px solid var(--line)}
 .top-in{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:12px 18px}
 .top-side{display:flex;align-items:center;gap:10px}
@@ -49,17 +49,20 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .icon-btn{position:relative;width:40px;height:40px;border-radius:13px;background:var(--ivory);box-shadow:var(--sh-sm);display:grid;place-items:center;color:var(--ink2);transition:.15s}
 .icon-btn:hover{color:var(--terracotta);transform:translateY(-1px)}
 .icon-btn:active{box-shadow:var(--sh-in);transform:none}
-.support-chip{display:flex;align-items:center;gap:8px;background:var(--ivory);box-shadow:var(--sh-sm);border-radius:12px;padding:8px 14px;font-size:12.5px;font-weight:700;color:var(--ink2)}
+.support-chip{display:flex;align-items:center;gap:8px;background:var(--ivory);box-shadow:var(--sh-sm);border-radius:12px;padding:8px 14px;font-size:12.5px;font-weight:700;color:var(--ink2);text-decoration:none}
 .support-chip .ic{color:var(--terracotta)}
 
-/* ---------- چیدمان ---------- */
+/* هشدار مهاجرت */
+.warnbar{background:rgba(168,126,47,.1);color:var(--ochre);font-size:12px;font-weight:700;text-align:center;padding:8px 16px;border-bottom:1px solid rgba(168,126,47,.18)}
+
+/* چیدمان */
 .wrap{max-width:1140px;margin:0 auto;padding:22px 18px 70px}
 .intro{text-align:center;padding:10px 0 22px}
 .intro h1{font-size:26px;font-weight:800}
 .intro p{color:var(--ink3);font-size:13.5px;margin-top:4px}
 .narrow{max-width:560px;margin:0 auto}
 
-/* ---------- نشانگر مراحل ---------- */
+/* نشانگر مراحل */
 .progress{display:flex;align-items:flex-start;justify-content:center;gap:4px;margin:0 auto 26px;max-width:640px}
 .p-node{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;min-width:0;position:relative}
 .p-dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:800;background:var(--sand);color:var(--ink3);box-shadow:var(--sh-sm);transition:.2s;position:relative;z-index:1}
@@ -73,11 +76,8 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .p-node.done .p-lbl{color:var(--ink2)}
 .p-node.done,.p-node.cur{cursor:pointer}
 
-/* ---------- شبکه اصلی ---------- */
 .layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:24px;align-items:start}
 .sumwrap{position:sticky;top:86px}
-
-/* ---------- پنل و مراحل ---------- */
 .panel{background:var(--ivory);border-radius:22px;box-shadow:var(--sh);padding:22px;border:1px solid rgba(216,198,180,.25)}
 .step{display:none}
 .step.active{display:block;animation:stepIn .3s ease}
@@ -86,14 +86,14 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .step-head h2{font-size:19px;font-weight:800}
 .step-head p{color:var(--ink3);font-size:12.5px;margin-top:3px}
 
-/* چیپ‌ها */
+/* چیپ */
 .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
 .chip{font-size:12px;font-weight:700;padding:7px 15px;border-radius:99px;background:var(--ivory);box-shadow:var(--sh-sm);color:var(--ink2);white-space:nowrap;transition:.15s}
 .chip:hover{color:var(--terracotta)}
 .chip.active{background:rgba(188,83,43,.1);color:var(--terracotta);box-shadow:var(--sh-in)}
 
-/* کارت خدمت */
+/* خدمت */
 .svc-grid{display:grid;grid-template-columns:1fr;gap:12px}
 @media(min-width:701px){.svc-grid{grid-template-columns:1fr 1fr}}
 .svc-card{position:relative;text-align:right;background:var(--ivory);border-radius:18px;box-shadow:var(--sh-sm);border:1.5px solid rgba(216,198,180,.3);padding:15px 17px;transition:.18s;display:flex;flex-direction:column;gap:6px}
@@ -101,18 +101,18 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .svc-card.sel{border-color:rgba(188,83,43,.55);box-shadow:0 0 0 1px rgba(188,83,43,.2),var(--sh)}
 .svc-check{position:absolute;top:12px;inset-inline-end:12px;width:24px;height:24px;border-radius:50%;background:var(--sand);display:grid;place-items:center;color:var(--ink3);transition:.18s}
 .svc-card.sel .svc-check{background:var(--terracotta);color:#fff;box-shadow:0 3px 8px rgba(188,83,43,.35)}
-.svc-card b{font-size:14.5px;font-weight:800}
+.svc-card b{font-size:14.5px;font-weight:800;padding-inline-end:30px}
 .svc-card .dsc{font-size:11.5px;color:var(--ink3);line-height:1.7}
 .svc-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
 .dur-chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--ink2);background:var(--sand);box-shadow:var(--sh-in);border-radius:99px;padding:3px 11px}
 .price{font-size:13px;font-weight:800;color:var(--espresso)}
 .price.muted{color:var(--ochre);font-size:11.5px}
-.consult-note{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--ochre);background:rgba(168,126,47,.08);border-radius:13px;padding:10px 14px;margin-top:14px}
-.avatars{display:flex;margin-inline-start:auto}
+.avatars{display:flex}
 .avatars span{width:26px;height:26px;border-radius:10px;background:var(--blush);display:grid;place-items:center;font-size:10px;font-weight:800;border:2px solid var(--ivory);margin-inline-start:-7px}
 .avatars span:first-child{margin-inline-start:0}
+.consult-note{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--ochre);background:rgba(168,126,47,.08);border-radius:13px;padding:10px 14px;margin-top:14px}
 
-/* گزینه‌های ویژه متخصص */
+/* متخصص */
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
 @media(max-width:520px){.pair{grid-template-columns:1fr}}
 .opt-card{display:flex;flex-direction:column;align-items:flex-start;gap:6px;background:var(--ivory);border-radius:18px;box-shadow:var(--sh-sm);border:1.5px solid rgba(216,198,180,.3);padding:15px 17px;text-align:right;transition:.18s}
@@ -122,8 +122,6 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .opt-card.sel .opt-ic{background:var(--terracotta);color:#fff;box-shadow:var(--sh-ter)}
 .opt-card b{font-size:13.5px;font-weight:800}
 .opt-card span{font-size:11.5px;color:var(--ink3)}
-
-/* کارت متخصص */
 .spec-grid{display:grid;grid-template-columns:1fr;gap:12px}
 @media(min-width:701px){.spec-grid{grid-template-columns:1fr 1fr}}
 .spec-card{display:flex;align-items:center;gap:12px;background:var(--ivory);border-radius:18px;box-shadow:var(--sh-sm);border:1.5px solid rgba(216,198,180,.3);padding:13px 15px;text-align:right;transition:.18s}
@@ -142,10 +140,10 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .sp-avail .lim i{background:var(--ochre)}
 .sp-avail em{font-style:normal;font-size:10px;color:var(--ink3)}
 
-/* تقویم افقی */
+/* تقویم */
 .cal-strip{display:flex;gap:9px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none}
 .cal-strip::-webkit-scrollbar{display:none}
-.cal-day{flex:none;width:76px;background:var(--ivory);border-radius:16px;box-shadow:var(--sh-sm);border:1.5px solid rgba(216,198,180,.3);padding:10px 6px 9px;text-align:center;transition:.16s;position:relative}
+.cal-day{flex:none;width:76px;background:var(--ivory);border-radius:16px;box-shadow:var(--sh-sm);border:1.5px solid rgba(216,198,180,.3);padding:10px 6px 9px;text-align:center;transition:.16s}
 .cal-day:hover{transform:translateY(-2px)}
 .cal-day .wd{font-size:10.5px;font-weight:700;color:var(--ink3);display:block}
 .cal-day .dt{font-size:14px;font-weight:800;display:block;line-height:1.6}
@@ -159,7 +157,7 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .cal-day.off .dt{color:var(--ink3)}
 .cal-day.off .off-tag{font-size:9.5px;font-weight:800;color:var(--brick);display:block}
 
-/* شبکه ساعت */
+/* ساعت */
 .time-title{font-size:16px;font-weight:800;margin:20px 0 4px}
 .lim-note{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;color:var(--ochre);background:rgba(168,126,47,.09);border-radius:11px;padding:7px 12px;margin:8px 0 12px}
 .slots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;animation:stepIn .3s ease}
@@ -171,7 +169,7 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .slot:disabled{background:transparent;box-shadow:var(--sh-in);color:var(--clay);cursor:not-allowed;opacity:.7}
 .slot:disabled:hover{transform:none;color:var(--clay)}
 
-/* نبود زمان + پیشنهاد هوشمند */
+/* نبود زمان */
 .no-avail{background:var(--ivory);border-radius:18px;box-shadow:var(--sh-sm);border:1px dashed var(--clay);padding:18px;margin-top:14px}
 .no-avail>b{font-size:13.5px;font-weight:800;display:block;margin-bottom:4px}
 .no-avail p{font-size:12px;color:var(--ink2)}
@@ -191,8 +189,11 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .in:focus{outline:0;box-shadow:var(--sh-in),0 0 0 2.5px rgba(188,83,43,.25)}
 .in::placeholder{color:var(--ink3)}
 textarea.in{resize:vertical;min-height:64px}
+select.in{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1.2 5.5 5.8 10 1.2' stroke='%235C4E3F' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 13px center;padding-left:32px}
 .err{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--brick);background:rgba(176,58,46,.07);border-radius:11px;padding:8px 13px}
 .hint{font-size:11.5px;color:var(--ink3)}
+.link-btn{background:none;border:0;color:var(--terracotta);font-weight:800;font-size:12px;padding:0}
+.link-btn:hover{text-decoration:underline}
 
 /* OTP */
 .otp-row{display:flex;gap:10px;direction:ltr;justify-content:center;margin:6px 0}
@@ -201,17 +202,17 @@ textarea.in{resize:vertical;min-height:64px}
 .otp-row.shake{animation:shake .4s}
 @keyframes shake{20%,60%{transform:translateX(6px)}40%,80%{transform:translateX(-6px)}}
 .otp-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.otp-note{display:flex;align-items:center;gap:8px;justify-content:center;font-size:12px;font-weight:600;color:var(--ink2);background:rgba(232,207,195,.3);border-radius:12px;padding:9px 13px;margin-top:12px;flex-wrap:wrap}
+.otp-note{display:flex;align-items:center;gap:8px;justify-content:center;font-size:12px;font-weight:600;color:var(--ink2);background:rgba(232,207,195,.3);border-radius:12px;padding:9px 13px;margin-top:12px;flex-wrap:wrap;text-align:center}
 .otp-note b{color:var(--terracotta);letter-spacing:2px}
 
-/* خوش‌آمد مشتری بازگشتی */
+/* خوش‌آمد */
 .welcome{display:flex;align-items:center;gap:12px;background:rgba(95,115,80,.08);border:1px solid rgba(95,115,80,.22);border-radius:16px;padding:14px 16px;margin-bottom:16px}
 .welcome .avatar{background:rgba(95,115,80,.15);color:var(--sage)}
 .welcome b{font-size:13.5px;display:block;color:var(--sage)}
 .welcome p{font-size:12px;color:var(--ink2)}
-.welcome-acts{display:flex;gap:10px;margin-top:10px}
+.welcome-acts{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
 
-/* مرور نهایی */
+/* مرور */
 .rev-rows{display:flex;flex-direction:column}
 .rev-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line2)}
 .rev-row:last-child{border-bottom:0}
@@ -223,7 +224,7 @@ textarea.in{resize:vertical;min-height:64px}
 .policy{background:var(--sand);box-shadow:var(--sh-in);border-radius:14px;padding:12px 15px;margin:16px 0;font-size:11.5px;color:var(--ink2)}
 .policy b{display:block;font-size:12px;color:var(--espresso);margin-bottom:3px}
 
-/* دکمه‌ها */
+/* دکمه */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;padding:12px 22px;font-size:13.5px;font-weight:800;transition:.16s}
 .btn-primary{background:var(--terracotta);color:#FFFCF6;box-shadow:var(--sh-ter)}
 .btn-primary:hover{background:#C65D33;transform:translateY(-1px)}
@@ -232,15 +233,12 @@ textarea.in{resize:vertical;min-height:64px}
 .btn-ghost{background:var(--ivory);color:var(--espresso);box-shadow:var(--sh-sm)}
 .btn-ghost:hover{color:var(--terracotta);transform:translateY(-1px)}
 .btn-ghost:active{box-shadow:var(--sh-in);transform:none}
-.btn-soft{background:rgba(232,207,195,.4);color:var(--espresso)}
-.btn-soft:hover{background:rgba(232,207,195,.65)}
-.btn-danger{background:var(--brick);color:#fff;box-shadow:4px 4px 10px rgba(176,58,46,.3)}
 .btn-lg{padding:14px 26px;border-radius:16px;font-size:14px}
 .btn-full{width:100%}
 .step-cta{margin-top:20px}
 .sub-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:var(--ink3);margin-top:10px}
 
-/* خلاصه چسبان */
+/* خلاصه */
 .summary h3{font-size:15px;font-weight:800;margin-bottom:4px}
 .summary .sub{font-size:11.5px;color:var(--ink3);margin-bottom:12px}
 .sum-rows{display:flex;flex-direction:column}
@@ -253,7 +251,7 @@ textarea.in{resize:vertical;min-height:64px}
 .live-note i{width:7px;height:7px;border-radius:50%;background:var(--sage);animation:ping 2s infinite;flex:none}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(95,115,80,.4)}70%{box-shadow:0 0 0 6px rgba(95,115,80,0)}100%{box-shadow:0 0 0 0 rgba(95,115,80,0)}}
 
-/* صفحه موفقیت */
+/* موفقیت */
 .success-card{max-width:520px;margin:0 auto;text-align:center;padding:30px 26px}
 .ok-ring{width:78px;height:78px;margin:0 auto 16px}
 .ok-ring svg{width:100%;height:100%}
@@ -269,12 +267,12 @@ textarea.in{resize:vertical;min-height:64px}
 .copy:hover{color:var(--terracotta);background:rgba(188,83,43,.08)}
 .suc-acts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
 @media(max-width:520px){.suc-acts{grid-template-columns:1fr}}
-.suc-act{display:flex;flex-direction:column;align-items:center;gap:7px;background:var(--ivory);border-radius:16px;box-shadow:var(--sh-sm);border:1px solid rgba(216,198,180,.3);padding:14px 8px;font-size:11.5px;font-weight:700;transition:.15s}
+.suc-act{display:flex;flex-direction:column;align-items:center;gap:7px;background:var(--ivory);border-radius:16px;box-shadow:var(--sh-sm);border:1px solid rgba(216,198,180,.3);padding:14px 8px;font-size:11.5px;font-weight:700;transition:.15s;text-decoration:none;color:var(--espresso)}
 .suc-act:hover{transform:translateY(-2px);color:var(--terracotta)}
 .suc-act .ic{color:var(--terracotta)}
-.loc-box{background:var(--sand);box-shadow:var(--sh-in);border-radius:14px;padding:13px 15px;margin-top:16px;font-size:12px;color:var(--ink2)}
+.loc-box{background:var(--sand);box-shadow:var(--sh-in);border-radius:14px;padding:13px 15px;margin-top:16px;font-size:12px;color:var(--ink2);text-align:right}
 .loc-box b{display:block;color:var(--espresso);font-size:12.5px;margin-bottom:2px}
-.loc-box .row{display:flex;align-items:flex-start;gap:7px;text-align:right;margin-top:3px}
+.loc-box .row{display:flex;align-items:flex-start;gap:7px;margin-top:3px}
 .loc-box .ic{color:var(--terracotta);margin-top:3px}
 
 /* نوبت من */
@@ -288,7 +286,7 @@ textarea.in{resize:vertical;min-height:64px}
 .st-waiting{color:var(--ochre);background:rgba(168,126,47,.11)}
 .st-cancelled{color:var(--brick);background:rgba(176,58,46,.09)}
 .my-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.mini-act{font-size:11.5px;font-weight:800;color:var(--ink2);background:var(--sand);border-radius:11px;padding:7px 14px;box-shadow:var(--sh-sm);transition:.14s}
+.mini-act{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;color:var(--ink2);background:var(--sand);border-radius:11px;padding:7px 14px;box-shadow:var(--sh-sm);transition:.14s;text-decoration:none}
 .mini-act:hover{color:var(--terracotta)}
 .mini-act.danger:hover{color:var(--brick)}
 .empty{text-align:center;padding:44px 16px;color:var(--ink3)}
@@ -296,17 +294,17 @@ textarea.in{resize:vertical;min-height:64px}
 .empty b{color:var(--ink2);font-size:14px;display:block}
 .empty p{font-size:12px;margin:4px 0 14px}
 
-/* اسکلتون بارگذاری */
-.skel{background:var(--ivory);border-radius:18px;box-shadow:var(--sh-sm);height:74px;animation:pulseS 1.1s ease infinite}
+/* اسکلتون */
+.skel{background:var(--ivory);border-radius:18px;box-shadow:var(--sh-sm);animation:pulseS 1.1s ease infinite}
 @keyframes pulseS{50%{opacity:.45}}
 
-/* نوار چسبان موبایل */
+/* نوار موبایل */
 .mbar{display:none;position:fixed;bottom:0;inset-inline:0;z-index:80;background:var(--ivory);border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(120,95,70,.12);padding:10px 16px calc(10px + env(safe-area-inset-bottom));align-items:center;gap:12px}
 @media(max-width:900px){.mbar.show{display:flex}.wrap{padding-bottom:104px}}
 .mbar-info{flex:1;min-width:0;font-size:11.5px;color:var(--ink3);line-height:1.6}
 .mbar-info b{display:block;font-size:12.5px;color:var(--espresso);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* مودال و شیت */
+/* مودال */
 .overlay{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(36,26,16,.4);opacity:0;pointer-events:none;transition:.2s}
 .overlay.open{opacity:1;pointer-events:auto}
 .modal{background:var(--ivory);border-radius:24px;box-shadow:18px 18px 44px rgba(90,66,45,.35);width:100%;max-width:430px;max-height:88vh;overflow:auto;padding:24px;position:relative;transform:translateY(10px) scale(.98);transition:.2s}
@@ -322,10 +320,6 @@ textarea.in{resize:vertical;min-height:64px}
 .help-row .ic{color:var(--terracotta);margin-top:3px}
 .help-row b{display:block;font-size:12.5px}
 .help-row span{color:var(--ink2)}
-.db-status{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;border-radius:13px;padding:10px 13px;margin-bottom:15px;background:var(--sand);box-shadow:var(--sh-in)}
-.db-status i{width:8px;height:8px;border-radius:50%;flex:none}
-.db-status.off{color:var(--ochre)}.db-status.off i{background:var(--ochre)}
-.db-status.on{color:var(--sage)}.db-status.on i{background:var(--sage)}
 
 /* توست */
 .toasts{position:fixed;bottom:20px;inset-inline-start:20px;z-index:200;display:flex;flex-direction:column;gap:9px;max-width:min(90vw,360px)}
@@ -340,16 +334,16 @@ textarea.in{resize:vertical;min-height:64px}
 /* فوتر */
 .foot{max-width:1140px;margin:0 auto;padding:26px 18px 40px;text-align:center;color:var(--ink3);font-size:11.5px;border-top:1px solid var(--line)}
 .foot b{color:var(--ink2)}
-.foot .lnk{color:var(--terracotta);font-weight:700}
+.foot .mode{display:inline-flex;align-items:center;gap:6px}
+.foot .mode i{width:7px;height:7px;border-radius:50%;background:var(--clay)}
+.foot .mode.ok{color:var(--sage)}.foot .mode.ok i{background:var(--sage)}
 
-/* واکنش‌گرا دسکتاپ */
 @media(min-width:901px){.intro{padding:18px 0 26px}.intro h1{font-size:29px}}
 @media(max-width:900px){.layout{grid-template-columns:1fr}.sumwrap{display:none}}
 </style>
 </head>
 <body>
 
-<!-- ============ هدر ============ -->
 <header class="top">
   <div class="top-in">
     <div class="top-side">
@@ -376,11 +370,22 @@ textarea.in{resize:vertical;min-height:64px}
     </div>
   </div>
 </header>
+<div class="warnbar" id="migBar" hidden>برای فعال‌شدن کامل رزرو آنلاین، اسکریپت «farivar-booking-migration.sql» را در SQL Editor ساپ‌بیس اجرا کنید.</div>
 
-<!-- ============ نمای رزرو ============ -->
+<!-- نمای رزرو -->
 <main id="viewBook" class="wrap">
 
-  <div id="flowArea">
+  <div id="bootArea">
+    <div class="intro"><h1>رزرو نوبت</h1><p>در حال اتصال به سالن فریور…</p></div>
+    <div style="display:grid;gap:12px">
+      <div class="skel" style="height:44px"></div>
+      <div class="skel" style="height:96px"></div>
+      <div class="skel" style="height:96px"></div>
+      <div class="skel" style="height:96px"></div>
+    </div>
+  </div>
+
+  <div id="flowArea" hidden>
     <section class="intro">
       <h1>رزرو نوبت</h1>
       <p>زمان مناسب خود را انتخاب کنید و نوبتتان را در چند مرحله ثبت کنید.</p>
@@ -391,7 +396,6 @@ textarea.in{resize:vertical;min-height:64px}
     <div class="layout">
       <div class="flow">
 
-        <!-- گام ۱: خدمت -->
         <section class="step active" data-step="1">
           <div class="step-head">
             <h2>چه خدمتی می‌خواهید؟</h2>
@@ -406,7 +410,6 @@ textarea.in{resize:vertical;min-height:64px}
           <button class="btn btn-primary btn-lg btn-full step-cta only-d" id="cta1" disabled>ادامه</button>
         </section>
 
-        <!-- گام ۲: متخصص -->
         <section class="step" data-step="2">
           <div class="step-head">
             <h2>متخصص موردنظر خود را انتخاب کنید</h2>
@@ -426,7 +429,6 @@ textarea.in{resize:vertical;min-height:64px}
           <button class="btn btn-primary btn-lg btn-full step-cta only-d" id="cta2" disabled>ادامه</button>
         </section>
 
-        <!-- گام ۳: زمان -->
         <section class="step" data-step="3">
           <div class="step-head"><h2>چه روزی برای شما مناسب است؟</h2></div>
           <div class="chips" id="dayChips">
@@ -439,13 +441,11 @@ textarea.in{resize:vertical;min-height:64px}
           <div id="noAvailArea"></div>
         </section>
 
-        <!-- گام ۴: اطلاعات -->
         <section class="step" data-step="4">
           <div class="step-head"><h2>اطلاعات شما</h2><p>برای ثبت و پیگیری نوبت، به این اطلاعات نیاز داریم.</p></div>
           <div id="infoArea"></div>
         </section>
 
-        <!-- گام ۵: تأیید -->
         <section class="step" data-step="5">
           <div class="step-head"><h2>بررسی نهایی نوبت</h2><p>پیش از ثبت، جزئیات نوبت خود را بررسی کنید؛ همه‌چیز قابل ویرایش است.</p></div>
           <div class="panel" style="padding:8px 20px"><div class="rev-rows" id="reviewRows"></div></div>
@@ -459,7 +459,6 @@ textarea.in{resize:vertical;min-height:64px}
 
       </div>
 
-      <!-- خلاصه چسبان دسکتاپ -->
       <aside class="sumwrap">
         <div class="panel summary">
           <h3>رزرو شما</h3>
@@ -471,16 +470,14 @@ textarea.in{resize:vertical;min-height:64px}
     </div>
   </div>
 
-  <!-- صفحه موفقیت -->
   <div id="successArea" hidden></div>
 </main>
 
-<!-- ============ نمای نوبت من ============ -->
+<!-- نمای نوبت من -->
 <main id="viewMy" class="wrap" hidden>
   <div class="narrow" id="myArea"></div>
 </main>
 
-<!-- نوار چسبان موبایل -->
 <div class="mbar" id="mbar">
   <div class="mbar-info" id="mbarInfo"></div>
   <button class="btn btn-primary" id="mbarBtn">ادامه</button>
@@ -490,7 +487,7 @@ textarea.in{resize:vertical;min-height:64px}
 <div class="overlay" id="mHelp"><div class="modal">
   <button class="m-close" data-close="mHelp" aria-label="بستن"><span data-ic="x" data-sz="15"></span></button>
   <h3>پشتیبانی</h3><p class="m-sub">اگر کمکی لازم دارید، پذیرش سالن در خدمت شماست.</p>
-  <div class="help-row"><span data-ic="phone" data-sz="17"></span><span><b>تماس با سالن</b><span>۰۲۱۸۸۷۷۶۶۵۵ — ساعت کاری پاسخگویی</span></span></div>
+  <div class="help-row"><span data-ic="phone" data-sz="17"></span><span><b>تماس با سالن</b><span>۰۲۱۸۸۷۷۶۶۵۵ — در ساعت کاری سالن</span></span></div>
   <div class="help-row"><span data-ic="clock" data-sz="17"></span><span><b>ساعت کاری سالن</b><span>یکشنبه تا پنجشنبه — ۱۰ تا ۱۸</span></span></div>
   <div class="help-row"><span data-ic="pin" data-sz="17"></span><span><b>نشانی</b><span>میدان مادر، خیابان رودکی شرقی، ساختمان پدر، طبقه دوم</span></span></div>
   <div class="m-actions"><a class="btn btn-primary" href="tel:02188776655">تماس با سالن</a></div>
@@ -511,22 +508,6 @@ textarea.in{resize:vertical;min-height:64px}
   </div>
 </div></div>
 
-<!-- تنظیمات اتصال -->
-<div class="overlay" id="mSettings"><div class="modal">
-  <button class="m-close" data-close="mSettings" aria-label="بستن"><span data-ic="x" data-sz="15"></span></button>
-  <h3>اتصال به سالن</h3><p class="m-sub">این صفحه با همان پایگاه داده پنل پذیرش فریور کار می‌کند.</p>
-  <div class="db-status" id="dbStatus"></div>
-  <div class="bform">
-    <div class="field"><label>آدرس پروژه (Project URL)</label><input class="in ltr" id="sbUrl" placeholder="https://xxxx.supabase.co" style="text-align:left"></div>
-    <div class="field"><label>کلید عمومی (anon key)</label><input class="in ltr" id="sbKey" placeholder="eyJhbGciOi…" style="text-align:left"></div>
-    <div class="m-actions">
-      <button class="btn btn-primary" id="sbConnect">اتصال و ذخیره</button>
-      <button class="btn btn-ghost" id="sbDisconnect">قطع اتصال</button>
-    </div>
-    <p class="hint">پیش از اتصال، اسکریپت مهاجرت را در SQL Editor اجرا کنید. کلید فقط روی همین دستگاه ذخیره می‌شود.</p>
-  </div>
-</div></div>
-
 <!-- مودال عمومی -->
 <div class="overlay" id="mInfo"><div class="modal">
   <h3 id="miTitle"></h3><p class="m-sub" id="miBody"></p><div id="miExtra"></div>
@@ -537,13 +518,21 @@ textarea.in{resize:vertical;min-height:64px}
 
 <footer class="foot">
   <b>سالن زیبایی فریور</b> — میدان مادر، خیابان رودکی شرقی، ساختمان پدر، طبقه دوم<br>
-  یکشنبه تا پنجشنبه، ۱۰ تا ۱۸ &nbsp;·&nbsp; <span id="footMode"></span> &nbsp;·&nbsp; <a class="lnk" id="footSettings">اتصال به سیستم سالن</a>
+  یکشنبه تا پنجشنبه، ۱۰ تا ۱۸ &nbsp;·&nbsp; <span class="mode" id="footMode"></span>
 </footer>
 
 <script>
 /* ============================================================
-   فریور — رزرو آنلاین مشتری (هم‌خانواده پنل پذیرش)
-   ============================================================ */
+   فریور — رزرو آنلاین مشتری (نسخه اصلاح‌شده)
+   ============================================================
+
+   ★★★ فقط این دو خط را ویرایش کنید ★★★
+   مقدارها را از Supabase → Project Settings ← API بردارید:
+   SUPABASE_URL  = آدرس پروژه
+   SUPABASE_ANON_KEY = کلید عمومی (anon / publishable)
+*/
+const SUPABASE_URL='https://inmskrrfyxfelmotrstf.supabase.co';
+const SUPABASE_ANON_KEY='sb_publishable_zy54_EC9XGvCW9FUWtHjGw_3q6r-Evg';
 
 /* ---------- تنظیمات سالن (یک‌جا قابل ویرایش) ---------- */
 const SALON={phone:'02188776655',phoneFa:'۰۲۱۸۸۷۷۶۶۵۵',
@@ -576,6 +565,10 @@ function hStr(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0
 const daySlots=()=>{const a=[];for(let m=600;m<=1050;m+=30)a.push(m);return a};
 const isClosed=iso=>{const g=pDate(iso).getDay();return g===5||g===6}; /* جمعه و شنبه تعطیل */
 const nowMin=()=>{const n=new Date();return n.getHours()*60+n.getMinutes()};
+function friendlyErr(e){const m=String(e?.message||e||'');
+  if(/does not exist|relation|PGRST202|schema cache|Could not find/i.test(m))
+    return'اسکریپت مهاجرت رزرو آنلاین هنوز در Supabase اجرا نشده است.';
+  return m}
 
 /* ---------- آیکون‌ها ---------- */
 const I={
@@ -598,7 +591,7 @@ function injectIcons(root=document){root.querySelectorAll('[data-ic]').forEach(e
 
 /* ---------- وضعیت ---------- */
 const S={
-  mode:'demo',sb:null,services:[],specialists:[],taken:{},
+  mode:'demo',sb:null,services:[],specialists:[],taken:{},migMissing:false,
   step:1,cat:'all',
   sel:{service:null,specialist:null,specMode:null,date:null,time:null,autoSpec:false},
   cust:{phone:null,stage:'phone',verified:false,existing:null,name:'',birthday:'',notes:''},
@@ -606,7 +599,32 @@ const S={
   booking:null,my:{stage:'phone',phone:null,verified:false,list:[]}
 };
 
-/* ---------- داده نمایشی (فقط تا قبل از اتصال) ---------- */
+/* ---------- کاتالوگ واقعی سالن (فقط برای درج خودکار وقتی جدول‌ها خالی باشند) ---------- */
+const CATALOG_SERVICES=[
+ {name:'کوتاهی مو',category:'مو',duration_minutes:60,base_price:1000000,price_label:null},
+ {name:'کوتاهی مو (خانم فریور)',category:'مو',duration_minutes:60,base_price:1500000,price_label:null},
+ {name:'رنگ ریشه',category:'مو',duration_minutes:60,base_price:1000000,price_label:'از ۱٬۰۰۰٬۰۰۰ تومان'},
+ {name:'رنگ کامل',category:'مو',duration_minutes:150,base_price:3000000,price_label:'از ۳٬۰۰۰٬۰۰۰ تومان'},
+ {name:'هایلایت',category:'مو',duration_minutes:120,base_price:null,price_label:'قیمت پس از مشاوره'},
+ {name:'شنیون',category:'مو',duration_minutes:60,base_price:1500000,price_label:'از ۱٬۵۰۰٬۰۰۰ تا ۲٬۰۰۰٬۰۰۰ تومان'},
+ {name:'اسکراب مو',category:'مو',duration_minutes:90,base_price:1500000,price_label:'از ۱٬۵۰۰٬۰۰۰ تومان'},
+ {name:'کاشت ناخن',category:'ناخن',duration_minutes:90,base_price:1300000,price_label:null},
+ {name:'پدیکور',category:'ناخن',duration_minutes:40,base_price:700000,price_label:null},
+ {name:'اصلاح و قرینه‌سازی ابرو',category:'چهره',duration_minutes:15,base_price:300000,price_label:null},
+ {name:'اصلاح و وکس',category:'چهره',duration_minutes:20,base_price:500000,price_label:null},
+ {name:'بلید و میکروپیگمنتیشن',category:'چهره',duration_minutes:60,base_price:3500000,price_label:'از ۳٬۵۰۰٬۰۰۰ تومان'},
+ {name:'میکاپ',category:'چهره',duration_minutes:60,base_price:3500000,price_label:'از ۳٬۵۰۰٬۰۰۰ تومان'},
+ {name:'کاشت مژه',category:'چهره',duration_minutes:120,base_price:1500000,price_label:'از ۱٬۵۰۰٬۰۰۰ تومان'},
+ {name:'پاکسازی پوست',category:'پوست',duration_minutes:40,base_price:800000,price_label:'از ۸۰۰٬۰۰۰ تومان'}
+];
+const CATALOG_SPECIALISTS=[
+ ['مهشاد میرکریمی','ناخن'],['عادله فرهنگ','ناخن'],['نسرین اکبری','رنگ و لایت'],
+ ['سهیلا سیاوشی','رنگ و لایت'],['فرزانه فریور','کوتاهی مو'],['زینب بهرامخوانی','براشبنگ و اصلاح و وکس'],
+ ['رزیتا ترابی','ابرو'],['مریم شیخی','میکروپیگمنتیشن و میکاپ'],['پونه','شنیون'],
+ ['نوشین تهرانی','شنیون'],['ساره','مژه'],['راز','پاکسازی پوست'],['الهام ستاری','اسکراب مو']
+];
+
+/* ---------- داده نمایشی (فقط وقتی کانفیگ داخل کد وارد نشده باشد) ---------- */
 const DEMO_APPTS=[];
 function buildDemo(){
   const T=todayISO(),F=addDays(T,1);
@@ -622,7 +640,7 @@ function buildDemo(){
     {id:'s3',name:'رنگ ریشه',cat:'مو',desc:'رنگ‌ مجدد ریشه با همان تناژی قبلی',dur:60,price:1000000,label:'از ۱٬۰۰۰٬۰۰۰ تومان',specs:['p2','p3']},
     {id:'s4',name:'رنگ کامل',cat:'مو',desc:'رنگ‌دهی کامل موی سر',dur:150,price:3000000,label:'از ۳٬۰۰۰٬۰۰۰ تومان',specs:['p2','p3']},
     {id:'s5',name:'هایلایت',cat:'مو',desc:'هایلایت و لایت با تکنیک روز',dur:120,price:null,consult:true,specs:['p2','p3']},
-    {id:'s11',name:'شنیون',cat:'مو',desc:'شنیون و حالت‌دهی برای مراسم',dur:60,price:null,label:'۱٬۵۰۰٬۰۰۰ تا ۲٬۵۰۰٬۰۰۰ تومان',specs:['p9','p10']},
+    {id:'s11',name:'شنیون',cat:'مو',desc:'شنیون و حالت‌دهی برای مراسم',dur:60,price:1500000,label:'از ۱٬۵۰۰٬۰۰۰ تا ۲٬۰۰۰٬۰۰۰ تومان',specs:['p9','p10']},
     {id:'s14',name:'اسکراب مو',cat:'مو',desc:'پاک‌سازی و ترمیم عمقی مو',dur:90,price:1500000,label:'از ۱٬۵۰۰٬۰۰۰ تومان',specs:['p13']},
     {id:'s6',name:'کاشت ناخن',cat:'ناخن',desc:'کاشت و فرم‌دهی ناخن',dur:90,price:1300000,specs:['p4','p5']},
     {id:'s7',name:'پدیکور',cat:'ناخن',desc:'پدیکور نرم و مراقبتی',dur:40,price:700000,specs:['p4','p5']},
@@ -634,53 +652,66 @@ function buildDemo(){
   ];
   S.specialists=[
     {id:'p1',name:'فرزانه فریور',spec:'کوتاهی مو'},{id:'p2',name:'نسـرین اکبری',spec:'رنگ مو'},
-    {id:'p3',name:'سهیلا سیواشی',spec:'رنگ مو'},{id:'p4',name:'مهشاد میرکریمی',spec:'ناخن'},
+    {id:'p3',name:'سهیلا سیااشی',spec:'رنگ مو'},{id:'p4',name:'مهشاد میرکریمی',spec:'ناخن'},
     {id:'p5',name:'عادله فرهنگ',spec:'ناخن'},{id:'p6',name:'زینب بهرامخانی',spec:'ابرو'},
     {id:'p7',name:'رزیتا ترابی',spec:'ابرو'},{id:'p8',name:'مریم شیخی',spec:'میکروپیگمنتیشن و میکاپ'},
     {id:'p9',name:'پونه',spec:'شنیون'},{id:'p10',name:'نوشین تهرانی',spec:'شنیون'},
-    {id:'p11',name:'سارا',spec:'مژه'},{id:'p12',name:'رز',spec:'پاکسازی پوست'},
+    {id:'p11',name:'ساره',spec:'مژه'},{id:'p12',name:'رز',spec:'پاکسازی پوست'},
     {id:'p13',name:'الهام ستاری',spec:'اسکراب مو'}
   ];
 }
 const DEMO_CUST={'09121234542':{name:'سارا احمدی',birthday:'1995-11-09'},'09122345871':{name:'مریم رضایی',birthday:null}};
 
-/* ---------- اتصال Supabase ---------- */
+/* ---------- بارگذاری داده‌های واقعی ---------- */
 async function loadLive(){
   const sb=S.sb;
   const[sv,sp]=await Promise.all([
     sb.from('services').select('*').eq('is_active',true).order('name'),
     sb.from('specialists').select('*').eq('is_active',true).order('full_name')
   ]);
-  if(sv.error||sp.error)throw new Error((sv.error||sp.error).message);
-  S.services=sv.data;S.specialists=sp.data;
+  if(sv.error)throw sv.error;
+  if(sp.error)throw sp.error;
+  S.services=sv.data||[];S.specialists=sp.data||[];
   await refreshTaken();
 }
 async function refreshTaken(){
   if(S.mode!=='live')return;
-  const from=todayISO(),to=addDays(from,21);
-  const{data,error}=await S.sb.from('online_appointments').select('*')
-    .gte('appointment_date',from).lte('appointment_date',to);
-  if(error)throw new Error(error.message);
-  S.taken={};
-  data.forEach(r=>{
-    const d=r.appointment_date,sid=r.specialist_id;if(!sid)return;
-    const s=slotMin((r.start_time||'').slice(0,5));
-    ((S.taken[d]=S.taken[d]||{})[sid]=S.taken[d][sid]||[]).push([s,s+(r.duration_minutes||60)]);
-  });
-}
-async function connect(cfg){
-  let ok=false;
   try{
-    if(typeof supabase==='undefined')throw new Error('کتابخانه Supabase بارگذاری نشده — اینترنت را بررسی کنید');
-    const sb=supabase.createClient(cfg.url,cfg.key);
-    const{error}=await sb.from('services').select('id').limit(1);
-    if(error)toast(error.message.includes('does not exist')?'جدول‌ها یافت نشد — ابتدا اسکریپت SQL را اجرا کنید':'اتصال ناموفق: '+error.message,'error');
-    else{S.sb=sb;S.mode='live';localStorage.setItem('farivar.sb',JSON.stringify(cfg));await loadLive();ok=true;toast('به سیستم سالن فریور متصل شدید','success')}
-  }catch(e){toast(String(e.message||e),'error')}
-  if(!ok)enterDemo();
-  resetBooking();renderFoot();renderDb();
+    const from=todayISO(),to=addDays(from,21);
+    const{data,error}=await S.sb.from('online_appointments').select('*')
+      .gte('appointment_date',from).lte('appointment_date',to);
+    if(error)throw error;
+    S.taken={};
+    (data||[]).forEach(r=>{
+      const d=r.appointment_date,sid=r.specialist_id;if(!sid)return;
+      const s=slotMin((r.start_time||'').slice(0,5));
+      ((S.taken[d]=S.taken[d]||{})[sid]=S.taken[d][sid]||[]).push([s,s+(r.duration_minutes||60)]);
+    });
+  }catch(e){
+    S.taken={};S.migMissing=true;$('#migBar').hidden=false;
+  }
 }
-function enterDemo(){S.mode='demo';S.sb=null;buildDemo()}
+/* درج خودکار کاتالوگ سالن وقتی جدول‌ها خالی باشند */
+async function ensureCatalog(){
+  if(S.mode!=='live')return;
+  const cnt=async t=>{const{count,error}=await S.sb.from(t).select('id',{count:'exact',head:true});
+    if(error)throw error;return count||0};
+  try{
+    const nSvc=await cnt('services'),nSpec=await cnt('specialists');
+    if(nSvc===0){
+      const{error}=await S.sb.from('services').insert(CATALOG_SERVICES.map(s=>({...s,is_active:true})));
+      if(error)throw error;
+    }
+    if(nSpec===0){
+      const{error}=await S.sb.from('specialists').insert(CATALOG_SPECIALISTS.map(([n,s])=>({full_name:n,specialty:s,is_active:true})));
+      if(error)throw error;
+    }
+    if(nSvc===0||nSpec===0){
+      await loadLive();
+      toast('لیست خدمات و متخصص‌های سالن بارگذاری شد','success');
+    }
+  }catch(e){toast('درج لیست خدمات انجام نشد: '+friendlyErr(e),'error')}
+}
 
 /* ---------- موتور در دسترس بودن ---------- */
 function blockedDemo(specId,date,m){return hStr(specId+'|'+date+'|'+m)%100<34}
@@ -688,7 +719,7 @@ function takenIntervals(date,specId){
   const out=[];
   DEMO_APPTS.forEach(a=>{if(a.spec===specId&&a.date===date&&a.status!=='cancelled')out.push([slotMin(a.time),slotMin(a.time)+a.dur])});
   if(S.mode==='demo'){for(let m=600;m<=1050;m+=30)if(blockedDemo(specId,date,m))out.push([m,m+30])}
-  else{(S.taken[date]||{})[specId]?.forEach(r=>out.push(r))}
+  else{const x=(S.taken[date]||{})[specId];if(x)x.forEach(r=>out.push(r))}
   return out;
 }
 function isFree(date,specId,m,dur){
@@ -696,23 +727,24 @@ function isFree(date,specId,m,dur){
   if(date===todayISO()&&m<=nowMin()+20)return false;
   return !takenIntervals(date,specId).some(([s,e])=>m<e&&m+dur>s);
 }
-function matchingSpecs(){
-  const svc=curSvc();if(!svc)return[];
-  if(S.mode==='demo')return svc.specs.map(id=>specById(id)).filter(Boolean);
+function liveMatch(svc,spec){
   const rules=[[/رنگ|لایت|هایلایت/,'رنگ'],[/کوتاهی/,'کوتاهی'],[/شنیون/,'شنیون'],[/اسکراپ/,'اسکراپ'],
-    [/ناخن|پدیکور/,'ناخن'],[/ابرو/,'ابرو'],[/میکروپیگمنتیشن|بلید/,'میکروپیگمنتیشن'],
+    [/ناخن|پدیکور/,'ناخن'],[/ابرو/,'ابرو'],[/وکس/,'وکس'],[/میکروپیگمنتیشن|بلید/,'میکروپیگمنتیشن'],
     [/میکاپ/,'میکاپ'],[/مژه/,'مژه'],[/پاکسازی/,'پاکسازی']];
   const r=rules.find(([re])=>re.test(svc.name||''));
-  return r?S.specialists.filter(s=>(s.specialty||'').includes(r[1])):S.specialists;
+  return r?(spec.specialty||'').includes(r[1]):true;
 }
+function matchingSpecsFor(svc){
+  if(!svc)return[];
+  if(S.mode==='demo')return(svc.specs||[]).map(id=>specById(id)).filter(Boolean);
+  return S.specialists.filter(sp=>liveMatch(svc,sp));
+}
+const matchingSpecs=()=>matchingSpecsFor(curSvc());
 function unionFree(date,dur){
   const specs=S.sel.specMode==='specific'?[specById(S.sel.specialist)].filter(Boolean):matchingSpecs();
   return daySlots().filter(m=>specs.some(sp=>sp&&isFree(date,sp.id,m,dur)));
 }
-function resolveSpec(date,m,dur){
-  const specs=matchingSpecs();
-  return (specs.find(sp=>isFree(date,sp.id,m,dur))||{}).id||null;
-}
+function resolveSpec(date,m,dur){return(matchingSpecs().find(sp=>isFree(date,sp.id,m,dur))||{}).id||null}
 function firstFreeOf(specId,dur,days=7){
   for(let i=0;i<days;i++){const d=addDays(todayISO(),i);
     if(isClosed(d))continue;
@@ -728,25 +760,58 @@ function firstFreeAny(dur,days=7){
 }
 const curSvc=()=>S.services.find(s=>s.id===S.sel.service);
 const specById=id=>S.specialists.find(s=>s.id===id);
+const svcDur=s=>s?(S.mode==='demo'?s.dur:(s.duration_minutes||60)):60;
+const isConsult=s=>!!(s&&((s.consult)||/مشاوره|توافقی/.test(s.price_label||'')));
 function svcPrice(s,short){
   if(!s)return'—';
-  if(s.consult)return short?'مشاوره':'قیمت پس از مشاوره';
-  return s.label||money(s.price)+' تومان';
+  if(isConsult(s))return short?'مشاوره':'قیمت پس از مشاوره';
+  let l=s.label||s.price_label;
+  if(l){if((/از|تا/.test(l))&&!l.includes('تومان'))l+=' تومان';return l}
+  return money(S.mode==='demo'?s.price:s.base_price)+' تومان';
+}
+function svcDesc(s){
+  if(s.desc)return s.desc;const n=s.name||'';
+  if(/کوتاهی/.test(n))return'کوتاهی و فرم‌دهی مو';
+  if(/رنگ ریشه/.test(n))return'رنگ‌ مجدد ریشه';
+  if(/رنگ کامل/.test(n))return'رنگ‌دهی کامل موی سر';
+  if(/هایلایت|لایت/.test(n))return'لایت و هایلایت';
+  if(/شنیون/.test(n))return'شنیون و حالت‌دهی';
+  if(/اسکراپ/.test(n))return'پاک‌سازی و ترمیم عمقی مو';
+  if(/کاشت ناخن|ناخن/.test(n))return'کاشت و فرم‌دهی ناخن';
+  if(/پدیکور/.test(n))return'پدیکور نرم و مراقبتی';
+  if(/ابرو/.test(n))return'فرم‌دهی و قرینه‌سازی ابرو';
+  if(/وکس/.test(n))return'اصلاح و وکس';
+  if(/میکروپیگمنتیشن|بلید/.test(n))return'بلید و میکروپیگمنتیشن ابرو';
+  if(/میکاپ/.test(n))return'میکاپ عروس و مجلسی';
+  if(/مژه/.test(n))return'کاشت و سرم مژه';
+  if(/پاکسازی/.test(n))return'پاکسازی تخصصی پوست';
+  return s.category||'';
+}
+function displayCat(s){
+  const n=s.name||'';
+  if(/ابرو|وکس/.test(n))return'ابرو';
+  if(/میکروپیگمنتیشن|بلید/.test(n))return'میکروپیگمنتیشن';
+  if(/میکاپ/.test(n))return'میکاپ';
+  if(/مژه/.test(n))return'مژه';
+  const c=S.mode==='demo'?s.cat:(s.category||'');
+  if(['مو','ناخن','پوست'].includes(c))return c;
+  if(c==='چهره')return'ابرو';
+  return c||'مو';
 }
 
-/* ---------- ناوبری مراحل ---------- */
+/* ---------- نشانگر مراحل ---------- */
 const STEP_LBL=['خدمت','متخصص','زمان','اطلاعات','تأیید'];
 function renderProgress(){
   $('#progress').innerHTML=STEP_LBL.map((l,i)=>{
-    const n=i+1;const st=n===S.step?'cur':n<S.step?'done':'todo';
-    return`<button class="p-node ${st}" data-act="goto" data-go="${n}" ${n<S.step?'':'aria-disabled="true"'}>
+    const n=i+1,st=n===S.step?'cur':n<S.step?'done':'todo';
+    return`<button class="p-node ${st}" data-act="goto" data-go="${n}">
       <span class="p-dot">${n<S.step?ic('check',14):toFa(n)}</span><span class="p-lbl">${l}</span></button>`;
   }).join('');
 }
 function goStep(n){
   S.step=n;renderProgress();
   $$('.step').forEach(el=>el.classList.toggle('active',+el.dataset.step===n));
-  updateSummary();updateCta();updateMbar();
+  renderSummary();updateCta();updateMbar();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function resetBooking(){
@@ -756,74 +821,67 @@ function resetBooking(){
   S.booking=null;
   $('#successArea').hidden=true;$('#successArea').innerHTML='';
   $('#flowArea').hidden=false;
-  renderAll();updateMbar();
+  renderAll();
 }
 
 /* ---------- گام ۱: خدمت ---------- */
 function renderServices(){
   const cats=['all','مو','ناخن','ابرو','میکروپیگمنتیشن','میکاپ','مژه','پوست'];
   $('#svcCats').innerHTML=cats.map(c=>`<button class="chip ${S.cat===c?'active':''}" data-act="svc-cat" data-v="${c}">${c==='all'?'همه خدمات':c}</button>`).join('');
-  const list=S.services.filter(s=>S.cat==='all'||s.cat===S.cat);
+  const list=S.services.filter(s=>S.cat==='all'||displayCat(s)===S.cat);
   $('#svcGrid').innerHTML=list.length?list.map(s=>{
     const sel=S.sel.service===s.id;
-    const specs=(S.mode==='demo'?s.specs.map(specById).filter(Boolean):matchingSpecsFor(s)).slice(0,3);
+    const specs=matchingSpecsFor(s).slice(0,3);
     return`<button class="svc-card ${sel?'sel':''}" data-act="select-svc" data-id="${s.id}">
       <span class="svc-check">${ic('check',13)}</span>
       <b>${esc(s.name)}</b>
-      <span class="dsc">${esc(s.desc||s.category||'')}</span>
+      <span class="dsc">${esc(svcDesc(s))}</span>
       <div class="svc-foot">
-        <span class="dur-chip">${ic('clock',12)}${faDur(s.dur)}</span>
-        <span class="avatars">${specs.map(p=>`<span>${esc(initials(p.name))}</span>`).join('')}</span>
+        <span class="dur-chip">${ic('clock',12)}${faDur(svcDur(s))}</span>
+        <span class="avatars">${specs.map(p=>`<span>${esc(initials(p.full_name||p.name))}</span>`).join('')}</span>
       </div>
       <div class="svc-foot" style="margin-top:0">
-        <span class="price ${s.consult?'muted':''}">${esc(svcPrice(s))}</span>
+        <span class="price ${isConsult(s)?'muted':''}">${esc(svcPrice(s))}</span>
       </div>
     </button>`;
-  }).join(''):`<div class="empty"><span class="ic-c">${ic('cal',22)}</span><b>خدمتی در این دسته یافت نشد</b></div>`;
-  $('#consultNote').hidden=!(curSvc()&&curSvc().consult);
-}
-function matchingSpecsFor(svc){
-  const rules=[[/رنگ|لایت|هایلایت/,'رنگ'],[/کوتاهی/,'کوتاهی'],[/شنیون/,'شنیون'],[/اسکراپ/,'اسکراپ'],
-    [/ناخن|پدیکور/,'ناخن'],[/ابرو/,'ابرو'],[/میکروپیگمنتیشن|بلید/,'میکروپیگمنتیشن'],
-    [/میکاپ/,'میکاپ'],[/مژه/,'مژه'],[/پاکسازی/,'پاکسازی']];
-  const r=rules.find(([re])=>re.test(svc.name||''));
-  return r?S.specialists.filter(s=>(s.specialty||'').includes(r[1])):S.specialists;
+  }).join(''):`<div class="empty"><span class="ic-c">${ic('cal',22)}</span><b>خدمتی در این دسته یافت نشد</b><p>از پنل پذیرش، خدمات سالن را تکمیل کنید.</p></div>`;
+  const c=curSvc();
+  $('#consultNote').hidden=!(c&&isConsult(c));
 }
 
 /* ---------- گام ۲: متخصص ---------- */
 function renderSpecs(){
   $$('.opt-card').forEach(b=>b.classList.toggle('sel',b.dataset.v===S.sel.specMode));
-  const list=matchingSpecs();const dur=curSvc()?.dur||60;
+  const list=matchingSpecs(),dur=svcDur(curSvc());
   $('#specGrid').innerHTML=list.map(p=>{
     const sel=S.sel.specMode==='specific'&&S.sel.specialist===p.id;
+    const nm=p.full_name||p.name,sp=p.specialty||p.spec;
     const ff=firstFreeOf(p.id,dur);
     let avail;
     if(!ff)avail=`<span class="lim"><i></i>تکمیل شده</span><em>تا ۷ روز آینده</em>`;
     else if(ff.date===todayISO()){
-      const left=unionFreeFor(p.id,todayISO(),dur).length;
+      const left=daySlots().filter(m=>isFree(todayISO(),p.id,m,dur)).length;
       avail=left<=2?`<span class="lim"><i></i>ظرفیت محدود</span><em>امروز ${toFa(ff.time)}</em>`
         :`<span class="ok"><i></i>آزاد</span><em>امروز ${toFa(ff.time)}</em>`;
     }else avail=`<span class="ok"><i></i>آزاد</span><em>${jWD(ff.date)} ${toFa(ff.time)}</em>`;
     return`<button class="spec-card ${sel?'sel':''}" data-act="select-spec" data-id="${p.id}">
-      <span class="avatar">${esc(initials(p.name))}</span>
-      <span class="sp-info"><b>${esc(p.name)}</b><span class="spec-tag">${esc(p.specialty||'')}</span></span>
+      <span class="avatar">${esc(initials(nm))}</span>
+      <span class="sp-info"><b>${esc(nm)}</b><span class="spec-tag">${esc(sp||'')}</span></span>
       <span class="sp-avail">${avail}</span>
     </button>`;
   }).join('')||`<div class="empty"><span class="ic-c">${ic('user',22)}</span><b>در حال حاضر متخصصی برای این خدمت فعال نیست</b></div>`;
 }
-function unionFreeFor(specId,date,dur){return daySlots().filter(m=>isFree(date,specId,m,dur))}
 
 /* ---------- گام ۳: زمان ---------- */
 function renderCal(){
   const sel=S.sel.date;
-  const chips=$$('[data-act="day-chip"]');
-  chips.forEach(c=>c.classList.toggle('active',sel===addDays(todayISO(),+c.dataset.v)));
+  $$('[data-act="day-chip"]').forEach(c=>c.classList.toggle('active',sel===addDays(todayISO(),+c.dataset.v)));
   let html='';
   for(let i=0;i<14;i++){
-    const d=addDays(todayISO(),i),closed=isClosed(d);
-    const free=unionFree(d,curSvc()?.dur||60).length;
-    if(closed)html+=`<div class="cal-day off" aria-disabled="true"><span class="wd">${jWD(d)}</span><span class="dt">${jDM(d)}</span><span class="off-tag">تعطیل</span></div>`;
-    else html+=`<button class="cal-day ${sel===d?'sel':''}" data-act="select-day" data-v="${d}">
+    const d=addDays(todayISO(),i);
+    if(isClosed(d)){html+=`<div class="cal-day off" aria-disabled="true"><span class="wd">${jWD(d)}</span><span class="dt">${jDM(d)}</span><span class="off-tag">تعطیل</span></div>`;continue}
+    const free=unionFree(d,svcDur(curSvc())).length;
+    html+=`<button class="cal-day ${sel===d?'sel':''}" data-act="select-day" data-v="${d}">
       <span class="wd">${i===0?'امروز':i===1?'فردا':jWD(d)}</span>
       <span class="dt">${jDM(d)}</span>
       ${free===0?'':`<span class="dot-a ${free<=3?'lim':''}"></span>`}
@@ -833,38 +891,28 @@ function renderCal(){
 }
 function renderTimes(){
   renderCal();
-  const area=$('#timeArea'),noA=$('#noAvailArea');
-  noA.innerHTML='';
+  const area=$('#timeArea');$('#noAvailArea').innerHTML='';
   if(!S.sel.date){area.innerHTML='';return}
-  const dur=curSvc()?.dur||60;
+  const dur=svcDur(curSvc());
   const free=unionFree(S.sel.date,dur);
-  const all=daySlots();
   let head=`<h3 class="time-title">چه ساعتی برای شما مناسب است؟</h3>
-    <p class="hint">${jMed(S.sel.date)}${S.sel.specMode==='specific'?' — '+esc(specById(S.sel.specialist)?.name||''):''}</p>`;
-  if(free.length===0){
-    area.innerHTML=head;
-    renderNoAvail();return;
-  }
+    <p class="hint">${jMed(S.sel.date)}${S.sel.specMode==='specific'?' — '+esc(specById(S.sel.specialist)?.full_name||specById(S.sel.specialist)?.name||''):''}</p>`;
+  if(free.length===0){area.innerHTML=head;renderNoAvail();return}
   const limNote=free.length<=4?`<div class="lim-note">${ic('info',14)}ظرفیت این روز محدود است — فقط ${toFa(free.length)} زمان باقی مانده است.</div>`:'';
-  area.innerHTML=head+limNote+`<div class="slots">${all.map(m=>{
-    const t=fmtMin(m);const ok=free.includes(m);const sel=S.sel.time===t;
+  area.innerHTML=head+limNote+`<div class="slots">${daySlots().map(m=>{
+    const t=fmtMin(m),ok=free.includes(m),sel=S.sel.time===t;
     return`<button class="slot ${sel?'sel':''}" data-act="select-slot" data-v="${t}" ${ok?'':'disabled aria-disabled="true"'}>${toFa(t)}</button>`;
   }).join('')}</div>`;
 }
 function renderNoAvail(){
-  const dur=curSvc()?.dur||60;const d0=S.sel.date;
-  const msg=S.sel.specMode==='specific'
-    ?'برای این روز زمان خالی نزد این متخصص وجود ندارد.'
-    :'برای این روز زمان خالی وجود ندارد.';
-  /* نزدیک‌ترین زمان‌های آزاد (همین متخصص یا گروه) */
+  const dur=svcDur(curSvc()),d0=S.sel.date;
+  const msg=S.sel.specMode==='specific'?'برای این روز زمان خالی نزد این متخصص وجود ندارد.':'برای این روز زمان خالی وجود ندارد.';
   const specs=S.sel.specMode==='specific'?[specById(S.sel.specialist)].filter(Boolean):matchingSpecs();
   const alts=[];
   for(let i=0;i<8&&alts.length<3;i++){
     const d=addDays(todayISO(),i);if(isClosed(d)||d===d0)continue;
-    for(const sp of specs)for(const m of daySlots())
-      if(isFree(d,sp.id,m,dur)){alts.push({d,t:fmtMin(m)});break}
+    for(const sp of specs)for(const m of daySlots())if(isFree(d,sp.id,m,dur)){alts.push({d,t:fmtMin(m)});break}
   }
-  /* دیگر متخصص‌های همین روز */
   const others=[];
   if(S.sel.specMode==='specific')
     matchingSpecs().filter(p=>p.id!==S.sel.specialist).forEach(p=>{
@@ -875,24 +923,24 @@ function renderNoAvail(){
   <div class="no-avail">
     <b>${msg}</b>
     ${alts.length?`<p>نزدیک‌ترین زمان‌های آزاد:</p><div class="alt-list">
-      ${alts.slice(0,3).map(a=>`<div class="alt-row"><b>${a.d===addDays(todayISO(),1)?'فردا':jMed(a.d)} — ${toFa(a.t)}</b>
+      ${alts.map(a=>`<div class="alt-row"><b>${a.d===addDays(todayISO(),1)?'فردا':jMed(a.d)} — ${toFa(a.t)}</b>
         <button class="alt-pick" data-act="alt-pick" data-d="${a.d}" data-t="${a.t}">انتخاب</button></div>`).join('')}
     </div>`:''}
     ${others.length?`<p style="margin-top:12px">یا زمان‌های متخصص‌های دیگر در همین روز:</p><div class="alt-list">
-      ${others.slice(0,4).map(o=>`<div class="alt-row"><b>${esc(o.p.name)} — ${toFa(o.t)}</b>
+      ${others.slice(0,4).map(o=>`<div class="alt-row"><b>${esc(o.p.full_name||o.p.name)} — ${toFa(o.t)}</b>
         <button class="alt-pick" data-act="alt-pick" data-d="${d0}" data-t="${o.t}" data-s="${o.p.id}">انتخاب</button></div>`).join('')}
     </div>`:''}
     <div class="wl-block">
       <b>زمان مناسب پیدا نشد؟</b>
       <p>می‌توانید در لیست انتظار قرار بگیرید تا در صورت خالی شدن زمان، با شما تماس بگیریم.</p>
-      <button class="btn btn-ghost" data-act="waitlist-open">${ic('plus',15)}عضویت در لیست انتظار</button>
+      <button class="btn btn-ghost" data-act="waitlist-open">${ic('user',15)}عضویت در لیست انتظار</button>
     </div>
   </div>`;
 }
 
 /* ---------- گام ۴: اطلاعات و OTP ---------- */
 function renderInfo(){
-  const a=$('#infoArea');const c=S.cust;
+  const a=$('#infoArea'),c=S.cust;
   if(c.stage==='phone'){
     a.innerHTML=`<div class="bform">
       <div class="field"><label>شماره موبایل</label>
@@ -905,14 +953,14 @@ function renderInfo(){
   }
   else if(c.stage==='otp'){
     a.innerHTML=`
-    <p style="font-size:13px">کد تأیید به شماره <b class="ltr">${maskPhone(c.phone)}</b> ارسال شد.</p>
-    <div class="otp-row" id="otpRow">${'<input class="otp-in" maxlength="1" inputmode="numeric">' .repeat(5)}</div>
+    <p style="font-size:13px">کد تأیید برای شما ارسال شد. به شماره <b class="ltr">${maskPhone(c.phone)}</b></p>
+    <div class="otp-row" id="otpRow">${'<input class="otp-in" maxlength="1" inputmode="numeric">'.repeat(5)}</div>
     <div id="otpErr"></div>
     <div class="otp-meta">
-      <button class="link-btn" data-act="otp-edit" style="color:var(--terracotta);font-size:12px;font-weight:800">ویرایش شماره</button>
+      <button class="link-btn" data-act="otp-edit">ویرایش شماره</button>
       <span class="hint" id="otpTimer"></span>
     </div>
-    <div class="otp-note">${ic('info',14)}پیامک‌رسان به سالن متصل نیست — کد تأیید شما: <b>${toFa(S.otp.code)}</b>
+    <div class="otp-note">${ic('info',14)}پیامک‌رسان متصل نیست — کد تأیید شما: <b>${toFa(S.otp.code)}</b>
       <button class="edit-lnk" data-act="otp-autofill">درج خودکار</button></div>
     <button class="btn btn-primary btn-lg btn-full" style="margin-top:16px" data-act="otp-verify">تأیید و ادامه</button>`;
     bindOtp();
@@ -929,7 +977,7 @@ function renderInfo(){
       <button class="btn btn-ghost" data-act="edit-info">ویرایش اطلاعات</button>
     </div>`;
   }
-  else{ /* form */
+  else{
     a.innerHTML=`
     ${c.existing?`<div class="welcome" style="margin-bottom:14px">
       <span class="avatar">${esc(initials(c.existing.name))}</span>
@@ -945,7 +993,7 @@ function renderInfo(){
       <div id="formErr"></div>
       <button class="btn btn-primary btn-lg btn-full" data-act="form-next">ادامه</button>
     </div>`;
-    const bh=$('#birthHint'),bi=$('#inBirth');
+    const bi=$('#inBirth'),bh=$('#birthHint');
     const upd=()=>bh.textContent=bi.value?jFull(bi.value):'';
     bi.addEventListener('change',upd);upd();
     setTimeout(()=>$('#inName')?.focus());
@@ -958,7 +1006,7 @@ function bindOtp(){
     el.addEventListener('input',()=>{el.value=toEn(el.value).replace(/\D/g,'').slice(-1);if(el.value&&i<4)ins[i+1].focus()});
     el.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!el.value&&i>0)ins[i-1].focus()});
     el.addEventListener('paste',e=>{e.preventDefault();
-      const d=toEn((e.clipboardData.getData('text')||'')).replace(/\D/g,'').slice(0,5);
+      const d=toEn(e.clipboardData.getData('text')||'').replace(/\D/g,'').slice(0,5);
       d.split('').forEach((c,j)=>{if(ins[j])ins[j].value=c});ins[Math.min(d.length,4)].focus()});
   });
   startOtpTimer();
@@ -969,11 +1017,11 @@ function startOtpTimer(){
     const left=Math.max(0,Math.floor((S.otp.exp-Date.now())/1000));
     const el=$('#otpTimer');if(!el){clearInterval(S.otp.timer);return}
     el.innerHTML=left>0?`ارسال مجدد کد تا ${toFa(p2(Math.floor(left/60))+':'+p2(left%60))}`
-      :`<button class="link-btn" data-act="otp-resend" style="color:var(--terracotta);font-size:12px;font-weight:800">ارسال مجدد کد</button>`;
+      :`<button class="link-btn" data-act="otp-resend">ارسال مجدد کد</button>`;
   };
   tick();S.otp.timer=setInterval(tick,1000);
 }
-async function sendOtp(){
+function sendOtp(){
   const raw=toEn($('#inPhone')?.value||'').replace(/\D/g,'');
   if(!raw)return $('#phoneErr').innerHTML=errBox('لطفاً شماره موبایل را وارد کنید.');
   if(!/^09\d{9}$/.test(raw))return $('#phoneErr').innerHTML=errBox('شماره موبایل معتبر نیست؛ مثل ۰۹۱۲۳۴۵۶۷۸۹ وارد کنید.');
@@ -990,7 +1038,6 @@ async function verifyOtp(){
   }
   clearInterval(S.otp.timer);
   S.cust.verified=true;
-  /* تشخیص مشتری بازگشتی (CRM) */
   if(S.mode==='live'){
     try{const{data}=await S.sb.rpc('farivar_lookup_customer',{p_phone:S.cust.phone});
       S.cust.existing=data||null;
@@ -1003,25 +1050,25 @@ function errBox(t){return`<div class="err">${ic('info',14)}${esc(t)}</div>`}
 
 /* ---------- خلاصه و مرور ---------- */
 function renderSummary(){
-  const s=S.sel;const svc=curSvc();const sp=s.specialist?specById(s.specialist):null;
+  const s=S.sel,svc=curSvc(),sp=s.specialist?specById(s.specialist):null;
   const rows=[
     ['خدمت',svc?esc(svc.name):null],
-    ['متخصص',sp?esc(sp.name)+(s.autoSpec?'<span class="auto-tag">تخصیص خودکار</span>':''):null],
+    ['متخصص',sp?esc(sp.full_name||sp.name||'')+(s.autoSpec?'<span class="auto-tag">تخصیص خودکار</span>':''):null],
     ['تاریخ',s.date?jMed(s.date):null],
     ['ساعت',s.time?toFa(s.time):null],
-    ['مدت',svc?faDur(svc.dur):null],
+    ['مدت',svc?faDur(svcDur(svc)):null],
     ['قیمت',svc?esc(svcPrice(svc,true)):null]
   ];
   $('#sumRows').innerHTML=rows.map(([l,v])=>`<div class="sum-row"><span>${l}</span><b class="${v?'':'empty'}">${v||'انتخاب نشده'}</b></div>`).join('');
 }
 function renderReview(){
-  const s=S.sel;const svc=curSvc();const sp=s.specialist?specById(s.specialist):null;
-  const priceSub=(svc&&(svc.consult||svc.label))?'<small>مبلغ نهایی پیش از انجام خدمت، توسط پذیرش تأیید می‌شود.</small>':'';
+  const s=S.sel,svc=curSvc(),sp=s.specialist?specById(s.specialist):null;
+  const priceSub=(svc&&(isConsult(svc)||svc.price_label||svc.label))?'<small>مبلغ نهایی پیش از انجام خدمت، توسط پذیرش تأیید می‌شود.</small>':'';
   const rows=[
     ['خدمت',`<b>${esc(svc?.name||'—')}</b>`,1],
-    ['متخصص',`<b>${esc(sp?.name||'—')}</b>${s.autoSpec?'<small>بهترین متخصصِ موجود، توسط سیستم انتخاب شد.</small>':''}`,2],
+    ['متخصص',`<b>${esc(sp?.full_name||sp?.name||'—')}</b>${s.autoSpec?'<small>بهترین متخصصِ موجود، توسط سیستم انتخاب شد.</small>':''}`,2],
     ['تاریخ',`<b>${s.date?jFull(s.date):'—'}</b>`,3],
-    ['ساعت',`<b>${s.time?toFa(s.time):'—'}</b><small>مدت تقریبی: ${faDur(svc?.dur)}</small>`,3],
+    ['ساعت',`<b>${s.time?toFa(s.time):'—'}</b><small>مدت تقریبی: ${faDur(svc?svcDur(svc):null)}</small>`,3],
     ['قیمت',`<b>${esc(svcPrice(svc))}</b>${priceSub}`,null],
     ['مشتری',`<b>${esc(S.cust.name||S.cust.existing?.name||'—')}</b>`,4],
     ['شماره تماس',`<b class="ltr">${maskPhone(S.cust.phone)}</b>`,4]
@@ -1031,47 +1078,36 @@ function renderReview(){
     ${go?`<button class="edit-lnk" data-act="goto" data-go="${go}">ویرایش ${['','خدمت','متخصص','زمان','اطلاعات'][go]}</button>`:''}
   </div>`).join('');
 }
-function updateSummary(){renderSummary();if(S.step===5)renderReview()}
 
-/* ---------- دکمه‌ها و نوار موبایل ---------- */
-function stepReady(){
-  switch(S.step){
-    case 1:return!!S.sel.service;
-    case 2:return!!S.sel.specMode;
-    case 3:return!!(S.sel.date&&S.sel.time);
-    case 4:return S.cust.stage==='form'&&false||cta4Label()!==null;
-    case 5:return true;
-  }
-  return false;
-}
-function cta4Label(){
-  switch(S.cust.stage){
-    case 'phone':return{label:'دریافت کد تأیید',ready:true};
-    case 'otp':return{label:'تأیید کد',ready:true};
-    case 'welcome':return null; /* دکمه داخل صفحه است */
-    case 'form':return{label:'ادامه',ready:true};
-  }
-  return null;
-}
+/* ---------- دکمه‌ها ---------- */
 function updateCta(){
-  const r=stepReady();
   $('#cta1')&&($('#cta1').disabled=!S.sel.service);
   $('#cta2')&&($('#cta2').disabled=!S.sel.specMode);
 }
+function cta4(){
+  switch(S.cust.stage){
+    case 'phone':return{label:'دریافت کد تأیید'};
+    case 'otp':return{label:'تأیید کد'};
+    case 'form':return{label:'ادامه'};
+    default:return null;
+  }
+}
 function updateMbar(){
-  const inBook=!$('#viewBook').hidden&&$('#flowArea').hidden===false&&!S.booking;
+  const inBook=!$('#viewBook').hidden&&!$('#flowArea').hidden&&!S.booking;
   $('#mbar').classList.toggle('show',inBook);
   if(!inBook)return;
-  const svc=curSvc();
-  let info,btn,ready;
-  if(S.step<=3&&svc)info=`<b>${esc(svc.name)}</b>${esc(svcPrice(svc,true))} · گام ${toFa(S.step)} از ۵ — ${STEP_LBL[S.step-1]}`;
-  else info=`گام ${toFa(S.step)} از ۵ — ${STEP_LBL[S.step-1]}`;
+  const svc=curSvc();let info,btn,ready=true;
   if(S.step===4){
-    const c=cta4Label();
+    const c=cta4();
     if(!c){$('#mbar').classList.remove('show');return}
-    btn=c.label;ready=c.ready;info=`<b>شماره: ${maskPhone(S.cust.phone)}</b>گام ۴ از ۵ — اطلاعات`;
-  }else if(S.step===5){btn='تأیید و ثبت نوبت';ready=true;info=`<b>${esc(svc?.name||'')}</b>${esc(svcPrice(svc,true))} · ${S.sel.date?jDM(S.sel.date):''} ${S.sel.time?toFa(S.sel.time):''}`}
-  else{btn='ادامه';ready=stepReady()}
+    btn=c.label;info=`<b>شماره: ${maskPhone(S.cust.phone)}</b>گام ۴ از ۵ — اطلاعات`;
+  }else if(S.step===5){btn='تأیید و ثبت نوبت';info=`<b>${esc(svc?.name||'')}</b>${esc(svcPrice(svc,true))} · ${S.sel.date?jDM(S.sel.date):''} ${S.sel.time?toFa(S.sel.time):''}`}
+  else{
+    btn='ادامه';
+    ready=S.step===1?!!S.sel.service:S.step===2?!!S.sel.specMode:!!(S.sel.date&&S.sel.time);
+    info=svc?`<b>${esc(svc.name)}</b>${esc(svcPrice(svc,true))} · گام ${toFa(S.step)} از ۵ — ${STEP_LBL[S.step-1]}`
+      :`گام ${toFa(S.step)} از ۵ — ${STEP_LBL[S.step-1]}`;
+  }
   $('#mbarInfo').innerHTML=info;
   const b=$('#mbarBtn');b.textContent=btn;b.disabled=!ready;
 }
@@ -1098,10 +1134,8 @@ function formNext(){
 }
 
 /* ---------- ثبت نوبت ---------- */
-function genCode(){
-  const d=new Date();
-  return`FV-${String(d.getFullYear()).slice(2)}${p2(d.getMonth()+1)}${p2(d.getDate())}-${String(Math.floor(1000+Math.random()*9000))}`;
-}
+function genCode(){const d=new Date();
+  return`FV-${String(d.getFullYear()).slice(2)}${p2(d.getMonth()+1)}${p2(d.getDate())}-${String(Math.floor(1000+Math.random()*9000))}`}
 async function submitBooking(){
   const b=$('#submitBtn');b.disabled=true;b.textContent='در حال ثبت نوبت…';
   const s=S.sel,svc=curSvc(),sp=specById(s.specialist);
@@ -1111,21 +1145,20 @@ async function submitBooking(){
       const{data,error}=await S.sb.rpc('farivar_book_appointment',{
         p_name:S.cust.name,p_phone:S.cust.phone,p_birthday:S.cust.birthday||null,p_notes:S.cust.notes||null,
         p_service_id:svc.id,p_specialist_id:s.specialist,p_date:s.date,p_time:s.time+':00'});
-      if(error)throw new Error(error.message);
+      if(error)throw error;
       if(!data||data.ok===false){
         if(data&&data.reason==='slot_taken'){await refreshTaken();conflictSheet();b.disabled=false;b.textContent='تأیید و ثبت نوبت';return}
         throw new Error('invalid');
       }
       code=data.code;
     }else{
-      await wait(900);
-      code=genCode();
-      DEMO_APPTS.push({spec:s.specialist,date:s.date,time:s.time,dur:svc.dur,phone:S.cust.phone,
-        service:svc.name,specName:sp?.name||'',status:'waiting',code});
+      await wait(900);code=genCode();
+      DEMO_APPTS.push({spec:s.specialist,date:s.date,time:s.time,dur:svcDur(svc),phone:S.cust.phone,
+        service:svc.name,specName:sp?.name||sp?.full_name||'',status:'waiting',code});
     }
     showSuccess(code);
   }catch(e){
-    errorSheet();b.disabled=false;b.textContent='تأیید و ثبت نوبت';
+    errorSheet(friendlyErr(e));b.disabled=false;b.textContent='تأیید و ثبت نوبت';
   }
 }
 function conflictSheet(){
@@ -1134,17 +1167,17 @@ function conflictSheet(){
     [{label:'مشاهده زمان‌های دیگر',cls:'btn-primary',fn:()=>{S.sel.time=null;goStep(3);renderTimes()}},
      {label:'بازگشت',cls:'btn-ghost'}]);
 }
-function errorSheet(){
+function errorSheet(msg){
   infoModal('ثبت نوبت انجام نشد',
-    'اطلاعات شما حفظ شده است. لطفاً دوباره تلاش کنید.',
+    'اطلاعات شما حفظ شده است. لطفاً دوباره تلاش کنید. '+msg,
     [{label:'تلاش مجدد',cls:'btn-primary',fn:()=>submitBooking()},
      {label:'بازگشت',cls:'btn-ghost'}]);
 }
 
-/* ---------- صفحه موفقیت ---------- */
+/* ---------- موفقیت ---------- */
 function showSuccess(code){
   const s=S.sel,svc=curSvc(),sp=specById(s.specialist);
-  S.booking={code,svc:svc?.name,spec:sp?.name,date:s.date,time:s.time,dur:svc?.dur};
+  S.booking={code,svc:svc?.name,spec:sp?.full_name||sp?.name||'',date:s.date,time:s.time,dur:svcDur(svc)};
   $('#flowArea').hidden=true;
   const suc=$('#successArea');suc.hidden=false;
   suc.innerHTML=`<div class="success-card panel">
@@ -1158,9 +1191,9 @@ function showSuccess(code){
       <button class="copy" data-act="copy" data-v="${esc(code)}" title="کپی کد">${ic('copy',15)}</button></div>
     <div class="rev-rows" style="text-align:right">
       <div class="rev-row"><span>خدمت</span><div class="rev-val"><b>${esc(svc?.name||'')}</b></div></div>
-      <div class="rev-row"><span>متخصص</span><div class="rev-val"><b>${esc(sp?.name||'')}</b></div></div>
+      <div class="rev-row"><span>متخصص</span><div class="rev-val"><b>${esc(S.booking.spec)}</b></div></div>
       <div class="rev-row"><span>تاریخ</span><div class="rev-val"><b>${jFull(s.date)}</b></div></div>
-      <div class="rev-row"><span>ساعت</span><div class="rev-val"><b>${toFa(s.time)}</b><small>مدت تقریبی: ${faDur(svc?.dur)}</small></div></div>
+      <div class="rev-row"><span>ساعت</span><div class="rev-val"><b>${toFa(s.time)}</b><small>مدت تقریبی: ${faDur(S.booking.dur)}</small></div></div>
     </div>
     <div class="loc-box">
       <b>سالن زیبایی فریور</b>
@@ -1195,7 +1228,7 @@ function makeICS(){
 
 /* ---------- نوبت من ---------- */
 function renderMy(){
-  const a=$('#myArea');const m=S.my;
+  const a=$('#myArea'),m=S.my;
   if(m.stage==='phone'){
     a.innerHTML=`<div class="intro" style="padding-top:6px"><h1 style="font-size:22px">نوبت من</h1>
       <p>شماره موبایل خود را وارد کنید تا نوبت‌هایتان را ببینید.</p></div>
@@ -1213,7 +1246,7 @@ function renderMy(){
         <div class="otp-row" id="otpRow">${'<input class="otp-in" maxlength="1" inputmode="numeric">'.repeat(5)}</div>
         <div id="otpErr"></div>
         <div class="otp-meta" style="margin-top:8px">
-          <button class="link-btn" data-act="my-edit" style="color:var(--terracotta);font-size:12px;font-weight:800">ویرایش شماره</button>
+          <button class="link-btn" data-act="my-edit">ویرایش شماره</button>
           <span class="hint" id="otpTimer"></span>
         </div>
         <div class="otp-note">${ic('info',14)}پیامک‌رسان متصل نیست — کد تأیید شما: <b>${toFa(S.otp.code)}</b>
@@ -1223,7 +1256,7 @@ function renderMy(){
     bindOtp();
   }else{
     a.innerHTML=`<div class="intro" style="padding-top:6px"><h1 style="font-size:22px">نوبت من</h1>
-      <p>نوبت‌های آینده شما</p></div><div id="myList">${m.list.map(myCard).join('')||''}</div>`;
+      <p>نوبت‌های آینده شما</p></div><div id="myList">${m.list.map(myCard).join('')}</div>`;
     if(!m.list.length)a.querySelector('#myList').innerHTML=`<div class="panel"><div class="empty">
       <span class="ic-c">${ic('cal',22)}</span><b>نوبت فعالی ندارید</b>
       <p>برای رزرو نوبت جدید، از دکمه زیر استفاده کنید.</p>
@@ -1231,9 +1264,8 @@ function renderMy(){
   }
 }
 function myCard(t){
-  const st=t.status==='confirmed'?['st-confirmed','تأیید شده']:t.status==='cancelled'?['st-cancelled','لغو شده']:['st-waiting','در انتظار تأیید پذیرش'];
-  const dead=t.status==='cancelled';
-  return`<div class="panel my-card" style="${dead?'opacity:.65':''}">
+  const st=t.status==='confirmed'?['st-confirmed','تأیید شده']:['st-waiting','در انتظار تأیید پذیرش'];
+  return`<div class="panel my-card">
     <div class="my-top">
       <div><b class="my-date">${jMed(t.date)}</b><span class="my-time">${ic('clock',13)}${toFa((t.time||'').slice(0,5))}</span></div>
       <span class="st ${st[0]}">${st[1]}</span>
@@ -1243,17 +1275,17 @@ function myCard(t){
       <div class="rev-row"><span>متخصص</span><div class="rev-val"><b>${esc(t.specialist||'—')}</b></div></div>
       <div class="rev-row"><span>کد پیگیری</span><div class="rev-val"><b>${esc(t.code||'—')}</b></div></div>
     </div>
-    ${dead?'':`<div class="my-acts">
+    <div class="my-acts">
       <button class="mini-act" data-act="my-reschedule">${ic('edit',13)}تغییر زمان</button>
       <button class="mini-act danger" data-act="my-cancel" data-code="${esc(t.code||'')}">لغو نوبت</button>
       <a class="mini-act" href="tel:${SALON.phone}">${ic('phone',13)}تماس با سالن</a>
-    </div>`}
+    </div>
   </div>`;
 }
 async function myLoad(){
   if(S.mode==='live'){
     const{data,error}=await S.sb.rpc('farivar_my_appointments',{p_phone:S.my.phone});
-    if(error)throw new Error(error.message);
+    if(error)throw error;
     S.my.list=(data||[]).map(r=>({code:r.tracking_code,date:r.date,time:r.time,service:r.service,specialist:r.specialist,status:r.status}));
   }else{
     S.my.list=DEMO_APPTS.filter(a=>a.phone===S.my.phone&&a.date>=todayISO()&&a.status!=='cancelled')
@@ -1262,14 +1294,14 @@ async function myLoad(){
 }
 async function myCancel(code){
   infoModal('لغو نوبت','آیا از لغو این نوبت مطمئن هستید؟ این کار قابل بازگشت نیست.',
-    [{label:'لغو نوبت',cls:'btn-danger',fn:async()=>{
+    [{label:'لغو نوبت',cls:'btn-ghost',style:'btn-danger',fn:async()=>{
       try{
         if(S.mode==='live'){const{data,error}=await S.sb.rpc('farivar_cancel_appointment',{p_phone:S.my.phone,p_code:code});
-          if(error)throw new Error(error.message);
+          if(error)throw error;
           if(!data||!data.ok)throw new Error('ok')}
         else{const a=DEMO_APPTS.find(x=>x.code===code&&x.phone===S.my.phone);if(a)a.status='cancelled'}
         await myLoad();renderMy();toast('نوبت لغو شد','info');
-      }catch(e){toast('لغو نوبت انجام نشد؛ دوباره تلاش کنید.','error')}
+      }catch(e){toast(friendlyErr(e),'error')}
     }},{label:'انصراف',cls:'btn-ghost'}]);
 }
 
@@ -1277,7 +1309,7 @@ async function myCancel(code){
 function openWaitlist(){
   const specs=matchingSpecs();
   $('#wlSpec').innerHTML=`<option value="">متخصص خاصی ندارم</option>`+
-    specs.map(p=>`<option value="${p.id}" ${p.id===S.sel.specialist?'selected':''}>${esc(p.name)} — ${esc(p.specialty||'')}</option>`).join('');
+    specs.map(p=>`<option value="${p.id}" ${p.id===S.sel.specialist?'selected':''}>${esc(p.full_name||p.name)} — ${esc(p.specialty||p.spec||'')}</option>`).join('');
   $('#wlPhone').value=S.cust.phone||'';
   openModal('mWait');
 }
@@ -1290,11 +1322,11 @@ async function saveWaitlist(){
         full_name:S.cust.name||null,phone,
         preferred_day:$('#wlDay').value,time_window:$('#wlWin').value,
         specialist_id:$('#wlSpec').value||null,service_id:S.sel.service||null});
-      if(error)throw new Error(error.message);
+      if(error)throw error;
     }
     closeModal('mWait');
     toast('درخواست شما ثبت شد؛ در صورت خالی شدن زمان با شما تماس می‌گیریم.','success');
-  }catch(e){toast('خطا در ثبت درخواست: '+(e.message||''),'error')}
+  }catch(e){toast(friendlyErr(e),'error')}
 }
 
 /* ---------- مودال و توست ---------- */
@@ -1311,31 +1343,29 @@ function infoModal(title,body,buttons,extraHTML){
   $('#miExtra').innerHTML=extraHTML||'';
   const acts=$('#miActions');acts.innerHTML='';
   buttons.forEach(b=>{const el=document.createElement('button');
-    el.className='btn '+(b.cls||'btn-ghost');el.textContent=b.label;
+    el.className='btn '+(b.cls||'btn-ghost');if(b.style)el.style.cssText='background:var(--brick);color:#fff;box-shadow:4px 4px 10px rgba(176,58,46,.3)';
+    el.textContent=b.label;
     el.onclick=()=>{closeModal('mInfo');b.fn&&b.fn()};acts.appendChild(el)});
   openModal('mInfo');
 }
-function renderDb(){
-  const el=$('#dbStatus');
-  if(S.mode==='live'){el.className='db-status on';el.innerHTML='<i></i>متصل به سیستم سالن — رزروها مستقیم برای پذیرش ثبت می‌شود'}
-  else{el.className='db-status off';el.innerHTML='<i></i>متصل نیست — حالت نمایشی (بدون ذخیره در سالن)'}
-}
 function renderFoot(){
-  $('#footMode').textContent=S.mode==='live'?'متصل به سالن':'نسخه نمایشی';
+  const el=$('#footMode');
+  if(S.mode==='live')el.innerHTML='<span class="mode ok"><i></i> متصل به سیستم سالن</span>';
+  else el.innerHTML='<span class="mode"><i></i> نسخه نمایشی — آدرس و کلید Supabase را در دو خط ابتدای کد وارد کنید</span>';
 }
 
-/* ---------- ناوبری اصلی ---------- */
+/* ---------- ناوبری ---------- */
 function setView(v){
   $('#viewBook').hidden=v!=='book';$('#viewMy').hidden=v!=='my';
   $$('.top-nav a').forEach(a=>a.classList.toggle('active',a.dataset.nav===v||(v==='home'&&a.dataset.nav==='book')));
-  history.replaceState(null,'',v==='my'?'#my':'#book');
+  location.hash=v==='my'?'#my':'#book';
   window.scrollTo({top:0});
   updateMbar();
 }
 function nav(v){
   if(v==='home'){resetBooking();setView('book')}
   else if(v==='book'){setView('book')}
-  else{setView('my');if(!S.my.verified){S.my.stage='phone'}renderMy()}
+  else{setView('my');if(!S.my.verified)S.my.stage='phone';renderMy()}
 }
 
 /* ---------- رویدادها ---------- */
@@ -1346,16 +1376,16 @@ document.addEventListener('click',async e=>{
   const id=el.dataset.id,v=el.dataset.v;
   try{switch(el.dataset.act){
     case 'svc-cat':S.cat=v;S.sel.service=null;renderServices();updateCta();updateMbar();break;
-    case 'select-svc':{
+    case 'select-svc':
       if(S.sel.service!==id){S.sel.service=id;S.sel.specialist=null;S.sel.specMode=null;S.sel.time=null;S.sel.autoSpec=false}
-      renderServices();updateCta();updateSummary();updateMbar();break}
+      renderServices();updateCta();renderSummary();updateMbar();break;
     case 'opt':{
-      const dur=curSvc()?.dur||60;
+      const dur=svcDur(curSvc());
       if(v==='first'){
         const f=firstFreeAny(dur);
         if(!f){toast('در ۷ روز آینده زمانی خالی نیست — در لیست انتظار ثبت شوید.','info');openWaitlist();break}
         S.sel.specMode='first';S.sel.specialist=f.specId;S.sel.date=f.date;S.sel.time=f.time;S.sel.autoSpec=true;
-        toast(`اولین زمان آزاد: ${f.date===todayISO()?'امروز':jMed(f.date)} — ${toFa(f.time)} (${specById(f.specId)?.name||''})`,'success');
+        toast(`اولین زمان آزاد: ${f.date===todayISO()?'امروز':jMed(f.date)} — ${toFa(f.time)}`,'success');
         goStep(4);
       }else{
         S.sel.specMode='none';S.sel.specialist=null;S.sel.time=null;S.sel.autoSpec=false;
@@ -1363,29 +1393,28 @@ document.addEventListener('click',async e=>{
       }break}
     case 'select-spec':
       S.sel.specMode='specific';S.sel.specialist=id;S.sel.time=null;S.sel.autoSpec=false;
-      renderSpecs();updateSummary();updateCta();updateMbar();break;
+      renderSpecs();renderSummary();updateCta();updateMbar();break;
     case 'day-chip':{
       const d=addDays(todayISO(),+v);
       if(isClosed(d)){toast('سالن در این روز تعطیل است.','info');break}
       S.sel.date=d;S.sel.time=null;renderTimes();break}
-    case 'select-day':S.sel.date=v;S.sel.time=null;renderTimes();updateSummary();updateMbar();break;
+    case 'select-day':S.sel.date=v;S.sel.time=null;renderTimes();renderSummary();updateMbar();break;
     case 'select-slot':{
       S.sel.time=v;S.sel.autoSpec=false;
       if(S.sel.specMode!=='specific'){
-        const dur=curSvc()?.dur||60;
-        const sid=resolveSpec(S.sel.date,slotMin(v),dur);
+        const sid=resolveSpec(S.sel.date,slotMin(v),svcDur(curSvc()));
         if(!sid){toast('این زمان در دسترس نیست.','error');S.sel.time=null;break}
         S.sel.specialist=sid;S.sel.autoSpec=true;
       }
-      updateSummary();updateMbar();break}
+      renderSummary();updateMbar();break}
     case 'alt-pick':{
       S.sel.date=el.dataset.d;S.sel.time=el.dataset.t;
       if(el.dataset.s){S.sel.specialist=el.dataset.s;S.sel.specMode='specific'}
       else if(S.sel.specMode!=='specific'){
-        const sid=resolveSpec(S.sel.date,slotMin(el.dataset.t),curSvc()?.dur||60);
+        const sid=resolveSpec(S.sel.date,slotMin(el.dataset.t),svcDur(curSvc()));
         if(sid){S.sel.specialist=sid;S.sel.autoSpec=true}
       }
-      renderTimes();updateSummary();updateMbar();
+      renderTimes();renderSummary();updateMbar();
       toast(`زمان ${jDM(S.sel.date)} — ${toFa(S.sel.time)} انتخاب شد`,'success');break}
     case 'waitlist-open':openWaitlist();break;
     case 'phone-send':sendOtp();break;
@@ -1426,36 +1455,23 @@ document.addEventListener('click',async e=>{
       [{label:'تماس با سالن',cls:'btn-primary',fn:()=>window.location.href='tel:'+SALON.phone},
        {label:'بستن',cls:'btn-ghost'}]);break;
     case 'nav':nav(v);break;
-  }}catch(err){toast('خطا: '+(err.message||err),'error')}
+  }}catch(err){toast('خطا: '+friendlyErr(err),'error')}
 });
-
-/* رویدادهای ثابت */
 function bindEvents(){
   $('#helpBtn').addEventListener('click',()=>openModal('mHelp'));
-  $('#footSettings').addEventListener('click',()=>{renderDb();openModal('mSettings')});
   $('#backBtn').addEventListener('click',()=>{
     if(!$('#viewMy').hidden){nav('book');return}
     if(S.booking){resetBooking();return}
     if(S.step>1)goStep(S.step-1);else window.scrollTo({top:0,behavior:'smooth'});
   });
-  $('#cta1').addEventListener('click',()=>advance());
-  $('#cta2').addEventListener('click',()=>advance());
-  $('#mbarBtn').addEventListener('click',()=>advance());
+  $('#cta1').addEventListener('click',advance);
+  $('#cta2').addEventListener('click',advance);
+  $('#mbarBtn').addEventListener('click',advance);
   $('#submitBtn').addEventListener('click',submitBooking);
   $('#wlSave').addEventListener('click',saveWaitlist);
-  $('#sbConnect').addEventListener('click',async()=>{
-    const url=$('#sbUrl').value.trim(),key=$('#sbKey').value.trim();
-    if(!url||!key)return toast('آدرس و کلید را وارد کنید','error');
-    await connect({url,key});
-  });
-  $('#sbDisconnect').addEventListener('click',()=>{
-    localStorage.removeItem('farivar.sb');enterDemo();resetBooking();renderFoot();renderDb();
-    toast('اتصال قطع شد — حالت نمایشی','info');
-  });
   $$('.overlay').forEach(o=>o.addEventListener('mousedown',e=>{if(e.target===o)o.classList.remove('open')}));
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.overlay.open').forEach(o=>o.classList.remove('open'))});
-  /* سوییچ مرحله با ورود از دسکتاپ: Enter در فیلدهای شماره */
   document.addEventListener('keydown',e=>{
+    if(e.key==='Escape')$$('.overlay.open').forEach(o=>o.classList.remove('open'));
     if(e.key!=='Enter')return;
     if(e.target.id==='inPhone'){e.preventDefault();sendOtp()}
     if(e.target.id==='myPhone'){e.preventDefault();$('[data-act="my-send"]')?.click()}
@@ -1468,18 +1484,39 @@ function renderAll(){
   renderSummary();renderReview();updateCta();updateMbar();
 }
 
-/* ---------- شروع ---------- */
-(function init(){
+/* ---------- شروع: اتصال خودکار با کانفیگ داخل کد ---------- */
+async function boot(){
   injectIcons();bindEvents();
-  let cfg=null;try{cfg=JSON.parse(localStorage.getItem('farivar.sb')||'null')}catch(e){}
-  if(cfg&&cfg.url&&cfg.key){
-    connect(cfg).then(()=>{renderFoot()});
+  const cfgOk=SUPABASE_URL&&!/YOUR-PROJECT/.test(SUPABASE_URL)&&SUPABASE_ANON_KEY&&!/YOUR-ANON-KEY/.test(SUPABASE_ANON_KEY);
+  if(cfgOk){
+    try{
+      if(typeof supabase==='undefined')throw new Error('کتابخانه Supabase بارگذاری نشده — اینترنت را بررسی کنید');
+      const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+      const{error}=await sb.from('services').select('id').limit(1);
+      if(error){
+        if(/does not exist|relation/i.test(error.message))
+          toast('جدول‌ها یافت نشد — ابتدا اسکریپت SQL پنل پذیرش را در Supabase اجرا کنید','error');
+        else toast('اتصال ناموفق: '+error.message,'error');
+        enterDemo();
+      }else{
+        S.sb=sb;S.mode='live';
+        await loadLive();       /* خدمات و متخصص‌ها */
+        await ensureCatalog();  /* درج خودکار لیست واقعی سالن اگر جدول‌ها خالی باشند */
+        await refreshTaken();
+        toast('به سیستم سالن فریور متصل شدید','success');
+      }
+    }catch(e){enterDemo();toast('اتصال برقرار نشد ('+friendlyErr(e)+') — حالت نمایشی فعال است','error')}
   }else{
-    enterDemo();renderFoot();
-    if(location.hash==='#my'){nav('my');renderMy()}
+    enterDemo();
   }
-  if(location.hash!=='#my'){renderAll()}
-})();
+  renderFoot();
+  if(location.hash==='#my'){nav('my');renderMy()}
+  else renderAll();
+  $('#bootArea').hidden=true;
+  $('#flowArea').hidden=false;
+}
+function enterDemo(){S.mode='demo';S.sb=null;buildDemo()}
+boot();
 </script>
 </body>
 </html>
