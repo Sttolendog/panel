@@ -51,8 +51,6 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .icon-btn:active{box-shadow:var(--sh-in);transform:none}
 .support-chip{display:flex;align-items:center;gap:8px;background:var(--ivory);box-shadow:var(--sh-sm);border-radius:12px;padding:8px 14px;font-size:12.5px;font-weight:700;color:var(--ink2);text-decoration:none}
 .support-chip .ic{color:var(--terracotta)}
-
-/* هشدار مهاجرت */
 .warnbar{background:rgba(168,126,47,.1);color:var(--ochre);font-size:12px;font-weight:700;text-align:center;padding:8px 16px;border-bottom:1px solid rgba(168,126,47,.18)}
 
 /* چیدمان */
@@ -140,7 +138,7 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .sp-avail .lim i{background:var(--ochre)}
 .sp-avail em{font-style:normal;font-size:10px;color:var(--ink3)}
 
-/* تقویم */
+/* نوار روزها */
 .cal-strip{display:flex;gap:9px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none}
 .cal-strip::-webkit-scrollbar{display:none}
 .cal-day{flex:none;width:76px;background:var(--ivory);border-radius:16px;box-shadow:var(--sh-sm);border:1.5px solid rgba(216,198,180,.3);padding:10px 6px 9px;text-align:center;transition:.16s}
@@ -156,8 +154,30 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .cal-day.off{background:transparent;box-shadow:var(--sh-in);opacity:.65;cursor:not-allowed}
 .cal-day.off .dt{color:var(--ink3)}
 .cal-day.off .off-tag{font-size:9.5px;font-weight:800;color:var(--brick);display:block}
+/* دکمه بازکردن تقویم شمسی */
+.cal-open{flex:none;width:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:rgba(188,83,43,.05);border:1.5px dashed rgba(188,83,43,.4);border-radius:16px;color:var(--terracotta);font-size:10.5px;font-weight:800;transition:.15s}
+.cal-open:hover{background:rgba(188,83,43,.13);transform:translateY(-2px)}
+
+/* تقویم شمسی (مودال) */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-nav b{font-size:15px;font-weight:800}
+.cal-nav .icon-btn{width:34px;height:34px;border-radius:11px}
+.cal-week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+.cal-week span{text-align:center;font-size:10.5px;font-weight:800;color:var(--ink3)}
+.cal-week span.fri{color:var(--brick)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-c{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:var(--ivory);border-radius:12px;border:1.5px solid rgba(216,198,180,.3);box-shadow:var(--sh-sm);padding:7px 2px;min-height:46px;font-weight:800;font-size:13px;transition:.13s}
+.cal-c:not(.off):hover{transform:translateY(-1px);color:var(--terracotta)}
+.cal-c .dot-a{width:5px;height:5px;border-radius:50%;background:var(--sage);display:block}
+.cal-c .dot-a.lim{background:var(--ochre)}
+.cal-c em{font-style:normal;font-size:8px;color:var(--terracotta);font-weight:800}
+.cal-c.off{background:transparent;box-shadow:var(--sh-in);color:var(--clay);cursor:not-allowed;opacity:.7}
+.cal-c.sel{background:var(--terracotta);color:#fff;border-color:var(--terracotta);box-shadow:var(--sh-ter)}
+.cal-c.sel .dot-a{background:#fff}
+.cal-c.empty{background:transparent;box-shadow:none;border:0}
 
 /* ساعت */
+#timeArea{scroll-margin-top:96px}
 .time-title{font-size:16px;font-weight:800;margin:20px 0 4px}
 .lim-note{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;color:var(--ochre);background:rgba(168,126,47,.09);border-radius:11px;padding:7px 12px;margin:8px 0 12px}
 .slots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;animation:stepIn .3s ease}
@@ -166,7 +186,8 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .slot{background:var(--ivory);border-radius:14px;box-shadow:var(--sh-sm);border:1.5px solid rgba(216,198,180,.3);padding:11px 6px;font-size:14px;font-weight:800;transition:.15s}
 .slot:hover{transform:translateY(-2px);color:var(--terracotta)}
 .slot.sel{background:var(--terracotta);color:#fff;border-color:var(--terracotta);box-shadow:var(--sh-ter)}
-.slot:disabled{background:transparent;box-shadow:var(--sh-in);color:var(--clay);cursor:not-allowed;opacity:.7}
+/* ★ زمان تکمیل‌شده — کاملاً غیرفعال */
+.slot:disabled{background:transparent;box-shadow:var(--sh-in);color:var(--clay);cursor:not-allowed;opacity:.75;text-decoration:line-through}
 .slot:disabled:hover{transform:none;color:var(--clay)}
 
 /* نبود زمان */
@@ -229,7 +250,7 @@ select.in{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns=
 .btn-primary{background:var(--terracotta);color:#FFFCF6;box-shadow:var(--sh-ter)}
 .btn-primary:hover{background:#C65D33;transform:translateY(-1px)}
 .btn-primary:active{transform:none;box-shadow:inset 3px 3px 7px rgba(90,30,10,.35)}
-.btn-primary:disabled{opacity:.45;pointer-events:none}
+.btn-primary:disabled{opacity:.45;pointer-events:none;transform:none;box-shadow:var(--sh-ter)}
 .btn-ghost{background:var(--ivory);color:var(--espresso);box-shadow:var(--sh-sm)}
 .btn-ghost:hover{color:var(--terracotta);transform:translateY(-1px)}
 .btn-ghost:active{box-shadow:var(--sh-in);transform:none}
@@ -237,6 +258,8 @@ select.in{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns=
 .btn-full{width:100%}
 .step-cta{margin-top:20px}
 .sub-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:var(--ink3);margin-top:10px}
+.cta-pulse{animation:nudge .55s ease}
+@keyframes nudge{0%{transform:scale(.96)}55%{transform:scale(1.025)}100%{transform:none}}
 
 /* خلاصه */
 .summary h3{font-size:15px;font-weight:800;margin-bottom:4px}
@@ -284,7 +307,6 @@ select.in{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns=
 .st::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
 .st-confirmed{color:var(--sage);background:rgba(95,115,80,.1)}
 .st-waiting{color:var(--ochre);background:rgba(168,126,47,.11)}
-.st-cancelled{color:var(--brick);background:rgba(176,58,46,.09)}
 .my-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .mini-act{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;color:var(--ink2);background:var(--sand);border-radius:11px;padding:7px 14px;box-shadow:var(--sh-sm);transition:.14s;text-decoration:none}
 .mini-act:hover{color:var(--terracotta)}
@@ -439,6 +461,8 @@ select.in{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns=
           <div class="cal-strip" id="calStrip"></div>
           <div id="timeArea"></div>
           <div id="noAvailArea"></div>
+          <!-- ★ دکمه ادامه مرحله زمان -->
+          <button class="btn btn-primary btn-lg btn-full step-cta only-d" id="cta3" disabled>ادامه</button>
         </section>
 
         <section class="step" data-step="4">
@@ -493,6 +517,20 @@ select.in{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns=
   <div class="m-actions"><a class="btn btn-primary" href="tel:02188776655">تماس با سالن</a></div>
 </div></div>
 
+<!-- ★ تقویم شمسی -->
+<div class="overlay" id="mCal"><div class="modal" style="max-width:400px">
+  <button class="m-close" data-close="mCal" aria-label="بستن"><span data-ic="x" data-sz="15"></span></button>
+  <h3>انتخاب از تقویم</h3><p class="m-sub">روز موردنظر خود را انتخاب کنید.</p>
+  <div class="cal-nav">
+    <button class="icon-btn" id="calPrev" aria-label="ماه قبل"><span data-ic="chevR" data-sz="15"></span></button>
+    <b id="calTitle"></b>
+    <button class="icon-btn" id="calNext" aria-label="ماه بعد"><span data-ic="chevL" data-sz="15"></span></button>
+  </div>
+  <div class="cal-week"><span>ش</span><span>ی</span><span>د</span><span>س</span><span>چ</span><span>پ</span><span class="fri">ج</span></div>
+  <div class="cal-grid" id="calDays"></div>
+  <button class="btn btn-ghost btn-full" style="margin-top:12px" id="calToday">رفتن به امروز</button>
+</div></div>
+
 <!-- لیست انتظار -->
 <div class="overlay" id="mWait"><div class="modal">
   <button class="m-close" data-close="mWait" aria-label="بستن"><span data-ic="x" data-sz="15"></span></button>
@@ -523,18 +561,14 @@ select.in{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns=
 
 <script>
 /* ============================================================
-   فریور — رزرو آنلاین مشتری (نسخه اصلاح‌شده)
-   ============================================================
-
+   فریور — رزرو آنلاین مشتری
    ★★★ فقط این دو خط را ویرایش کنید ★★★
-   مقدارها را از Supabase → Project Settings ← API بردارید:
-   SUPABASE_URL  = آدرس پروژه
-   SUPABASE_ANON_KEY = کلید عمومی (anon / publishable)
+   مقدارها را از Supabase → Project Settings ← API بردارید
 */
 const SUPABASE_URL='https://inmskrrfyxfelmotrstf.supabase.co';
 const SUPABASE_ANON_KEY='sb_publishable_zy54_EC9XGvCW9FUWtHjGw_3q6r-Evg';
 
-/* ---------- تنظیمات سالن (یک‌جا قابل ویرایش) ---------- */
+/* ---------- تنظیمات سالن ---------- */
 const SALON={phone:'02188776655',phoneFa:'۰۲۱۸۸۷۷۶۶۵۵',
   address:'میدان مادر، خیابان رودکی شرقی، ساختمان پدر، طبقه دوم',
   hours:'یکشنبه تا پنجشنبه — ۱۰ تا ۱۸'};
@@ -570,6 +604,28 @@ function friendlyErr(e){const m=String(e?.message||e||'');
     return'اسکریپت مهاجرت رزرو آنلاین هنوز در Supabase اجرا نشده است.';
   return m}
 
+/* ---------- تقویم شمسی ---------- */
+const J_MONTHS=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+function jParts(d){ /* اجزای جلالی یک تاریخ میلادی */
+  const o={};
+  new Intl.DateTimeFormat('en-u-ca-persian',{year:'numeric',month:'numeric',day:'numeric'})
+    .formatToParts(d).forEach(p=>{
+      if(p.type==='year')o.y=+String(p.value).replace(/\D/g,'');
+      if(p.type==='month')o.m=+String(p.value).replace(/\D/g,'');
+      if(p.type==='day')o.d=+String(p.value).replace(/\D/g,'')});
+  return o;
+}
+function jMonthStart(iso){ /* نخستین روزِ ماه شمسیِ این تاریخ */
+  let d=iso;
+  for(let i=0;i<40;i++){if(jParts(pDate(d)).d===1)return d;d=addDays(d,-1)}
+  return d;
+}
+function jMonthLen(startISO){ /* طول ماه شمسی */
+  const m=jParts(pDate(startISO)).m;
+  for(let i=1;i<=32;i++){if(jParts(pDate(addDays(startISO,i))).m!==m)return i}
+  return 31;
+}
+
 /* ---------- آیکون‌ها ---------- */
 const I={
  cal:'<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>',
@@ -591,7 +647,7 @@ function injectIcons(root=document){root.querySelectorAll('[data-ic]').forEach(e
 
 /* ---------- وضعیت ---------- */
 const S={
-  mode:'demo',sb:null,services:[],specialists:[],taken:{},migMissing:false,
+  mode:'demo',sb:null,services:[],specialists:[],taken:{},migMissing:false,calStart:null,
   step:1,cat:'all',
   sel:{service:null,specialist:null,specMode:null,date:null,time:null,autoSpec:false},
   cust:{phone:null,stage:'phone',verified:false,existing:null,name:'',birthday:'',notes:''},
@@ -599,7 +655,7 @@ const S={
   booking:null,my:{stage:'phone',phone:null,verified:false,list:[]}
 };
 
-/* ---------- کاتالوگ واقعی سالن (فقط برای درج خودکار وقتی جدول‌ها خالی باشند) ---------- */
+/* ---------- کاتالوگ واقعی سالن (درج خودکار فقط وقتی جدول‌ها خالی باشند) ---------- */
 const CATALOG_SERVICES=[
  {name:'کوتاهی مو',category:'مو',duration_minutes:60,base_price:1000000,price_label:null},
  {name:'کوتاهی مو (خانم فریور)',category:'مو',duration_minutes:60,base_price:1500000,price_label:null},
@@ -624,7 +680,7 @@ const CATALOG_SPECIALISTS=[
  ['نوشین تهرانی','شنیون'],['ساره','مژه'],['راز','پاکسازی پوست'],['الهام ستاری','اسکراب مو']
 ];
 
-/* ---------- داده نمایشی (فقط وقتی کانفیگ داخل کد وارد نشده باشد) ---------- */
+/* ---------- داده نمایشی ---------- */
 const DEMO_APPTS=[];
 function buildDemo(){
   const T=todayISO(),F=addDays(T,1);
@@ -652,7 +708,7 @@ function buildDemo(){
   ];
   S.specialists=[
     {id:'p1',name:'فرزانه فریور',spec:'کوتاهی مو'},{id:'p2',name:'نسـرین اکبری',spec:'رنگ مو'},
-    {id:'p3',name:'سهیلا سیااشی',spec:'رنگ مو'},{id:'p4',name:'مهشاد میرکریمی',spec:'ناخن'},
+    {id:'p3',name:'سهیلا سیاوشی',spec:'رنگ مو'},{id:'p4',name:'مهشاد میرکریمی',spec:'ناخن'},
     {id:'p5',name:'عادله فرهنگ',spec:'ناخن'},{id:'p6',name:'زینب بهرامخانی',spec:'ابرو'},
     {id:'p7',name:'رزیتا ترابی',spec:'ابرو'},{id:'p8',name:'مریم شیخی',spec:'میکروپیگمنتیشن و میکاپ'},
     {id:'p9',name:'پونه',spec:'شنیون'},{id:'p10',name:'نوشین تهرانی',spec:'شنیون'},
@@ -691,25 +747,15 @@ async function refreshTaken(){
     S.taken={};S.migMissing=true;$('#migBar').hidden=false;
   }
 }
-/* درج خودکار کاتالوگ سالن وقتی جدول‌ها خالی باشند */
 async function ensureCatalog(){
   if(S.mode!=='live')return;
   const cnt=async t=>{const{count,error}=await S.sb.from(t).select('id',{count:'exact',head:true});
     if(error)throw error;return count||0};
   try{
     const nSvc=await cnt('services'),nSpec=await cnt('specialists');
-    if(nSvc===0){
-      const{error}=await S.sb.from('services').insert(CATALOG_SERVICES.map(s=>({...s,is_active:true})));
-      if(error)throw error;
-    }
-    if(nSpec===0){
-      const{error}=await S.sb.from('specialists').insert(CATALOG_SPECIALISTS.map(([n,s])=>({full_name:n,specialty:s,is_active:true})));
-      if(error)throw error;
-    }
-    if(nSvc===0||nSpec===0){
-      await loadLive();
-      toast('لیست خدمات و متخصص‌های سالن بارگذاری شد','success');
-    }
+    if(nSvc===0){const{error}=await S.sb.from('services').insert(CATALOG_SERVICES.map(s=>({...s,is_active:true})));if(error)throw error}
+    if(nSpec===0){const{error}=await S.sb.from('specialists').insert(CATALOG_SPECIALISTS.map(([n,s])=>({full_name:n,specialty:s,is_active:true})));if(error)throw error}
+    if(nSvc===0||nSpec===0){await loadLive();toast('لیست خدمات و متخصص‌های سالن بارگذاری شد','success')}
   }catch(e){toast('درج لیست خدمات انجام نشد: '+friendlyErr(e),'error')}
 }
 
@@ -777,7 +823,7 @@ function svcDesc(s){
   if(/هایلایت|لایت/.test(n))return'لایت و هایلایت';
   if(/شنیون/.test(n))return'شنیون و حالت‌دهی';
   if(/اسکراپ/.test(n))return'پاک‌سازی و ترمیم عمقی مو';
-  if(/کاشت ناخن|ناخن/.test(n))return'کاشت و فرم‌دهی ناخن';
+  if(/ناخن/.test(n))return'کاشت و فرم‌دهی ناخن';
   if(/پدیکور/.test(n))return'پدیکور نرم و مراقبتی';
   if(/ابرو/.test(n))return'فرم‌دهی و قرینه‌سازی ابرو';
   if(/وکس/.test(n))return'اصلاح و وکس';
@@ -872,7 +918,7 @@ function renderSpecs(){
   }).join('')||`<div class="empty"><span class="ic-c">${ic('user',22)}</span><b>در حال حاضر متخصصی برای این خدمت فعال نیست</b></div>`;
 }
 
-/* ---------- گام ۳: زمان ---------- */
+/* ---------- گام ۳: روز، تقویم و ساعت ---------- */
 function renderCal(){
   const sel=S.sel.date;
   $$('[data-act="day-chip"]').forEach(c=>c.classList.toggle('active',sel===addDays(todayISO(),+c.dataset.v)));
@@ -887,22 +933,26 @@ function renderCal(){
       ${free===0?'':`<span class="dot-a ${free<=3?'lim':''}"></span>`}
     </button>`;
   }
+  /* ★ دکمه بازکردن تقویم شمسی */
+  html+=`<button class="cal-open" data-act="open-cal">${ic('cal',19)}<span>تقویم ماه</span></button>`;
   $('#calStrip').innerHTML=html;
 }
 function renderTimes(){
   renderCal();
   const area=$('#timeArea');$('#noAvailArea').innerHTML='';
-  if(!S.sel.date){area.innerHTML='';return}
+  if(!S.sel.date){area.innerHTML='';updateCta();return}
   const dur=svcDur(curSvc());
   const free=unionFree(S.sel.date,dur);
   let head=`<h3 class="time-title">چه ساعتی برای شما مناسب است؟</h3>
     <p class="hint">${jMed(S.sel.date)}${S.sel.specMode==='specific'?' — '+esc(specById(S.sel.specialist)?.full_name||specById(S.sel.specialist)?.name||''):''}</p>`;
-  if(free.length===0){area.innerHTML=head;renderNoAvail();return}
+  if(free.length===0){area.innerHTML=head;renderNoAvail();updateCta();return}
   const limNote=free.length<=4?`<div class="lim-note">${ic('info',14)}ظرفیت این روز محدود است — فقط ${toFa(free.length)} زمان باقی مانده است.</div>`:'';
+  /* ★ زمان‌های پر: disabled + خط‌خوردگی + توضیح */
   area.innerHTML=head+limNote+`<div class="slots">${daySlots().map(m=>{
     const t=fmtMin(m),ok=free.includes(m),sel=S.sel.time===t;
-    return`<button class="slot ${sel?'sel':''}" data-act="select-slot" data-v="${t}" ${ok?'':'disabled aria-disabled="true"'}>${toFa(t)}</button>`;
+    return`<button class="slot ${sel?'sel':''}" data-act="select-slot" data-v="${t}" ${ok?'':'disabled aria-disabled="true" title="این زمان تکمیل شده"'}>${toFa(t)}</button>`;
   }).join('')}</div>`;
+  updateCta();
 }
 function renderNoAvail(){
   const dur=svcDur(curSvc()),d0=S.sel.date;
@@ -936,6 +986,34 @@ function renderNoAvail(){
       <button class="btn btn-ghost" data-act="waitlist-open">${ic('user',15)}عضویت در لیست انتظار</button>
     </div>
   </div>`;
+}
+
+/* ★ تقویم شمسی (مودال) */
+function openCalModal(){
+  const base=S.sel.date&&S.sel.date>=todayISO()?S.sel.date:todayISO();
+  S.calStart=jMonthStart(base);
+  renderCalModal();openModal('mCal');
+}
+function renderCalModal(){
+  const start=S.calStart,jp=jParts(pDate(start));
+  $('#calTitle').textContent=J_MONTHS[jp.m-1]+' '+toFa(jp.y);
+  const minStart=jMonthStart(todayISO());
+  $('#calPrev').style.visibility=start<=minStart?'hidden':'visible';
+  $('#calNext').style.visibility=start>=addDays(minStart,62)?'hidden':'visible';
+  const len=jMonthLen(start),col0=(pDate(start).getDay()+1)%7,T=todayISO();
+  let cells='';
+  for(let i=0;i<col0;i++)cells+='<span class="cal-c empty"></span>';
+  for(let d=1;d<=len;d++){
+    const iso=addDays(start,d-1),closed=isClosed(iso),past=iso<T,far=iso>addDays(T,60);
+    const dis=past||closed||far;
+    let dot='';
+    if(!dis){const free=unionFree(iso,svcDur(curSvc())).length;
+      if(free>0)dot=free<=3?'<i class="dot-a lim"></i>':'<i class="dot-a"></i>'}
+    const why=past?'تاریخ گذشته':closed?'سالن تعطیل است':'خارج از بازه رزرو';
+    cells+=`<button class="cal-c ${dis?'off':''} ${S.sel.date===iso?'sel':''}" data-act="pick-cal" data-cal="${iso}" ${dis?`disabled title="${why}"`:''}>
+      <b>${toFa(d)}</b>${dot}${iso===T?'<em>امروز</em>':''}</button>`;
+  }
+  $('#calDays').innerHTML=cells;
 }
 
 /* ---------- گام ۴: اطلاعات و OTP ---------- */
@@ -1081,8 +1159,15 @@ function renderReview(){
 
 /* ---------- دکمه‌ها ---------- */
 function updateCta(){
-  $('#cta1')&&($('#cta1').disabled=!S.sel.service);
-  $('#cta2')&&($('#cta2').disabled=!S.sel.specMode);
+  const c1=$('#cta1'),c2=$('#cta2'),c3=$('#cta3');
+  if(c1)c1.disabled=!S.sel.service;
+  if(c2)c2.disabled=!S.sel.specMode;
+  /* ★ دکمه ادامه گام ۳ — با پالس هنگام فعال‌شدن */
+  if(c3){
+    const ok=!!(S.sel.date&&S.sel.time);
+    if(ok&&c3.disabled){c3.disabled=false;c3.classList.remove('cta-pulse');void c3.offsetWidth;c3.classList.add('cta-pulse')}
+    else if(!ok)c3.disabled=true;
+  }
 }
 function cta4(){
   switch(S.cust.stage){
@@ -1397,8 +1482,18 @@ document.addEventListener('click',async e=>{
     case 'day-chip':{
       const d=addDays(todayISO(),+v);
       if(isClosed(d)){toast('سالن در این روز تعطیل است.','info');break}
-      S.sel.date=d;S.sel.time=null;renderTimes();break}
+      S.sel.date=d;S.sel.time=null;renderTimes();renderSummary();updateMbar();break}
     case 'select-day':S.sel.date=v;S.sel.time=null;renderTimes();renderSummary();updateMbar();break;
+    /* ★ بازکردن تقویم شمسی */
+    case 'open-cal':openCalModal();break;
+    /* ★ انتخاب روز از تقویم شمسی */
+    case 'pick-cal':{
+      S.sel.date=el.dataset.cal;S.sel.time=null;
+      closeModal('mCal');
+      renderTimes();renderSummary();updateCta();updateMbar();
+      toast(`روز ${jMed(S.sel.date)} انتخاب شد`,'success');
+      setTimeout(()=>$('#timeArea').scrollIntoView({behavior:'smooth',block:'start'}),80);
+      break}
     case 'select-slot':{
       S.sel.time=v;S.sel.autoSpec=false;
       if(S.sel.specMode!=='specific'){
@@ -1406,7 +1501,7 @@ document.addEventListener('click',async e=>{
         if(!sid){toast('این زمان در دسترس نیست.','error');S.sel.time=null;break}
         S.sel.specialist=sid;S.sel.autoSpec=true;
       }
-      renderSummary();updateMbar();break}
+      renderSummary();updateMbar();updateCta();break}
     case 'alt-pick':{
       S.sel.date=el.dataset.d;S.sel.time=el.dataset.t;
       if(el.dataset.s){S.sel.specialist=el.dataset.s;S.sel.specMode='specific'}
@@ -1414,7 +1509,7 @@ document.addEventListener('click',async e=>{
         const sid=resolveSpec(S.sel.date,slotMin(el.dataset.t),svcDur(curSvc()));
         if(sid){S.sel.specialist=sid;S.sel.autoSpec=true}
       }
-      renderTimes();renderSummary();updateMbar();
+      renderTimes();renderSummary();updateCta();updateMbar();
       toast(`زمان ${jDM(S.sel.date)} — ${toFa(S.sel.time)} انتخاب شد`,'success');break}
     case 'waitlist-open':openWaitlist();break;
     case 'phone-send':sendOtp();break;
@@ -1466,9 +1561,14 @@ function bindEvents(){
   });
   $('#cta1').addEventListener('click',advance);
   $('#cta2').addEventListener('click',advance);
-  $('#mbarBtn').addEventListener('click',advance);
+  $('#cta3').addEventListener('click',advance);
   $('#submitBtn').addEventListener('click',submitBooking);
+  $('#mbarBtn').addEventListener('click',advance);
   $('#wlSave').addEventListener('click',saveWaitlist);
+  /* ★ ناوبری تقویم شمسی */
+  $('#calPrev').addEventListener('click',()=>{S.calStart=jMonthStart(addDays(S.calStart,-1));renderCalModal()});
+  $('#calNext').addEventListener('click',()=>{S.calStart=addDays(S.calStart,jMonthLen(S.calStart));renderCalModal()});
+  $('#calToday').addEventListener('click',()=>{S.calStart=jMonthStart(todayISO());renderCalModal()});
   $$('.overlay').forEach(o=>o.addEventListener('mousedown',e=>{if(e.target===o)o.classList.remove('open')}));
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape')$$('.overlay.open').forEach(o=>o.classList.remove('open'));
@@ -1484,7 +1584,7 @@ function renderAll(){
   renderSummary();renderReview();updateCta();updateMbar();
 }
 
-/* ---------- شروع: اتصال خودکار با کانفیگ داخل کد ---------- */
+/* ---------- شروع ---------- */
 async function boot(){
   injectIcons();bindEvents();
   const cfgOk=SUPABASE_URL&&!/YOUR-PROJECT/.test(SUPABASE_URL)&&SUPABASE_ANON_KEY&&!/YOUR-ANON-KEY/.test(SUPABASE_ANON_KEY);
@@ -1500,8 +1600,8 @@ async function boot(){
         enterDemo();
       }else{
         S.sb=sb;S.mode='live';
-        await loadLive();       /* خدمات و متخصص‌ها */
-        await ensureCatalog();  /* درج خودکار لیست واقعی سالن اگر جدول‌ها خالی باشند */
+        await loadLive();
+        await ensureCatalog();
         await refreshTaken();
         toast('به سیستم سالن فریور متصل شدید','success');
       }
