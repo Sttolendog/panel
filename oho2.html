@@ -188,6 +188,7 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .st-waiting{color:var(--ochre);background:rgba(168,126,47,.11)}
 .st-completed{color:#6E5B45;background:rgba(216,198,180,.42)}
 .st-cancelled{color:var(--brick);background:rgba(176,58,46,.09)}
+${a.status!=='cancelled'&&a.source==='online'?'<span class="src-online">رزرو آنلاین</span>':''}
 
 /* ---------- فرم‌ها ---------- */
 .bform{display:flex;flex-direction:column;gap:13px}
@@ -406,6 +407,8 @@ table.tb{width:100%;border-collapse:collapse;min-width:560px}
   .dash-side{grid-template-columns:1fr}
 }
 @media(max-width:520px){.kpis{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.ph-actions{width:100%}}
+  src-online{display:inline-flex;align-items:center;font-size:10px;font-weight:800;
+             color:var(--terracotta);background:rgba(188,83,43,.08);border-radius:99px;padding:2px 8px}
 </style>
 </head>
 <body>
